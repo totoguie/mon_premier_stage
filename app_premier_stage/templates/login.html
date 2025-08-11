@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Mon Premier Stage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#1E3A8A',
+                        'primary-orange': '#F97316',
+                        'light-gray': '#F1F5F9',
+                        'medium-gray': '#E5E7EB'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-light-gray min-h-screen flex items-center justify-center">
+    <div class="max-w-md w-full mx-4">
+        <!-- Logo -->
+        <div class="text-center mb-8">
+            <div class="flex items-center justify-center space-x-2 mb-4">
+                <div class="w-10 h-10 bg-primary-orange rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <span class="text-2xl font-bold text-primary-blue">Mon Premier Stage</span>
+            </div>
+            <p class="text-gray-600">Connectez-vous à votre compte</p>
+        </div>
+
+        <!-- Formulaire de connexion -->
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            <form class="space-y-6">
+                <!-- Email -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                        Adresse email
+                    </label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange focus:border-transparent"
+                        placeholder="votre@email.com"
+                    >
+                </div>
+
+                <!-- Mot de passe -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                        Mot de passe
+                    </label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange focus:border-transparent"
+                        placeholder="••••••••"
+                    >
+                </div>
+
+                <!-- Options -->
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input 
+                            type="checkbox" 
+                            id="remember" 
+                            name="remember"
+                            class="h-4 w-4 text-primary-orange focus:ring-primary-orange border-gray-300 rounded"
+                        >
+                        <label for="remember" class="ml-2 block text-sm text-gray-700">
+                            Se souvenir de moi
+                        </label>
+                    </div>
+                    <a href="#" class="text-sm text-primary-blue hover:text-blue-800 transition-colors">
+                        Mot de passe oublié ?
+                    </a>
+                </div>
+
+                <!-- Bouton de connexion -->
+                <a href="{% url "admindashboard" %}"> <button 
+                    type="button"
+                    class="w-full bg-primary-orange hover:bg-orange-600 text-white py-3 px-4 rounded-lg font-semibold transition-colors"
+                >
+                    Se connecter
+                </button></a>
+            </form>
+
+            <!-- Séparateur -->
+            <div class="mt-6 relative">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-300"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-2 bg-white text-gray-500">ou</span>
+                </div>
+            </div>
+
+            <!-- Boutons de type d'utilisateur -->
+            <div class="mt-6 grid grid-cols-2 gap-3">
+                <button class="flex items-center justify-center px-4 py-2 border border-primary-blue text-primary-blue rounded-lg hover:bg-blue-50 transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/>
+                    </svg>
+                    Diplômé
+                </button>
+                <button class="flex items-center justify-center px-4 py-2 border border-primary-blue text-primary-blue rounded-lg hover:bg-blue-50 transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-1a1 1 0 00-1-1H9a1 1 0 00-1 1v1a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
+                    </svg>
+                    Entreprise
+                </button>
+            </div>
+        </div>
+
+        <!-- Lien d'inscription -->
+        <div class="text-center mt-6">
+            <p class="text-gray-600">
+                Pas encore de compte ? 
+                <a href="#" class="text-primary-blue hover:text-blue-800 font-medium transition-colors">
+                    Créer un compte
+                </a>
+            </p>
+        </div>
+
+        <!-- Retour à l'accueil -->
+        <div class="text-center mt-4">
+            <a href="/" class="text-sm text-gray-500 hover:text-gray-700 transition-colors">
+                ← Retour à l'accueil
+            </a>
+        </div>
+    </div>
+</body>
+</html>

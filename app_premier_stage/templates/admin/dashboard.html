@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - Mon Premier Stage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#1E3A8A',
+                        'primary-orange': '#F97316',
+                        'light-gray': '#F1F5F9',
+                        'medium-gray': '#E5E7EB'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-light-gray">
+    <!-- Header -->
+    <header class="bg-primary-blue text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-primary-orange rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold">Mon Premier Stage - Administration</span>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm">Administrateur</span>
+                    <button class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg font-medium transition-colors">
+                        Déconnexion
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-primary-blue text-white">
+            <nav class="mt-8">
+                <div class="px-4 space-y-2">
+                    <a href="#" class="flex items-center px-4 py-3 text-white bg-primary-orange rounded-lg">
+                        <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                        </svg>
+                        Tableau de bord
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-white hover:bg-blue-800 rounded-lg transition-colors">
+                        <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                        </svg>
+                        Utilisateurs
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-white hover:bg-blue-800 rounded-lg transition-colors">
+                        <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                            <path fill-rule="evenodd" d="M4 5a2 2 0 012-2v1a2 2 0 002 2h8a2 2 0 002-2V3a2 2 0 012 2v6h-3a2 2 0 100 4h3v2a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm8 5a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
+                        </svg>
+                        Offres
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-white hover:bg-blue-800 rounded-lg transition-colors">
+                        <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clip-rule="evenodd"/>
+                        </svg>
+                        Filières
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-white hover:bg-blue-800 rounded-lg transition-colors">
+                        <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+                        </svg>
+                        Statistiques
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Contenu principal -->
+        <main class="flex-1 p-8">
+            <!-- En-tête -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-primary-blue">Tableau de bord administrateur</h1>
+                <p class="text-gray-600 mt-2">Vue d'ensemble de la plateforme Mon Premier Stage</p>
+            </div>
+
+            <!-- Statistiques -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <!-- Utilisateurs diplômés -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">Utilisateurs diplômés</p>
+                            <p class="text-3xl font-bold text-primary-blue">2,547</p>
+                            <p class="text-sm text-green-600 mt-1">+12% ce mois</p>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-primary-blue" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Entreprises -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">Entreprises</p>
+                            <p class="text-3xl font-bold text-primary-blue">456</p>
+                            <p class="text-sm text-green-600 mt-1">+8% ce mois</p>
+                        </div>
+                        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-primary-orange" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-1a1 1 0 00-1-1H9a1 1 0 00-1 1v1a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Offres actives -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">Offres actives</p>
+                            <p class="text-3xl font-bold text-primary-blue">189</p>
+                            <p class="text-sm text-green-600 mt-1">+15% ce mois</p>
+                        </div>
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                                <path fill-rule="evenodd" d="M4 5a2 2 0 012-2v1a2 2 0 002 2h8a2 2 0 002-2V3a2 2 0 012 2v6h-3a2 2 0 100 4h3v2a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm8 5a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Utilisateurs récents -->
+                <div class="bg-white rounded-lg shadow-md">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h2 class="text-lg font-semibold text-primary-blue">Utilisateurs récents</h2>
+                    </div>
+                    <div class="p-6">
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full">
+                                <thead>
+                                    <tr class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th class="pb-3">Nom</th>
+                                        <th class="pb-3">Rôle</th>
+                                        <th class="pb-3">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="space-y-3">
+                                    <tr class="border-t border-gray-100">
+                                        <td class="py-3">
+                                            <div class="flex items-center">
+                                                <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center mr-3">
+                                                    <span class="text-xs font-medium">JK</span>
+                                                </div>
+                                                <span class="font-medium text-gray-900">Jean Kouassi</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3">
+                                            <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs font-medium">Diplômé</span>
+                                        </td>
+                                        <td class="py-3 text-sm text-gray-600">Il y a 2h</td>
+                                    </tr>
+                                    <tr class="border-t border-gray-100">
+                                        <td class="py-3">
+                                            <div class="flex items-center">
+                                                <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center mr-3">
+                                                    <span class="text-xs font-medium">TC</span>
+                                                </div>
+                                                <span class="font-medium text-gray-900">TechCorp CI</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3">
+                                            <span class="bg-orange-100 text-orange-700 px-2 py-1 rounded-full text-xs font-medium">Entreprise</span>
+                                        </td>
+                                        <td class="py-3 text-sm text-gray-600">Il y a 5h</td>
+                                    </tr>
+                                    <tr class="border-t border-gray-100">
+                                        <td class="py-3">
+                                            <div class="flex items-center">
+                                                <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center mr-3">
+                                                    <span class="text-xs font-medium">MD</span>
+                                                </div>
+                                                <span class="font-medium text-gray-900">Marie Diabaté</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3">
+                                            <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs font-medium">Diplômé</span>
+                                        </td>
+                                        <td class="py-3 text-sm text-gray-600">Il y a 1j</td>
+                                    </tr>
+                                    <tr class="border-t border-gray-100">
+                                        <td class="py-3">
+                                            <div class="flex items-center">
+                                                <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center mr-3">
+                                                    <span class="text-xs font-medium">OC</span>
+                                                </div>
+                                                <span class="font-medium text-gray-900">Orange CI</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3">
+                                            <span class="bg-orange-100 text-orange-700 px-2 py-1 rounded-full text-xs font-medium">Entreprise</span>
+                                        </td>
+                                        <td class="py-3 text-sm text-gray-600">Il y a 2j</td>
+                                    </tr>
+                                    <tr class="border-t border-gray-100">
+                                        <td class="py-3">
+                                            <div class="flex items-center">
+                                                <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center mr-3">
+                                                    <span class="text-xs font-medium">KA</span>
+                                                </div>
+                                                <span class="font-medium text-gray-900">Koffi Assouan</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3">
+                                            <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs font-medium">Diplômé</span>
+                                        </td>
+                                        <td class="py-3 text-sm text-gray-600">Il y a 3j</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Offres récentes -->
+                <div class="bg-white rounded-lg shadow-md">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h2 class="text-lg font-semibold text-primary-blue">Offres récentes</h2>
+                    </div>
+                    <div class="p-6">
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full">
+                                <thead>
+                                    <tr class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th class="pb-3">Titre</th>
+                                        <th class="pb-3">Entreprise</th>
+                                        <th class="pb-3">Statut</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="space-y-3">
+                                    <tr class="border-t border-gray-100">
+                                        <td class="py-3">
+                                            <div>
+                                                <span class="font-medium text-gray-900">Développeur Web Junior</span>
+                                                <p class="text-xs text-gray-500">Il y a 2h</p>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 text-sm text-gray-600">TechCorp CI</td>
+                                        <td class="py-3">
+                                            <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">Active</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-t border-gray-100">
+                                        <td class="py-3">
+                                            <div>
+                                                <span class="font-medium text-gray-900">Assistant Comptable</span>
+                                                <p class="text-xs text-gray-500">Il y a 5h</p>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 text-sm text-gray-600">Cabinet KPMG</td>
+                                        <td class="py-3">
+                                            <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">Active</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-t border-gray-100">
+                                        <td class="py-3">
+                                            <div>
+                                                <span class="font-medium text-gray-900">Technicien Maintenance</span>
+                                                <p class="text-xs text-gray-500">Il y a 1j</p>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 text-sm text-gray-600">Orange CI</td>
+                                        <td class="py-3">
+                                            <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full text-xs font-medium">En attente</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-t border-gray-100">
+                                        <td class="py-3">
+                                            <div>
+                                                <span class="font-medium text-gray-900">Analyste Données</span>
+                                                <p class="text-xs text-gray-500">Il y a 2j</p>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 text-sm text-gray-600">MTN CI</td>
+                                        <td class="py-3">
+                                            <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">Active</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-t border-gray-100">
+                                        <td class="py-3">
+                                            <div>
+                                                <span class="font-medium text-gray-900">Support IT</span>
+                                                <p class="text-xs text-gray-500">Il y a 3j</p>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 text-sm text-gray-600">Moov CI</td>
+                                        <td class="py-3">
+                                            <span class="bg-red-100 text-red-700 px-2 py-1 rounded-full text-xs font-medium">Fermée</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

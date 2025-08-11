@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord - Diplômé</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#1E3A8A',
+                        'primary-orange': '#F97316',
+                        'light-gray': '#F1F5F9',
+                        'medium-gray': '#E5E7EB'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-light-gray">
+    <!-- Header -->
+    <header class="bg-primary-blue text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-primary-orange rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold">Mon Premier Stage</span>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-primary-orange font-medium border-b-2 border-primary-orange pb-1">Tableau de bord</a>
+                    <a href="#" class="hover:text-primary-orange transition-colors">Mes candidatures</a>
+                    <a href="#" class="hover:text-primary-orange transition-colors">Alertes</a>
+                    <a href="#" class="hover:text-red-400 transition-colors">Déconnexion</a>
+                </nav>
+
+                <!-- Bouton profil -->
+                <div class="flex items-center space-x-4">
+                    <button class="bg-primary-orange hover:bg-orange-600 px-4 py-2 rounded-lg font-medium transition-colors">
+                        Mettre à jour mon profil
+                    </button>
+                    <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                        <span class="text-gray-600 font-medium text-sm">JK</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Message d'accueil -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h1 class="text-2xl font-bold text-primary-blue mb-2">Bienvenue Jean Kouassi ! 👋</h1>
+            <p class="text-gray-600">Vous avez 3 nouvelles offres correspondant à votre profil en Informatique.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Section principale -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Offres pour votre filière -->
+                <section>
+                    <h2 class="text-xl font-bold text-primary-blue mb-6">Offres pour votre filière</h2>
+                    <div class="space-y-4">
+                        <!-- Offre 1 -->
+                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <span class="bg-blue-100 text-primary-blue px-3 py-1 rounded-full text-sm font-medium">Informatique</span>
+                                </div>
+                                <span class="text-sm text-gray-500">Il y a 2 jours</span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Développeur Frontend React</h3>
+                            <p class="text-gray-600 font-medium mb-2">Digital Solutions CI</p>
+                            <div class="flex items-center text-gray-500 mb-4">
+                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-sm">Abidjan, Marcory</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Stage de 6 mois pour développer des interfaces utilisateur modernes avec React.js et TypeScript...</p>
+                            <button class="bg-primary-orange hover:bg-orange-600 text-white py-2 px-6 rounded-lg font-medium transition-colors">
+                                Postuler
+                            </button>
+                        </div>
+
+                        <!-- Offre 2 -->
+                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <span class="bg-blue-100 text-primary-blue px-3 py-1 rounded-full text-sm font-medium">Informatique</span>
+                                </div>
+                                <span class="text-sm text-gray-500">Il y a 3 jours</span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Support Technique IT</h3>
+                            <p class="text-gray-600 font-medium mb-2">Orange Côte d'Ivoire</p>
+                            <div class="flex items-center text-gray-500 mb-4">
+                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-sm">Abidjan, Plateau</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Assistance technique aux utilisateurs et maintenance des systèmes informatiques...</p>
+                            <button class="bg-primary-orange hover:bg-orange-600 text-white py-2 px-6 rounded-lg font-medium transition-colors">
+                                Postuler
+                            </button>
+                        </div>
+
+                        <!-- Offre 3 -->
+                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <span class="bg-blue-100 text-primary-blue px-3 py-1 rounded-full text-sm font-medium">Informatique</span>
+                                </div>
+                                <span class="text-sm text-gray-500">Il y a 5 jours</span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Analyste Données Junior</h3>
+                            <p class="text-gray-600 font-medium mb-2">MTN Côte d'Ivoire</p>
+                            <div class="flex items-center text-gray-500 mb-4">
+                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-sm">Abidjan, Cocody</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Analyse des données clients et création de rapports avec Python et SQL...</p>
+                            <button class="bg-primary-orange hover:bg-orange-600 text-white py-2 px-6 rounded-lg font-medium transition-colors">
+                                Postuler
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="lg:col-span-1">
+                <!-- Mes candidatures -->
+                <section class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-bold text-primary-blue mb-6">Mes candidatures</h2>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-green-500 pl-4">
+                            <h4 class="font-medium text-gray-900">Développeur Web</h4>
+                            <p class="text-sm text-gray-600">TechCorp CI</p>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-xs text-gray-500">15 Nov 2024</span>
+                                <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">Accepté</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border-l-4 border-yellow-500 pl-4">
+                            <h4 class="font-medium text-gray-900">Support IT</h4>
+                            <p class="text-sm text-gray-600">Orange CI</p>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-xs text-gray-500">12 Nov 2024</span>
+                                <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full text-xs font-medium">En attente</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h4 class="font-medium text-gray-900">Analyste Données</h4>
+                            <p class="text-sm text-gray-600">MTN CI</p>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-xs text-gray-500">10 Nov 2024</span>
+                                <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs font-medium">Entretien</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border-l-4 border-red-500 pl-4">
+                            <h4 class="font-medium text-gray-900">Technicien Réseau</h4>
+                            <p class="text-sm text-gray-600">Moov CI</p>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-xs text-gray-500">08 Nov 2024</span>
+                                <span class="bg-red-100 text-red-700 px-2 py-1 rounded-full text-xs font-medium">Refusé</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full mt-4 text-primary-blue hover:text-blue-800 font-medium text-sm">
+                        Voir toutes mes candidatures →
+                    </button>
+                </section>
+
+                <!-- Statistiques -->
+                <section class="bg-white rounded-lg shadow-md p-6 mt-6">
+                    <h3 class="text-lg font-bold text-primary-blue mb-4">Mes statistiques</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Candidatures envoyées</span>
+                            <span class="font-bold text-primary-blue">12</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Entretiens obtenus</span>
+                            <span class="font-bold text-green-600">3</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Profil consulté</span>
+                            <span class="font-bold text-primary-orange">45</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

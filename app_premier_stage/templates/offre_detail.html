@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Développeur Web Junior - TechCorp CI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#1E3A8A',
+                        'primary-orange': '#F97316',
+                        'light-gray': '#F1F5F9',
+                        'medium-gray': '#E5E7EB'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-light-gray">
+    <!-- Header -->
+    <header class="bg-primary-blue text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-primary-orange rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold">Mon Premier Stage</span>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="/" class="hover:text-primary-orange transition-colors">Accueil</a>
+                    <a href="#" class="hover:text-primary-orange transition-colors">Rechercher</a>
+                    <a href="#" class="hover:text-primary-orange transition-colors">Mon compte</a>
+                </nav>
+
+                <div class="flex items-center space-x-3">
+                    <button class="bg-primary-orange hover:bg-orange-600 px-4 py-2 rounded-lg font-medium transition-colors">
+                        Connexion
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+                <a href="/" class="hover:text-primary-blue">Accueil</a>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                </svg>
+                <a href="#" class="hover:text-primary-blue">Offres de stage</a>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-900">Développeur Web Junior</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Contenu principal -->
+            <div class="lg:col-span-2">
+                <!-- En-tête de l'offre -->
+                <div class="bg-white rounded-lg shadow-md p-8 mb-6">
+                    <div class="flex items-start justify-between mb-6">
+                        <div>
+                            <span class="bg-blue-100 text-primary-blue px-3 py-1 rounded-full text-sm font-medium mb-3 inline-block">Informatique</span>
+                            <h1 class="text-3xl font-bold text-gray-900 mb-2">Développeur Web Junior</h1>
+                            <h2 class="text-xl text-gray-700 font-medium mb-4">TechCorp Côte d'Ivoire</h2>
+                            <div class="flex items-center text-gray-600 space-x-6">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>Abidjan, Plateau</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>6 mois</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>Publié il y a 3 jours</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="bg-primary-orange hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold text-lg transition-colors">
+                            Postuler à ce stage
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Description de l'offre -->
+                <div class="bg-white rounded-lg shadow-md p-8 mb-6">
+                    <h3 class="text-xl font-bold text-primary-blue mb-4">Description du poste</h3>
+                    <div class="prose max-w-none text-gray-700 space-y-4">
+                        <p>
+                            Nous recherchons un(e) stagiaire développeur web junior pour rejoindre notre équipe de développement. 
+                            Vous participerez à la création d'applications web modernes en utilisant les dernières technologies.
+                        </p>
+                        <p>
+                            Ce stage vous permettra d'acquérir une expérience pratique dans le développement d'applications web 
+                            complètes, de la conception à la mise en production. Vous travaillerez en étroite collaboration avec 
+                            notre équipe expérimentée sur des projets réels pour nos clients.
+                        </p>
+                        <h4 class="text-lg font-semibold text-gray-900 mt-6 mb-3">Missions principales :</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Développement d'interfaces utilisateur avec React.js</li>
+                            <li>Création d'APIs REST avec Django</li>
+                            <li>Intégration de bases de données PostgreSQL</li>
+                            <li>Tests unitaires et d'intégration</li>
+                            <li>Participation aux revues de code</li>
+                            <li>Documentation technique</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Compétences requises -->
+                <div class="bg-white rounded-lg shadow-md p-8">
+                    <h3 class="text-xl font-bold text-primary-blue mb-4">Compétences requises</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Compétences techniques :</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">HTML/CSS</span>
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">JavaScript</span>
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">React.js</span>
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Python</span>
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Django</span>
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Git</span>
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">SQL</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Qualités personnelles :</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Curiosité et passion pour les nouvelles technologies</li>
+                                <li>Capacité à travailler en équipe</li>
+                                <li>Autonomie et prise d'initiative</li>
+                                <li>Rigueur et attention aux détails</li>
+                                <li>Bonne communication écrite et orale</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Formation :</h4>
+                            <p class="text-gray-700">
+                                Diplôme en Informatique, Génie Logiciel ou formation équivalente. 
+                                Niveau Bac+2/Bac+3 minimum.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="lg:col-span-1">
+                <!-- Informations sur l'entreprise -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h3 class="text-lg font-bold text-primary-blue mb-4">À propos de l'entreprise</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center mr-4">
+                                <span class="text-gray-600 font-bold text-lg">TC</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">TechCorp Côte d'Ivoire</h4>
+                                <p class="text-sm text-gray-600">Technologie & Innovation</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 text-sm">
+                            TechCorp CI est une entreprise leader dans le développement de solutions 
+                            technologiques innovantes en Côte d'Ivoire. Nous accompagnons les entreprises 
+                            dans leur transformation digitale.
+                        </p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-center text-gray-600">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Abidjan, Plateau</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                                </svg>
+                                <span>+225 XX XX XX XX XX</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                                </svg>
+                                <span>contact@techcorp.ci</span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                                </svg>
+                                <span>50-100 employés</span>
+                            </div>
+                        </div>
+                        <button class="w-full bg-primary-blue hover:bg-blue-800 text-white py-2 px-4 rounded-lg font-medium transition-colors">
+                            Voir toutes les offres
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Détails du stage -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h3 class="text-lg font-bold text-primary-blue mb-4">Détails du stage</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Type de contrat :</span>
+                            <span class="font-medium">Stage</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Durée :</span>
+                            <span class="font-medium">6 mois</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Date de début :</span>
+                            <span class="font-medium">Janvier 2025</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Rémunération :</span>
+                            <span class="font-medium">100,000 FCFA/mois</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Niveau requis :</span>
+                            <span class="font-medium">Bac+2/Bac+3</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Candidatures :</span>
+                            <span class="font-medium">12 reçues</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bouton de candidature fixe -->
+                <div class="sticky top-4">
+                    <button class="w-full bg-primary-orange hover:bg-orange-600 text-white py-4 px-6 rounded-lg font-semibold text-lg transition-colors shadow-lg">
+                        Postuler à ce stage
+                    </button>
+                    <p class="text-center text-sm text-gray-600 mt-2">
+                        Vous devez être connecté pour postuler
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

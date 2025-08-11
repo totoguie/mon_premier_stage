@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord - Entreprise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#1E3A8A',
+                        'primary-orange': '#F97316',
+                        'light-gray': '#F1F5F9',
+                        'medium-gray': '#E5E7EB'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-light-gray">
+    <!-- Header -->
+    <header class="bg-primary-blue text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-primary-orange rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold">Mon Premier Stage</span>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-primary-orange font-medium border-b-2 border-primary-orange pb-1">Mes Offres</a>
+                    <a href="#" class="hover:text-primary-orange transition-colors">Créer une offre</a>
+                    <a href="#" class="hover:text-primary-orange transition-colors">Voir les candidats</a>
+                    <a href="#" class="hover:text-red-400 transition-colors">Déconnexion</a>
+                </nav>
+
+                <!-- Info entreprise -->
+                <div class="flex items-center space-x-3">
+                    <div class="text-right">
+                        <p class="font-medium">TechCorp CI</p>
+                        <p class="text-sm text-gray-300">Entreprise</p>
+                    </div>
+                    <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                        <span class="text-gray-600 font-medium">TC</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Section Mes Offres -->
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-primary-blue">Mes Offres</h2>
+                <button class="bg-primary-orange hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                    + Créer une nouvelle offre
+                </button>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Titre</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Filière</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Localisation</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Candidatures</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900">Développeur Web Junior</div>
+                                    <div class="text-sm text-gray-500">Publié il y a 3 jours</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="bg-blue-100 text-primary-blue px-2 py-1 rounded-full text-xs font-medium">Informatique</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Abidjan, Plateau</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">Active</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <span class="font-medium">12</span> candidatures
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                    <button class="text-primary-blue hover:text-blue-800">Modifier</button>
+                                    <button class="text-red-600 hover:text-red-800">Supprimer</button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900">Support Technique IT</div>
+                                    <div class="text-sm text-gray-500">Publié il y a 1 semaine</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="bg-blue-100 text-primary-blue px-2 py-1 rounded-full text-xs font-medium">Informatique</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Abidjan, Cocody</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">Active</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <span class="font-medium">8</span> candidatures
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                    <button class="text-primary-blue hover:text-blue-800">Modifier</button>
+                                    <button class="text-red-600 hover:text-red-800">Supprimer</button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900">Analyste Données</div>
+                                    <div class="text-sm text-gray-500">Publié il y a 2 semaines</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="bg-blue-100 text-primary-blue px-2 py-1 rounded-full text-xs font-medium">Informatique</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Yamoussoukro</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full text-xs font-medium">En pause</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <span class="font-medium">15</span> candidatures
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                    <button class="text-primary-blue hover:text-blue-800">Modifier</button>
+                                    <button class="text-red-600 hover:text-red-800">Supprimer</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Profils de diplômés -->
+        <section>
+            <h2 class="text-2xl font-bold text-primary-blue mb-6">Profils de diplômés</h2>
+            
+            <!-- Barre de recherche -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-1">
+                        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange">
+                            <option>Toutes les filières</option>
+                            <option>Informatique</option>
+                            <option>Gestion</option>
+                            <option>Bâtiment</option>
+                            <option>Mécanique</option>
+                            <option>Électronique</option>
+                        </select>
+                    </div>
+                    <div class="flex-1">
+                        <input type="text" placeholder="Rechercher par nom ou établissement..." 
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange">
+                    </div>
+                    <button class="bg-primary-orange hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                        Rechercher
+                    </button>
+                </div>
+            </div>
+
+            <!-- Liste des CV -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Profil 1 -->
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-gray-600 font-medium">JK</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Jean Kouassi</h3>
+                            <p class="text-sm text-gray-600">Informatique</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-2">Lycée Technique d'Abidjan</p>
+                    <p class="text-sm text-gray-600 mb-4">Spécialité: Développement Web</p>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-100 text-primary-blue px-2 py-1 rounded-full text-xs font-medium">Disponible</span>
+                        <button class="bg-primary-orange hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Voir CV
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Profil 2 -->
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-gray-600 font-medium">MD</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Marie Diabaté</h3>
+                            <p class="text-sm text-gray-600">Gestion</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-2">INPHB Yamoussoukro</p>
+                    <p class="text-sm text-gray-600 mb-4">Spécialité: Comptabilité</p>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">Disponible</span>
+                        <button class="bg-primary-orange hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Voir CV
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Profil 3 -->
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-gray-600 font-medium">KA</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Koffi Assouan</h3>
+                            <p class="text-sm text-gray-600">Électronique</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-2">Lycée Technique de Bouaké</p>
+                    <p class="text-sm text-gray-600 mb-4">Spécialité: Télécommunications</p>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full text-xs font-medium">En stage</span>
+                        <button class="bg-primary-orange hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Voir CV
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Profil 4 -->
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-gray-600 font-medium">AK</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Aya Koné</h3>
+                            <p class="text-sm text-gray-600">Bâtiment</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-2">École Supérieure des Travaux Publics</p>
+                    <p class="text-sm text-gray-600 mb-4">Spécialité: Génie Civil</p>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-100 text-primary-blue px-2 py-1 rounded-full text-xs font-medium">Disponible</span>
+                        <button class="bg-primary-orange hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Voir CV
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Profil 5 -->
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-gray-600 font-medium">YT</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Yao Tanoh</h3>
+                            <p class="text-sm text-gray-600">Mécanique</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-2">Institut National Polytechnique</p>
+                    <p class="text-sm text-gray-600 mb-4">Spécialité: Maintenance Industrielle</p>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">Disponible</span>
+                        <button class="bg-primary-orange hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Voir CV
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Profil 6 -->
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-gray-600 font-medium">FB</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Fatou Bamba</h3>
+                            <p class="text-sm text-gray-600">Gestion</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-2">Université Félix Houphouët-Boigny</p>
+                    <p class="text-sm text-gray-600 mb-4">Spécialité: Marketing Digital</p>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-100 text-primary-blue px-2 py-1 rounded-full text-xs font-medium">Disponible</span>
+                        <button class="bg-primary-orange hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Voir CV
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
