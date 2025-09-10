@@ -1,0 +1,91 @@
+<!-- diplome/candidatures.html -->
+{% extends 'base.html' %}
+
+{% block title %}Mes candidatures - Diplômé{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<header class="bg-blue-800 text-white">
+    <div class="container mx-auto px-4 py-4">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+            <h1 class="text-2xl font-bold mb-4 md:mb-0">Mon Premier Stage</h1>
+            <nav class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
+                <a href="{% url "diplome" %}" class="hover:text-orange-400 transition-colors">Tableau de bord</a>
+                <a href="#" class="text-orange-400 font-semibold">Mes candidatures</a>
+                <a href="{% url "profilcandidat" %}" class="hover:text-orange-400 transition-colors">Profil</a>
+                <a href="#" class="hover:text-orange-400 transition-colors">Déconnexion</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- Applications List -->
+<section class="py-12">
+    <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold text-blue-800 mb-6">Mes candidatures</h2>
+        
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Offre</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Entreprise</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="font-medium text-gray-900">Développeur Web Junior</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">TechCorp Abidjan</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">15/03/2024</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                    En attente
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <a href="{% url "detailCandidature" %}"> <button class="text-orange-600 hover:text-orange-900">Voir détail</button></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="font-medium text-gray-900">Analyste Système</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">DataSoft CI</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">12/03/2024</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    Acceptée
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <a href="{% url "detailCandidature" %}"> <button class="text-orange-600 hover:text-orange-900">Voir détail</button></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="font-medium text-gray-900">Support Technique</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">InfoService</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">08/03/2024</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    Refusée
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <a href="{% url "detailCandidature" %}"> <button class="text-orange-600 hover:text-orange-900">Voir détail</button></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

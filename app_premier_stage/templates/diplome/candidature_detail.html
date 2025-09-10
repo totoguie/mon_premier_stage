@@ -1,0 +1,85 @@
+<!-- diplome/candidature_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}Détail candidature - Diplômé{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<header class="bg-blue-800 text-white">
+    <div class="container mx-auto px-4 py-4">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+            <h1 class="text-2xl font-bold mb-4 md:mb-0">Mon Premier Stage</h1>
+            <nav class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
+                <a href="#" class="hover:text-orange-400 transition-colors">Tableau de bord</a>
+                <a href="#" class="text-orange-400 font-semibold">Mes candidatures</a>
+                <a href="#" class="hover:text-orange-400 transition-colors">Profil</a>
+                <a href="#" class="hover:text-orange-400 transition-colors">Déconnexion</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- Application Details -->
+<section class="py-12">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Offer Info -->
+            <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+                <h2 class="text-2xl font-bold text-blue-800 mb-6">Détail de ma candidature</h2>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-blue-800 mb-2">Offre liée</h3>
+                    <div class="bg-slate-100 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg mb-1">Développeur Web Junior</h4>
+                        <p class="text-gray-600 mb-1">TechCorp Abidjan</p>
+                        <p class="text-gray-500 text-sm">📍 Abidjan, Cocody</p>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-blue-800 mb-2">Statut actuel</h3>
+                    <span class="px-4 py-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                        En attente de réponse
+                    </span>
+                </div>
+            </div>
+
+            <!-- Application History -->
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h3 class="text-xl font-bold text-blue-800 mb-6">Historique de la candidature</h3>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-gray-900">Candidature envoyée</h4>
+                            <p class="text-gray-600 text-sm">15 mars 2024 à 14:30</p>
+                            <p class="text-gray-500 text-sm mt-1">Votre candidature a été soumise avec succès.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-gray-900">En cours d'examen</h4>
+                            <p class="text-gray-600 text-sm">En attente de réponse de l'entreprise</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

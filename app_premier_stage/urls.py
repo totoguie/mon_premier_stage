@@ -8,4 +8,13 @@ urlpatterns = [
     path('entreprise/',views.EntrepriseDashboard,name='entreprise'),
     path('diplome/',views.DiplomeDashboard,name='diplome'),
     path('admindashboard/',views.AdminDashboard,name='admindashboard'),
+    path('inscriptionDiplome/',views.RegisterDiplome,name="inscriptionDiplome"),
+    path('inscriptionEntreprise/',views.RegisterEntreprise,name="inscriptionEntreprise"),
+    path('detailCandidature/',views.DetailCandidature,name="detailCandidature"),
+    path('candidature/',views.Candidature,name='candidature'),
+    path('offres/',views.Offres,name='offres'),
+    path('profilCandidat/',views.profilCandidat,name='profilcandidat'),
+    path('offreDetail/',views.OffreDetail,name='offredetail'),
+    path('offreCree/',views.OffreCree,name='offrecree'),
 ]
+

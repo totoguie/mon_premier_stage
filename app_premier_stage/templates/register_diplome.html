@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Inscription Diplômé - Mon Premier Stage{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-slate-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-blue-800 mb-2">Mon Premier Stage</h1>
+            <h2 class="text-xl text-gray-600">Inscription - Diplômé</h2>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-8 space-y-6">
+            <!-- Connexion via Google -->
+            <a href="#"
+               class="w-full flex items-center justify-center gap-2 bg-red-500 text-white py-3 px-4 rounded-md hover:bg-red-600 transition-colors font-semibold">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12h11.91c.05.32.09.65.09 1 0 4.97-4.03 9-9 9a9 9 0 1 1 0-18c2.43 0 4.64.97 6.28 2.54l-2.54 2.46A5.387 5.387 0 0 0 12 6.5a5.5 5.5 0 1 0 5.24 7.35H12v-1.85z"/></svg>
+                S’inscrire avec Google
+            </a>
+
+            <!-- Connexion via LinkedIn -->
+            <a href="#"
+               class="w-full flex items-center justify-center gap-2 bg-blue-700 text-white py-3 px-4 rounded-md hover:bg-blue-800 transition-colors font-semibold">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.8 0-5 2.2-5 5v14c0 2.8 2.2 5 5 5h14c2.8 0 5-2.2 5-5v-14c0-2.8-2.2-5-5-5zM8.3 19h-3v-9h3v9zm-1.5-10.3c-1 0-1.8-.8-1.8-1.7 0-1 .8-1.8 1.8-1.8s1.8.8 1.8 1.8c0 .9-.8 1.7-1.8 1.7zm13.2 10.3h-3v-4.8c0-1.1 0-2.6-1.6-2.6-1.6 0-1.8 1.2-1.8 2.5v4.9h-3v-9h2.9v1.2h.1c.4-.7 1.4-1.5 2.9-1.5 3.1 0 3.7 2 3.7 4.6v4.7z"/></svg>
+                S’inscrire avec LinkedIn
+            </a>
+
+            <p class="text-sm text-gray-600 text-center">
+                Après votre inscription, un <strong>email de confirmation</strong> vous sera envoyé. 
+                Vous devrez cliquer sur le lien reçu pour activer votre compte.
+            </p>
+        </div>
+
+        <div class="mt-6 text-center">
+            <p class="text-gray-600">
+                Déjà un compte ? 
+                <a href="{% url 'connexion' %}" class="text-blue-600 hover:text-blue-800 font-medium">
+                    Se connecter
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
