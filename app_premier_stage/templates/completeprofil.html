@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-md mx-auto mt-10 bg-white p-6 rounded shadow">
+  <h2 class="text-xl font-bold mb-4">Compléter votre profil</h2>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label class="block mb-2">Nom</label>
+    <input type="text" name="nom" class="border rounded w-full mb-4 p-2" required>
+    <label class="block mb-2">Prenom</label>
+    <input type="text" name="prenom" class="border rounded w-full mb-4 p-2" required>
+    <label class="block mb-2">Date de naissance</label>
+    <input type="date" name="date_naissance_stagiaire" class="border rounded w-full mb-4 p-2" required>
+    <label class="block mb-2">Téléphone</label>
+    <input type="tel" name="telephone" class="border rounded w-full mb-4 p-2" required>
+    <label class="block mb-2">Filière</label>
+    <select name="filiere" class="border rounded w-full mb-4 p-2" required>
+        <option value="Informatique">INFORMATIQUE</option>
+        <option value="Comptabilite">COMPTABILITE</option>
+        <option value="Droit">DROIT</option>
+        <option value="ressources humaines">RESSOURCES HUMAINES</option>
+        <option value="BTP">BATIMENT ET TRAVAUX PUBLIQUE</option>
+    </select>
+    <label class="block mb-2">Établissement</label>
+    <input type="text" name="etablissement" class="border rounded w-full mb-4 p-2">
+
+    <label class="block mb-2">CV</label>
+    <input type="file" name="cv" class="w-full mb-4">
+
+    <label class="block mb-2">Photo</label>
+    <input type="file" name="photo" class="w-full mb-4">
+
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
+      Enregistrer
+    </button>
+  </form>
+</div>
+{% endblock %}

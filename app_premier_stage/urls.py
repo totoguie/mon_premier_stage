@@ -9,6 +9,7 @@ urlpatterns = [
     path('diplome/',views.DiplomeDashboard,name='diplome'),
     path('admindashboard/',views.AdminDashboard,name='admindashboard'),
     path('inscriptionDiplome/',views.RegisterDiplome,name="inscriptionDiplome"),
+    path('completeprofil/',views.CompleteProfil,name="completeprofil"),
     path('inscriptionEntreprise/',views.RegisterEntreprise,name="inscriptionEntreprise"),
     path('detailCandidature/',views.DetailCandidature,name="detailCandidature"),
     path('candidature/',views.Candidature,name='candidature'),

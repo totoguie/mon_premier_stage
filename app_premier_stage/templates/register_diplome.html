@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load socialaccount %}
 
 {% block title %}Inscription Diplômé - Mon Premier Stage{% endblock %}
 
@@ -12,7 +13,7 @@
 
         <div class="bg-white rounded-lg shadow-md p-8 space-y-6">
             <!-- Connexion via Google -->
-            <a href="#"
+            <a href="{% provider_login_url 'google' %}"
                class="w-full flex items-center justify-center gap-2 bg-red-500 text-white py-3 px-4 rounded-md hover:bg-red-600 transition-colors font-semibold">
                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12h11.91c.05.32.09.65.09 1 0 4.97-4.03 9-9 9a9 9 0 1 1 0-18c2.43 0 4.64.97 6.28 2.54l-2.54 2.46A5.387 5.387 0 0 0 12 6.5a5.5 5.5 0 1 0 5.24 7.35H12v-1.85z"/></svg>
                 S’inscrire avec Google

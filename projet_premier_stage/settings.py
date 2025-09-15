@@ -27,42 +27,37 @@ SECRET_KEY = 'django-insecure-apj$btvsn^s&k@h=f%10sg7n1$w@=!q)sxe8x^outm!5fctnj4
 
 DEBUG = True
 
+
 if DEBUG == False:
     ALLOWED_HOSTS = ['guie.pythonanywhere.com','www.guie.pythonanywhere.com']
 else:
     ALLOWED_HOSTS = []
 
 AUTHENTICATION_BACKENDS = [
-    ...
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
 
     # `allauth` specific authentication methods, such as login by email
     'allauth.account.auth_backends.AuthenticationBackend',
-    ...
+    
 ]
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
+    'django.contrib.sessions', 
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    "django.contrib.sites",
     
-    'django.contrib.auth',
-    'django.contrib.messages',
-
-    'allauth',
+    'allauth', 
     'allauth.account',
+    "allauth.socialaccount",
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.linkedin_oauth2',
 
     'app_premier_stage',
-
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.linkedin_oauth2',
 ]
 
 MIDDLEWARE = [
@@ -76,20 +71,6 @@ MIDDLEWARE = [
     # Add the account middleware:
     "allauth.account.middleware.AccountMiddleware",
 ]
-
-# Provider specific settings
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        # For each OAuth based provider, either add a ``SocialApp``
-        # (``socialaccount`` app) containing the required client
-        # credentials, or list them here:
-        'APP': {
-            'client_id': '123',
-            'secret': '456',
-            'key': ''
-        }
-    }
-}
 
 ROOT_URLCONF = 'projet_premier_stage.urls'
 
@@ -157,6 +138,22 @@ USE_I18N = True
 USE_TZ = True
 
 
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_UNIQUE_EMAIL = True 
+ACCOUNT_AUTHENTIFACTION_METHOD = "email"
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
+ACCOUNT_LOGIN_ATTEMPS_LIMIT = 5
+
+LOGIN_REDIRECT_URL = "completeprofil"
+ACCOUNT_SIGNUP_REDIRECT = "completeprofil"
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
+
+AUTH_USER_MODEL = "app_premier_stage.User"
+
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -166,3 +163,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+SITE_ID=2
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+

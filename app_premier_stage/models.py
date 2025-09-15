@@ -1,52 +1,78 @@
 from django.db import models
 import uuid
 from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 
+class User(AbstractUser):
+    ROLES_CHOICES = (
+        ("stagiaire","Stagiaire"),
+        ("entreprise","Entreprise"),
+        ("administrateur","Administrateur"),
+    )
+
+    role = models.CharField(max_length=20,choices=ROLES_CHOICES,default="stagiaire")
+    is_profile_completed = models.BooleanField(default=False)
 class Stagiaire(models.Model):
-    id_stagiaire = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
-    nom_stagiaire = models.CharField(max_length=30,default="")
-    prenom_stagiaire = models.CharField(max_length=100,default="")
+    id_stagiaire = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="profil_stagiaire",
+        default=""
+    )
+    nom_stagiaire = models.CharField(max_length=30, default="")
+    prenom_stagiaire = models.CharField(max_length=100, default="")
+    etablissement = models.CharField(max_length=50,default="")
     date_naissance_stagiaire = models.DateField()
-    email_stagiaire = models.EmailField()
-    telephone_stagiaire = models.CharField(max_length=15,default="+225")
-    filiere_stagiaire = models.CharField(max_length=30,default="")
-    cv_stagiaire = models.FileField()
-    photo = models.ImageField()
-    
+    telephone_stagiaire = models.CharField(max_length=15, default="+225")
+    filiere_stagiaire = models.CharField(max_length=30, default="")
+    cv_stagiaire = models.FileField(upload_to="cvs/", blank=True, null=True)
+    photo = models.ImageField(upload_to="photos/", blank=True, null=True)
+
     def __str__(self):
         return f"{self.nom_stagiaire} {self.prenom_stagiaire}"
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["user"], name="unique_user_stagiaire")
+        ]
+
+
 class Entreprise(models.Model):
-    id_entreprise = models.UUIDField(primary_key=True, default=uuid.uuid4,editable=False)
-    nom_entreprise = models.CharField(max_length=30,default="")
-    domaine_expertise = models.CharField(max_length=100,default="")
-    localisation_entreprise = models.CharField(max_length=30,default="")
+    id_entreprise = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="profil_entreprise",
+        default=""
+    )
+    nom_entreprise = models.CharField(max_length=30, default="")
+    domaine_expertise = models.CharField(max_length=100, default="")
+    localisation_entreprise = models.CharField(max_length=30, default="")
 
     def __str__(self):
         return f"{self.nom_entreprise}"
 
-class OffreEmploi(models.Model):
-    id_offre = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
-    titre_poste = models.CharField(max_length=30,default="")
-    domaine_poste = models.CharField(max_length=100)
-    description_offre = models.CharField(max_length=300,)
-    type_offre = models.CharField(max_length=50)
-    type_contrat = models.CharField()
-    localisation_offre = models.CharField(max_length=100,default="")
-    date_fin_candidature = models.DateField()
-    entreprise = models.ForeignKey(Entreprise,on_delete=models.CASCADE)
 
+class OffreEmploi(models.Model):
+    id_offre = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    entreprise = models.ForeignKey(Entreprise, on_delete=models.CASCADE, related_name="offres")
+    titre_poste = models.CharField(max_length=30, default="")
+    domaine_poste = models.CharField(max_length=100)
+    description_offre = models.TextField(max_length=1000)
+    type_offre = models.CharField(max_length=50)
+    type_contrat = models.CharField(max_length=50)
+    localisation_offre = models.CharField(max_length=100, default="")
+    date_fin_candidature = models.DateField()
 
     def __str__(self):
-        return f"{self.titre_poste}"
+        return f"{self.titre_poste} - {self.entreprise.nom_entreprise}"
 
 class Candidature(models.Model):
-    id_candidature = models.URLField(primary_key=True, default=uuid.uuid4,editable=False)
-    stagiaire = models.ForeignKey(Stagiaire,on_delete=models.CASCADE, related_name='candidat')
-    offre = models.ForeignKey(OffreEmploi,on_delete=models.CASCADE)
-    satut_candidature = models.CharField(max_length=15,default="envoyee")
-    date_postulation = models.DateTimeField(auto_created=True)
+    id_candidature = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    stagiaire = models.ForeignKey(Stagiaire, on_delete=models.CASCADE, related_name="candidatures")
+    offre = models.ForeignKey(OffreEmploi, on_delete=models.CASCADE, related_name="candidatures")
+    statut_candidature = models.CharField(max_length=15, default="envoyee")  # envoyée, acceptée, rejetée
+    date_postulation = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return    
-
-
+        return f"Candidature de {self.stagiaire.nom_stagiaire} à {self.offre.titre_poste}"
