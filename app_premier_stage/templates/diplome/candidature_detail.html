@@ -1,83 +1,138 @@
-<!-- diplome/candidature_detail.html -->
 {% extends 'base.html' %}
 
 {% block title %}Détail candidature - Diplômé{% endblock %}
 
 {% block content %}
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#1E3A8A',
+                        'primary-orange': '#F97316',
+                        'light-gray': '#F1F5F9',
+                        'medium-gray': '#E5E7EB'
+                    }
+                }
+            }
+        }
+    </script>
 <!-- Header -->
-<header class="bg-blue-800 text-white">
-    <div class="container mx-auto px-4 py-4">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-            <h1 class="text-2xl font-bold mb-4 md:mb-0">Mon Premier Stage</h1>
-            <nav class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
-                <a href="#" class="hover:text-orange-400 transition-colors">Tableau de bord</a>
-                <a href="#" class="text-orange-400 font-semibold">Mes candidatures</a>
-                <a href="#" class="hover:text-orange-400 transition-colors">Profil</a>
-                <a href="#" class="hover:text-orange-400 transition-colors">Déconnexion</a>
-            </nav>
+<header class="bg-primary-blue text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-primary-orange rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold">Mon Premier Stage</span>
+                </div>
+
+                <!-- Menu desktop -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="{% url 'diplome' %}" class="hover:text-primary-orange transition-colors font-medium pb-1">Tableau de bord</a>
+                    <a href="{% url 'candidature' %}" class="text-primary-orange border-b-2 border-primary-orange transition-colors">Mes candidatures</a>
+                    <a href="#" class="hover:text-primary-orange transition-colors">Alertes</a>
+                    <a href="#" class="hover:text-red-400 transition-colors">Déconnexion</a>
+                </nav>
+
+                <!-- Boutons profil (desktop) -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="{% url 'profilcandidat' %}">
+                        <button class="bg-primary-orange hover:bg-orange-600 px-4 py-2 rounded-lg font-medium transition-colors">
+                            Mettre à jour mon profil
+                        </button>
+                    </a>
+                    <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                        <span class="text-gray-600 font-medium text-sm">
+                            {{ user.first_name|default:user.username|slice:":2"|upper }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Bouton burger (mobile) -->
+                <button id="burger" class="md:hidden focus:outline-none">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
         </div>
-    </div>
-</header>
+
+        <!-- Menu mobile -->
+        <div id="mobileMenu" class="hidden md:hidden bg-primary-blue text-white px-4 py-4 space-y-4">
+            <a href="{% url 'diplome' %}" class="block hover:text-primary-orange">Tableau de bord</a>
+            <a href="{% url 'candidature' %}" class="block hover:text-primary-orange">Mes candidatures</a>
+            <a href="#" class="block hover:text-primary-orange">Alertes</a>
+            <a href="{% url 'profilcandidat' %}" class="block hover:text-primary-orange">Mon profil</a>
+            <a href="#" class="block hover:text-red-400">Déconnexion</a>
+        </div>
+    </header>
 
 <!-- Application Details -->
 <section class="py-12">
-    <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
-            <!-- Offer Info -->
-            <div class="bg-white rounded-lg shadow-md p-8 mb-8">
-                <h2 class="text-2xl font-bold text-blue-800 mb-6">Détail de ma candidature</h2>
-                
-                <div class="mb-6">
-                    <h3 class="text-xl font-bold text-blue-800 mb-2">Offre liée</h3>
-                    <div class="bg-slate-100 p-4 rounded-lg">
-                        <h4 class="font-bold text-lg mb-1">Développeur Web Junior</h4>
-                        <p class="text-gray-600 mb-1">TechCorp Abidjan</p>
-                        <p class="text-gray-500 text-sm">📍 Abidjan, Cocody</p>
-                    </div>
-                </div>
-
-                <div class="mb-6">
-                    <h3 class="text-xl font-bold text-blue-800 mb-2">Statut actuel</h3>
-                    <span class="px-4 py-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                        En attente de réponse
-                    </span>
+    <div class="max-w-4xl mx-auto px-4">
+        <!-- Bloc principal -->
+        <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+            <h2 class="text-2xl font-bold text-primary-blue mb-6">Détail de ma candidature</h2>
+            
+            <!-- Offre liée -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-primary-blue mb-2">Offre liée</h3>
+                <div class="bg-slate-100 p-4 rounded-lg">
+                    <h4 class="font-bold text-lg mb-1">{{ candidature.offre.titre_poste }}</h4>
+                    <p class="text-gray-600 mb-1">{{ candidature.offre.entreprise.nom_entreprise }}</p>
+                    <p class="text-gray-500 text-sm">📍 {{ candidature.offre.localisation_offre }}</p>
                 </div>
             </div>
 
-            <!-- Application History -->
-            <div class="bg-white rounded-lg shadow-md p-8">
-                <h3 class="text-xl font-bold text-blue-800 mb-6">Historique de la candidature</h3>
-                
-                <div class="space-y-4">
-                    <div class="flex items-start space-x-4">
-                        <div class="flex-shrink-0">
-                            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="font-semibold text-gray-900">Candidature envoyée</h4>
-                            <p class="text-gray-600 text-sm">15 mars 2024 à 14:30</p>
-                            <p class="text-gray-500 text-sm mt-1">Votre candidature a été soumise avec succès.</p>
-                        </div>
+            <!-- Statut -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-primary-blue mb-2">Statut actuel</h3>
+                <span class="px-4 py-2 inline-flex text-sm leading-5 font-semibold rounded-full
+                    {% if candidature.statut_candidature == 'acceptée' %} bg-green-100 text-green-800
+                    {% elif candidature.statut_candidature == 'en attente' or candidature.statut_candidature == 'envoyee' %} bg-yellow-100 text-yellow-800
+                    {% elif candidature.statut_candidature == 'entretien' %} bg-blue-100 text-blue-800
+                    {% else %} bg-red-100 text-red-800 {% endif %}">
+                    {{ candidature.statut_candidature|capfirst }}
+                </span>
+            </div>
+        </div>
+
+        <!-- Historique -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+            <h3 class="text-xl font-bold text-primary-blue mb-6">Historique de la candidature</h3>
+            <div class="space-y-4">
+                <div class="flex items-start space-x-4">
+                    <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                        </svg>
                     </div>
-                    
-                    <div class="flex items-start space-x-4">
-                        <div class="flex-shrink-0">
-                            <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
-                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="font-semibold text-gray-900">En cours d'examen</h4>
-                            <p class="text-gray-600 text-sm">En attente de réponse de l'entreprise</p>
-                        </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Candidature envoyée</h4>
+                        <p class="text-gray-600 text-sm">{{ candidature.date_postulation|date:"d/m/Y H:i" }}</p>
+                        <p class="text-gray-500 text-sm mt-1">Votre candidature a été soumise avec succès.</p>
                     </div>
                 </div>
+
+                {% if candidature.statut_candidature != "envoyee" %}
+                <div class="flex items-start space-x-4">
+                    <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Statut : {{ candidature.statut_candidature|capfirst }}</h4>
+                        <p class="text-gray-600 text-sm">Mise à jour par l’entreprise</p>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>

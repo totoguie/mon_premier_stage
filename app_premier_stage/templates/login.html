@@ -1,3 +1,4 @@
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -37,7 +38,8 @@
 
         <!-- Formulaire de connexion -->
         <div class="bg-white rounded-lg shadow-lg p-8">
-            <form class="space-y-6">
+            <form method="post" action="{% url 'account_login' %}" class="space-y-6">
+                {% csrf_token %}
                 <!-- Email -->
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
@@ -46,7 +48,7 @@
                     <input 
                         type="email" 
                         id="email" 
-                        name="email" 
+                        name="login" 
                         required
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange focus:border-transparent"
                         placeholder="votre@email.com"
@@ -81,7 +83,7 @@
                             Se souvenir de moi
                         </label>
                     </div>
-                    <a href="#" class="text-sm text-primary-blue hover:text-blue-800 transition-colors">
+                    <a href="{% url 'account_reset_password' %}" class="text-sm text-primary-blue hover:text-blue-800 transition-colors">
                         Mot de passe oublié ?
                     </a>
                 </div>
@@ -101,24 +103,22 @@
                     <div class="w-full border-t border-gray-300"></div>
                 </div>
                 <div class="relative flex justify-center text-sm">
-                    <span class="px-2 bg-white text-gray-500">ou</span>
+                    <span class="px-2 bg-white text-gray-500">ou continuer avec</span>
                 </div>
             </div>
 
-            <!-- Boutons de type d'utilisateur -->
+            <!-- Connexion via Google et LinkedIn -->
             <div class="mt-6 grid grid-cols-2 gap-3">
-                <button class="flex items-center justify-center px-4 py-2 border border-primary-blue text-primary-blue rounded-lg hover:bg-blue-50 transition-colors">
-                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/>
-                    </svg>
-                    Diplômé
-                </button>
-                <button class="flex items-center justify-center px-4 py-2 border border-primary-blue text-primary-blue rounded-lg hover:bg-blue-50 transition-colors">
-                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-1a1 1 0 00-1-1H9a1 1 0 00-1 1v1a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
-                    </svg>
-                    Entreprise
-                </button>
+                <a href="{% provider_login_url 'google' %}" 
+                   class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                    <img src="https://www.svgrepo.com/show/355037/google.svg" class="w-5 h-5 mr-2" alt="Google">
+                    <span class="text-sm font-medium text-gray-700">Google</span>
+                </a>
+                <a href="#" 
+                   class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                    <img src="https://www.svgrepo.com/show/448234/linkedin.svg" class="w-5 h-5 mr-2" alt="LinkedIn">
+                    <span class="text-sm font-medium text-gray-700">LinkedIn</span>
+                </a>
             </div>
         </div>
 
@@ -126,7 +126,7 @@
         <div class="text-center mt-6">
             <p class="text-gray-600">
                 Pas encore de compte ? 
-                <a href="{% url "inscriptionDiplome" %}" class="text-primary-blue hover:text-blue-800 font-medium transition-colors">
+                <a href="{% url 'inscriptionDiplome' %}" class="text-primary-blue hover:text-blue-800 font-medium transition-colors">
                     Créer un compte
                 </a>
             </p>

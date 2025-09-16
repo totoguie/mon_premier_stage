@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +25,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-apj$btvsn^s&k@h=f%10sg7n1$w@=!q)sxe8x^outm!5fctnj4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# GuieValia@2212
 
 DEBUG = True
 
@@ -68,7 +69,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # Add the account middleware:
     "allauth.account.middleware.AccountMiddleware",
 ]
 
@@ -129,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-fr'
 
 TIME_ZONE = 'UTC'
 
@@ -167,3 +167,13 @@ SITE_ID=2
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+
+
+
+MESSAGE_TAGS = {
+    messages.DEBUG: "bg-gray-100 text-gray-800",
+    messages.INFO: "bg-blue-100 text-blue-800",
+    messages.SUCCESS: "bg-green-100 text-green-800",
+    messages.WARNING: "bg-yellow-100 text-yellow-800",
+    messages.ERROR: "bg-red-100 text-red-800",
+}

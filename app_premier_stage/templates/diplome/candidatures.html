@@ -1,23 +1,77 @@
-<!-- diplome/candidatures.html -->
 {% extends 'base.html' %}
 
 {% block title %}Mes candidatures - Diplômé{% endblock %}
 
 {% block content %}
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#1E3A8A',
+                        'primary-orange': '#F97316',
+                        'light-gray': '#F1F5F9',
+                        'medium-gray': '#E5E7EB'
+                    }
+                }
+            }
+        }
+    </script>
 <!-- Header -->
-<header class="bg-blue-800 text-white">
-    <div class="container mx-auto px-4 py-4">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-            <h1 class="text-2xl font-bold mb-4 md:mb-0">Mon Premier Stage</h1>
-            <nav class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
-                <a href="{% url "diplome" %}" class="hover:text-orange-400 transition-colors">Tableau de bord</a>
-                <a href="#" class="text-orange-400 font-semibold">Mes candidatures</a>
-                <a href="{% url "profilcandidat" %}" class="hover:text-orange-400 transition-colors">Profil</a>
-                <a href="#" class="hover:text-orange-400 transition-colors">Déconnexion</a>
-            </nav>
+<header class="bg-primary-blue text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-primary-orange rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold">Mon Premier Stage</span>
+                </div>
+
+                <!-- Menu desktop -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="{% url 'diplome' %}" class="hover:text-primary-orange transition-colors font-medium pb-1">Tableau de bord</a>
+                    <a href="{% url 'candidature' %}" class="text-primary-orange border-b-2 border-primary-orange transition-colors">Mes candidatures</a>
+                    <a href="#" class="hover:text-primary-orange transition-colors">Alertes</a>
+                    <a href="#" class="hover:text-red-400 transition-colors">Déconnexion</a>
+                </nav>
+
+                <!-- Boutons profil (desktop) -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="{% url 'profilcandidat' %}">
+                        <button class="bg-primary-orange hover:bg-orange-600 px-4 py-2 rounded-lg font-medium transition-colors">
+                            Mettre à jour mon profil
+                        </button>
+                    </a>
+                    <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                        <span class="text-gray-600 font-medium text-sm">
+                            {{ user.first_name|default:user.username|slice:":2"|upper }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Bouton burger (mobile) -->
+                <button id="burger" class="md:hidden focus:outline-none">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
         </div>
-    </div>
-</header>
+
+        <!-- Menu mobile -->
+        <div id="mobileMenu" class="hidden md:hidden bg-primary-blue text-white px-4 py-4 space-y-4">
+            <a href="{% url 'diplome' %}" class="block hover:text-primary-orange">Tableau de bord</a>
+            <a href="{% url 'candidature' %}" class="block hover:text-primary-orange">Mes candidatures</a>
+            <a href="#" class="block hover:text-primary-orange">Alertes</a>
+            <a href="{% url 'profilcandidat' %}" class="block hover:text-primary-orange">Mon profil</a>
+            <a href="#" class="block hover:text-red-400">Déconnexion</a>
+        </div>
+    </header>
 
 <!-- Applications List -->
 <section class="py-12">
@@ -37,52 +91,41 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="font-medium text-gray-900">Développeur Web Junior</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">TechCorp Abidjan</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">15/03/2024</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                    En attente
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="{% url "detailCandidature" %}"> <button class="text-orange-600 hover:text-orange-900">Voir détail</button></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="font-medium text-gray-900">Analyste Système</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">DataSoft CI</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">12/03/2024</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                    Acceptée
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="{% url "detailCandidature" %}"> <button class="text-orange-600 hover:text-orange-900">Voir détail</button></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="font-medium text-gray-900">Support Technique</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">InfoService</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">08/03/2024</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                    Refusée
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="{% url "detailCandidature" %}"> <button class="text-orange-600 hover:text-orange-900">Voir détail</button></a>
-                            </td>
-                        </tr>
-                    </tbody>
+                    {% for cand in candidatures %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="font-medium text-gray-900">{{ cand.offre.titre_poste }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{ cand.offre.entreprise.nom_entreprise }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{ cand.date_postulation|date:"d/m/Y" }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                {% if cand.statut_candidature == 'acceptee' %} bg-green-100 text-green-800
+                                {% elif cand.statut_candidature == 'en attente' or cand.statut_candidature == 'envoyee' %} bg-yellow-100 text-yellow-800
+                                {% elif cand.statut_candidature == 'entretien' %} bg-blue-100 text-blue-800
+                                {% else %} bg-red-100 text-red-800 {% endif %}">
+                                {{ cand.statut_candidature|capfirst }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <a href="{% url 'detailCandidature' cand.id_candidature %}">
+                                <button class="text-orange-600 hover:text-orange-900">Voir détail</button>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                            Vous n’avez pas encore de candidatures.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
                 </table>
             </div>
         </div>

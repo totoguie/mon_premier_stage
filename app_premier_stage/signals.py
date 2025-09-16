@@ -72,13 +72,18 @@ def create_default_groups(sender, **kwargs):
 @receiver(post_save, sender=Stagiaire)
 def add_user_to_stagiaire_group(sender, instance, created, **kwargs):
     """
-    Ajoute automatiquement le user au groupe 'stagiaire' 
-    et définit son rôle quand un Stagiaire est créé.
+    Quand un Stagiaire est créé :
+    - Ajoute l'utilisateur au groupe 'stagiaire'
+    - Définit son rôle
+    - Marque son profil comme complété
+    - Active le compte
     """
     if created:
         stagiaire_groupe, _ = Group.objects.get_or_create(name="stagiaire")
         instance.user.groups.add(stagiaire_groupe)
 
+        # On s'assure que les attributs existent sur le modèle User
         instance.user.role = "stagiaire"
         instance.user.is_profile_completed = True
+        instance.user.is_active = True  # 🔑 activation du compte après completion
         instance.user.save()
