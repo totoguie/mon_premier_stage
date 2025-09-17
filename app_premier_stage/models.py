@@ -25,6 +25,7 @@ class Stagiaire(models.Model):
     etablissement = models.CharField(max_length=50, default="")
     date_naissance_stagiaire = models.DateField()
     telephone_stagiaire = models.CharField(max_length=15, default="+225")
+    email_stagiaire = models.EmailField(max_length=30,default="")
     filiere_stagiaire = models.CharField(max_length=30, default="")
     cv_stagiaire = models.FileField(upload_to="cvs/", blank=True, null=True)
     photo = models.ImageField(upload_to="photos/", blank=True, null=True)
@@ -42,6 +43,9 @@ class Entreprise(models.Model):
     )
     nom_entreprise = models.CharField(max_length=30, default="")
     domaine_expertise = models.CharField(max_length=100, default="")
+    telephone_entreprrise = models.CharField(max_length=15,default="")
+    email_entreprise = models.EmailField(default="")
+    nombre_employe = models.CharField(max_length=20,default="")
     localisation_entreprise = models.CharField(max_length=30, default="")
 
     def __str__(self):
@@ -62,6 +66,11 @@ class OffreEmploi(models.Model):
     description_offre = models.TextField(max_length=1000)
     type_offre = models.CharField(max_length=50)
     type_contrat = models.CharField(max_length=50)
+    competence_requis = models.CharField(max_length=250,default="")
+    duree_contrat = models.DateField(default='AAAA-MM-JJ')
+    date_debut_offre = models.DateField(default='AAAA-MM-JJ')
+    remuneration_offre = models.CharField(max_length=10,default="")
+    mission_offre = models.CharField(max_length=300,default="")
     localisation_offre = models.CharField(max_length=100, default="")
     date_fin_candidature = models.DateField()
 

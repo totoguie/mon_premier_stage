@@ -7,6 +7,20 @@
     <title>{% block title %}Mon Premier Stage{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#1E3A8A',
+                        'primary-orange': '#F97316',
+                        'light-gray': '#F1F5F9',
+                        'medium-gray': '#E5E7EB'
+                    }
+                }
+            }
+        }
+</script>
 <body class="bg-gray-50 text-gray-800">
     {% block content %}
     {% endblock %}
@@ -35,15 +49,7 @@
     </script>
     {% endif %}
 
-    <script>
-        // Gestion du menu mobile
-        const burger = document.getElementById('burger');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        burger.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    </script>
+    
 
 </body>
 </html>

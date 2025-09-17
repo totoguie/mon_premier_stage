@@ -3,75 +3,9 @@
 {% block title %}Détail candidature - Diplômé{% endblock %}
 
 {% block content %}
-<script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-blue': '#1E3A8A',
-                        'primary-orange': '#F97316',
-                        'light-gray': '#F1F5F9',
-                        'medium-gray': '#E5E7EB'
-                    }
-                }
-            }
-        }
-    </script>
+
 <!-- Header -->
-<header class="bg-primary-blue text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex items-center space-x-2">
-                    <div class="w-8 h-8 bg-primary-orange rounded-lg flex items-center justify-center">
-                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <span class="text-xl font-bold">Mon Premier Stage</span>
-                </div>
-
-                <!-- Menu desktop -->
-                <nav class="hidden md:flex space-x-8">
-                    <a href="{% url 'diplome' %}" class="hover:text-primary-orange transition-colors font-medium pb-1">Tableau de bord</a>
-                    <a href="{% url 'candidature' %}" class="text-primary-orange border-b-2 border-primary-orange transition-colors">Mes candidatures</a>
-                    <a href="#" class="hover:text-primary-orange transition-colors">Alertes</a>
-                    <a href="#" class="hover:text-red-400 transition-colors">Déconnexion</a>
-                </nav>
-
-                <!-- Boutons profil (desktop) -->
-                <div class="hidden md:flex items-center space-x-4">
-                    <a href="{% url 'profilcandidat' %}">
-                        <button class="bg-primary-orange hover:bg-orange-600 px-4 py-2 rounded-lg font-medium transition-colors">
-                            Mettre à jour mon profil
-                        </button>
-                    </a>
-                    <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                        <span class="text-gray-600 font-medium text-sm">
-                            {{ user.first_name|default:user.username|slice:":2"|upper }}
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Bouton burger (mobile) -->
-                <button id="burger" class="md:hidden focus:outline-none">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-        <!-- Menu mobile -->
-        <div id="mobileMenu" class="hidden md:hidden bg-primary-blue text-white px-4 py-4 space-y-4">
-            <a href="{% url 'diplome' %}" class="block hover:text-primary-orange">Tableau de bord</a>
-            <a href="{% url 'candidature' %}" class="block hover:text-primary-orange">Mes candidatures</a>
-            <a href="#" class="block hover:text-primary-orange">Alertes</a>
-            <a href="{% url 'profilcandidat' %}" class="block hover:text-primary-orange">Mon profil</a>
-            <a href="#" class="block hover:text-red-400">Déconnexion</a>
-        </div>
-    </header>
+{% include "diplome/header.html" %}
 
 <!-- Application Details -->
 <section class="py-12">

@@ -1,17 +1,21 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Stagiaire,Entreprise,Candidature
-from django.views import View
-from django.db.models.signals import post_migrate, post_save
-from django.dispatch import receiver
+from django.contrib.auth import login,logout
+from .models import Stagiaire,Entreprise,Candidature,OffreEmploi
 from django.contrib.auth.models import Group, Permission
 from django.contrib import messages
+from django.db.models import Q
+from django.core.paginator import Paginator
 
 def Index(request):
     return render(request,"home.html")
 
 def Connexion(request):
     return render(request,"login.html")
+
+def Deconnexion(request):
+    logout(request)
+    return redirect("connexion")
 
 def DetailOffre(request):
     return render(request,"offre_detail.html")
@@ -76,14 +80,60 @@ def DetailCandidature(request,pk):
     return render(request,"diplome\candidature_detail.html",context=context)
 
 def Offres(request):
-    return render(request,"diplome\offres.html")
+    try:
+        stagiaire = get_object_or_404(Stagiaire,user=request.user)
+    except Stagiaire.DoesNotExist:
+        messages.error(request,"Utilisateur inexistant")
+        return redirect ("inscriptionDiplome")
+    
+        
+    offre = OffreEmploi.objects.filter(domaine_poste__icontains=stagiaire.filiere_stagiaire).select_related("entreprise")
+    query = request.GET.get("recherche")
+    if query:
+        offre = offre.filter(
+            Q(titre_poste__icontains = query),
+            Q(localisation_offre__icontains =query),
+            Q(domaine_poste__icontains=query)
+        )
+    paginator = Paginator(offre,5)
+    pages = request.GET.get("page")
+    offres = paginator.get_page(pages)
+    context = {
+        "offres":offres,
+        "stagiaire":stagiaire
+    }
+    return render(request,"diplome\offres.html",context=context)
 
-def profilCandidat(request):
-    stagiaire = Stagiaire.objects.get(user=request.user)
-    return render(request,"diplome\profil.html")
+@login_required(login_url="connexion")
+def profilUpdate(request):
+    stagiaire = get_object_or_404(Stagiaire, user=request.user)
 
-def OffreDetail(request):
-    return render(request,"diplome\offre_detail.html")
+    if request.method == "POST":
+        stagiaire.nom_stagiaire = request.POST.get("nom_stagiaire") or stagiaire.nom_stagiaire
+        stagiaire.prenom_stagiaire = request.POST.get("prenom_stagiaire") or stagiaire.prenom_stagiaire
+        stagiaire.etablissement = request.POST.get("etablissement") or stagiaire.etablissement
+        stagiaire.telephone_stagiaire = request.POST.get("telephone_stagiaire") or stagiaire.telephone_stagiaire
+        stagiaire.email_stagiaire = request.POST.get("email_stagiaire") or stagiaire.email_stagiaire
+        stagiaire.filiere_stagiaire = request.POST.get("filiere_stagiaire") or stagiaire.filiere_stagiaire
+
+        if request.FILES.get("cv_stagiaire"):
+            stagiaire.cv_stagiaire = request.FILES["cv_stagiaire"]
+
+        stagiaire.save()
+
+        messages.success(request, "Vos informations ont bien été mises à jour ✅")
+        return redirect("profilcandidat")
+
+    return render(request, "diplome/profil.html", {"stagiaire": stagiaire})
+
+
+
+def OffreDetail(request,pk):
+    offre = get_object_or_404(OffreEmploi,id_offre=pk)
+    context = {
+        "offre":offre
+    }
+    return render(request,"diplome/offre_detail.html",context=context)
 
 def OffreCree(request):
     return render(request,"entreprise\offre_create.html")
