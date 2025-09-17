@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Candidature - {{ candidature.stagiaire.nom_stagiaire }}{% endblock %}
+
+{% block content %}
+{% include "entreprise/header.html" %}
+
+<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-bold text-primary-blue mb-6">Candidature de {{ candidature.stagiaire.nom_stagiaire }} {{ candidature.stagiaire.prenom_stagiaire }}</h2>
+
+        <!-- Infos candidat -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <p class="text-gray-600"><strong>Email :</strong> {{ candidature.stagiaire.email_stagiaire }}</p>
+                <p class="text-gray-600"><strong>Téléphone :</strong> {{ candidature.stagiaire.telephone_stagiaire }}</p>
+                <p class="text-gray-600"><strong>Établissement :</strong> {{ candidature.stagiaire.etablissement }}</p>
+                <p class="text-gray-600"><strong>Filière :</strong> {{ candidature.stagiaire.filiere_stagiaire }}</p>
+            </div>
+            <div>
+                <p class="text-gray-600"><strong>Date de candidature :</strong> {{ candidature.date_postulation|date:"d/m/Y" }}</p>
+                <p class="text-gray-600"><strong>Statut :</strong> {{ candidature.statut_candidature|capfirst }}</p>
+                {% if candidature.stagiaire.cv_stagiaire %}
+                <p class="mt-2">
+                    <a href="{{ candidature.stagiaire.cv_stagiaire.url }}" target="_blank"
+                       class="text-primary-orange hover:underline">📄 Voir le CV</a>
+                </p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-wrap gap-4">
+            <form method="post" action="">
+                {% csrf_token %}
+                <input type="hidden" name="statut" value="acceptée">
+                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium">Accepter</button>
+            </form>
+
+            <form method="post" action="">
+                {% csrf_token %}
+                <input type="hidden" name="statut" value="entretien">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium">Planifier entretien</button>
+            </form>
+
+            <form method="post" action="">
+                {% csrf_token %}
+                <input type="hidden" name="statut" value="refusée">
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg font-medium">Refuser</button>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}

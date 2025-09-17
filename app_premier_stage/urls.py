@@ -5,7 +5,7 @@ urlpatterns = [
     path('',views.Index,name="Accueil"),
     path('Connexion/',views.Connexion,name='connexion'),
     path('Deconnexion',views.Deconnexion,name="deconnexion"),
-    path('detail/',views.DetailOffre,name='detail'),
+    path('detailoffre/',views.DetailOffre,name='detail'),
     path('entreprise/',views.EntrepriseDashboard,name='entreprise'),
     path('diplome/',views.DiplomeDashboard,name='diplome'),
     path('admindashboard/',views.AdminDashboard,name='admindashboard'),
@@ -16,7 +16,8 @@ urlpatterns = [
     path('candidature/',views.Mescandidatures,name='candidature'),
     path('offres/',views.Offres,name='offres'),
     path('profilCandidat/',views.profilUpdate,name='profilcandidat'),
-    path('offredetail/',views.OffreDetail,name='offredetail'),
     path('offreCree/',views.OffreCree,name='offrecree'),
+    path('listecandidature/',views.Listecandidature,name="listecandidature"),
+    path('detailcandidat/',views.Detailcandidat,name="detailcandidat"),
 ]
 

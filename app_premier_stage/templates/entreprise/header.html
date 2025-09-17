@@ -1,0 +1,73 @@
+</head>
+<body class="bg-light-gray">
+  <!-- Header -->
+  <header class="bg-primary-blue text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 bg-primary-orange rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <span class="text-xl font-bold">Mon Premier Stage</span>
+        </div>
+
+        <!-- Menu Desktop -->
+        <nav class="hidden md:flex space-x-8">
+          <a href="#" class="text-primary-orange font-medium border-b-2 border-primary-orange pb-1">Mes Offres</a>
+          <a href="{% url 'offrecree' %}" class="hover:text-primary-orange transition-colors">Créer une offre</a>
+          <a href="#" class="hover:text-primary-orange transition-colors">Voir les candidats</a>
+          <a href="#" class="hover:text-red-400 transition-colors">Déconnexion</a>
+        </nav>
+
+        <!-- Info entreprise -->
+        <div class="hidden md:flex items-center space-x-3">
+          <div class="text-right">
+            <p class="font-medium">TechCorp CI</p>
+            <p class="text-sm text-gray-300">Entreprise</p>
+          </div>
+          <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+            <span class="text-gray-600 font-medium">TC</span>
+          </div>
+        </div>
+
+        <!-- Bouton Burger Mobile -->
+        <button id="burger" class="md:hidden focus:outline-none">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menu Mobile -->
+    <div id="mobileMenu" class="hidden bg-primary-blue md:hidden">
+      <nav class="flex flex-col space-y-2 px-4 py-4">
+        <a href="#" class="text-primary-orange font-medium">Mes Offres</a>
+        <a href="{% url 'offrecree' %}" class="hover:text-primary-orange transition-colors">Créer une offre</a>
+        <a href="#" class="hover:text-primary-orange transition-colors">Voir les candidats</a>
+        <a href="#" class="hover:text-red-400 transition-colors">Déconnexion</a>
+      </nav>
+      <div class="border-t border-blue-700 mt-2 pt-4 px-4 flex items-center space-x-3">
+        <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+          <span class="text-gray-600 font-medium">TC</span>
+        </div>
+        <div>
+          <p class="font-medium">TechCorp CI</p>
+          <p class="text-sm text-gray-300">Entreprise</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Script toggle -->
+  <script>
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    burger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+

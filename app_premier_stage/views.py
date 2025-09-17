@@ -17,9 +17,6 @@ def Deconnexion(request):
     logout(request)
     return redirect("connexion")
 
-def DetailOffre(request):
-    return render(request,"offre_detail.html")
-
 @login_required(login_url="connexion")
 def AdminDashboard(request):
     return render(request,"admin\dashboard.html")
@@ -61,23 +58,28 @@ def CompleteProfil(request):
         messages.success("BIENVENUE SUR VOTRE PROFIL MON PREMIER STAGE")
         return redirect("diplome")
     return render(request,"completeprofil.html")
-            
 
-def Mescandidatures(request):
-    candidatures = (
-        Candidature.objects
-        .filter(stagiaire__user=request.user)
-        .select_related("offre", "stagiaire", "offre__entreprise")
-        .order_by("-date_postulation")  # pour voir la plus récente en premier
-    )
-    return render(request, "diplome/candidatures.html", {"candidatures": candidatures})
+@login_required(login_url="connexion")
+def profilUpdate(request):
+    stagiaire = get_object_or_404(Stagiaire, user=request.user)
 
-def DetailCandidature(request,pk):
-    candidature = Candidature.objects.get(id_candidature=pk)
-    context = {
-        "candidature":candidature
-    }
-    return render(request,"diplome\candidature_detail.html",context=context)
+    if request.method == "POST":
+        stagiaire.nom_stagiaire = request.POST.get("nom_stagiaire") or stagiaire.nom_stagiaire
+        stagiaire.prenom_stagiaire = request.POST.get("prenom_stagiaire") or stagiaire.prenom_stagiaire
+        stagiaire.etablissement = request.POST.get("etablissement") or stagiaire.etablissement
+        stagiaire.telephone_stagiaire = request.POST.get("telephone_stagiaire") or stagiaire.telephone_stagiaire
+        stagiaire.email_stagiaire = request.POST.get("email_stagiaire") or stagiaire.email_stagiaire
+        stagiaire.filiere_stagiaire = request.POST.get("filiere_stagiaire") or stagiaire.filiere_stagiaire
+
+        if request.FILES.get("cv_stagiaire"):
+            stagiaire.cv_stagiaire = request.FILES["cv_stagiaire"]
+
+        stagiaire.save()
+
+        messages.success(request, "Vos informations ont bien été mises à jour ✅")
+        return redirect("profilcandidat")
+
+    return render(request, "diplome/profil.html", {"stagiaire": stagiaire})
 
 def Offres(request):
     try:
@@ -102,38 +104,37 @@ def Offres(request):
         "offres":offres,
         "stagiaire":stagiaire
     }
-    return render(request,"diplome\offres.html",context=context)
+    return render(request,"diplome/offres.html",context=context)
 
-@login_required(login_url="connexion")
-def profilUpdate(request):
-    stagiaire = get_object_or_404(Stagiaire, user=request.user)
-
-    if request.method == "POST":
-        stagiaire.nom_stagiaire = request.POST.get("nom_stagiaire") or stagiaire.nom_stagiaire
-        stagiaire.prenom_stagiaire = request.POST.get("prenom_stagiaire") or stagiaire.prenom_stagiaire
-        stagiaire.etablissement = request.POST.get("etablissement") or stagiaire.etablissement
-        stagiaire.telephone_stagiaire = request.POST.get("telephone_stagiaire") or stagiaire.telephone_stagiaire
-        stagiaire.email_stagiaire = request.POST.get("email_stagiaire") or stagiaire.email_stagiaire
-        stagiaire.filiere_stagiaire = request.POST.get("filiere_stagiaire") or stagiaire.filiere_stagiaire
-
-        if request.FILES.get("cv_stagiaire"):
-            stagiaire.cv_stagiaire = request.FILES["cv_stagiaire"]
-
-        stagiaire.save()
-
-        messages.success(request, "Vos informations ont bien été mises à jour ✅")
-        return redirect("profilcandidat")
-
-    return render(request, "diplome/profil.html", {"stagiaire": stagiaire})
+def DetailOffre(request):
+    # offre = get_object_or_404(OffreEmploi,id_offre=pk)
+    # context = {
+    #     "offre":offre
+    # }
+    return render(request,"diplome/offre_detail.html")
 
 
+def Mescandidatures(request):
+    candidatures = (
+        Candidature.objects
+        .filter(stagiaire__user=request.user)
+        .select_related("offre", "stagiaire", "offre__entreprise")
+        .order_by("-date_postulation")  # pour voir la plus récente en premier
+    )
+    return render(request, "diplome/candidatures.html", {"candidatures": candidatures})
 
-def OffreDetail(request,pk):
-    offre = get_object_or_404(OffreEmploi,id_offre=pk)
+def DetailCandidature(request,pk):
+    candidature = Candidature.objects.get(id_candidature=pk)
     context = {
-        "offre":offre
+        "candidature":candidature
     }
-    return render(request,"diplome/offre_detail.html",context=context)
+    return render(request,"diplome\candidature_detail.html",context=context)
 
 def OffreCree(request):
     return render(request,"entreprise\offre_create.html")
+
+def Listecandidature(request):
+    return render(request,"entreprise/candidature_offres.html")
+
+def Detailcandidat(request):
+    return render(request,"entreprise/detail_candidat.html")
