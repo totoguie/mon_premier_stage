@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Préinscription{% endblock %}
+
+{% block content %}
+<section class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full text-center">
+        <h2 class="text-2xl font-bold text-primary-blue mb-6">
+            Choisissez votre type d'inscription
+        </h2>
+        
+        <div class="space-y-4">
+            <a href="{% url 'inscriptionDiplome' %}"
+               class="block w-full bg-primary-orange text-white py-3 px-6 rounded-lg hover:bg-orange-600 transition">
+                Je suis un stagiaire
+            </a>
+            
+            <a href="{% url 'inscriptionEntreprise' %}"
+               class="block w-full bg-primary-blue text-white py-3 px-6 rounded-lg hover:bg-blue-900 transition">
+                Je suis une entreprise
+            </a>
+        </div>
+        
+        <p class="mt-6 text-gray-600 text-sm">
+            Déjà inscrit ? 
+            <a href="{% url 'connexion' %}" class="text-primary-orange font-semibold hover:underline">Se connecter</a>
+        </p>
+    </div>
+</section>
+{% endblock %}

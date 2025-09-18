@@ -33,7 +33,6 @@ class Stagiaire(models.Model):
     def __str__(self):
         return f"{self.nom_stagiaire} {self.prenom_stagiaire}"
 
-
 class Entreprise(models.Model):
     id_entreprise = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.OneToOneField(
@@ -43,14 +42,14 @@ class Entreprise(models.Model):
     )
     nom_entreprise = models.CharField(max_length=30, default="")
     domaine_expertise = models.CharField(max_length=100, default="")
-    telephone_entreprrise = models.CharField(max_length=15,default="")
+    telephone_entreprise = models.CharField(max_length=15,default="")
     email_entreprise = models.EmailField(default="")
     nombre_employe = models.CharField(max_length=20,default="")
+    site_entreprise = models.URLField(default="")
     localisation_entreprise = models.CharField(max_length=30, default="")
 
     def __str__(self):
         return f"{self.nom_entreprise}"
-
 
 class OffreEmploi(models.Model):
     id_offre = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -67,7 +66,7 @@ class OffreEmploi(models.Model):
     type_offre = models.CharField(max_length=50)
     type_contrat = models.CharField(max_length=50)
     competence_requis = models.CharField(max_length=250,default="")
-    duree_contrat = models.DateField()
+    duree_contrat = models.CharField(max_length=20,default="")
     date_debut_offre = models.DateField()
     remuneration_offre = models.CharField(max_length=10,default="")
     mission_offre = models.CharField(max_length=300,default="")

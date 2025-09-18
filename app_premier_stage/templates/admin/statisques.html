@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statistiques - Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-light-gray p-6">
+  <h1 class="text-2xl font-bold text-primary-blue mb-6">Statistiques</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- Inscriptions -->
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-lg font-semibold text-primary-blue mb-4">Inscriptions</h2>
+      <canvas id="chartInscriptions"></canvas>
+    </div>
+
+    <!-- Offres -->
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-lg font-semibold text-primary-blue mb-4">Offres publiées</h2>
+      <canvas id="chartOffres"></canvas>
+    </div>
+  </div>
+
+  <script>
+    new Chart(document.getElementById('chartInscriptions'), {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai'],
+        datasets: [
+          { label: 'Stagiaires', data: [10, 30, 45, 60, 80], borderColor: '#1E3A8A', fill: false },
+          { label: 'Entreprises', data: [5, 10, 20, 25, 40], borderColor: '#F97316', fill: false }
+        ]
+      }
+    });
+
+    new Chart(document.getElementById('chartOffres'), {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai'],
+        datasets: [
+          { label: 'Offres publiées', data: [15, 25, 35, 50, 70], backgroundColor: '#10B981' }
+        ]
+      }
+    });
+  </script>
+</body>
+</html>

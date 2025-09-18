@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Inscription Entreprise{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8">
+      <h2 class="text-2xl font-bold text-blue-800 mb-6">Créer un compte entreprise</h2>
+
+      <form method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {% csrf_token %}
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Nom d’utilisateur</label>
+          <input type="text" name="username" class="w-full border rounded-lg px-3 py-2 mt-1" required>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Email</label>
+          <input type="email" name="email" class="w-full border rounded-lg px-3 py-2 mt-1" required>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Mot de passe</label>
+          <input type="password" name="password" class="w-full border rounded-lg px-3 py-2 mt-1" required>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Nom de l’entreprise</label>
+          <input type="text" name="nom_entreprise" class="w-full border rounded-lg px-3 py-2 mt-1" required>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Secteur d’activité</label>
+          <select name="secteur" class="w-full border rounded-lg px-3 py-2 mt-1" required>
+            <option selected disabled>Choisissez votre domaine d'expertise</option>
+            <option value="Informatique">INFORMATIQUE</option>
+            <option value="Banques">BANQUE</option>
+            <option value="Commerce">COMMERCE</option>
+            <option value="Communication">COMMUNICATION</option>
+            <option value="Sante">SANTE</option>
+            <option value="Juridique">JURIDIQUE</option>
+            <option value="Humanitaire">HUMANITAIRE</option>
+            <option value="btp">BTP</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Localisation entreprise</label>
+          <input type="text" name="localisation" class="w-full border rounded-lg px-3 py-2 mt-1" required>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Téléphone</label>
+          <input type="tel" name="telephone_entreprise" class="w-full border rounded-lg px-3 py-2 mt-1" required>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Nombre d'employé</label>
+          <select name="nombre_employe" class="w-full border rounded-lg px-3 py-2 mt-1">
+            <option disabled selected>De combien d'employé disposer vous ?</option>
+            <option value="0-10">0-10</option>
+            <option value="10-50">10-50</option>
+            <option value="50-100">50-100</option>
+            <option value="100-500">100-500</option>
+            <option value="500-1000">500-1000</option>
+            <option value="+1000">+1000</option>
+          </select>
+        </div>
+
+        <div class="md:col-span-2">
+          <button type="submit" class="w-full bg-primary-orange text-white py-3 rounded-lg font-semibold hover:bg-orange-600">
+            S’inscrire
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}
