@@ -3,46 +3,106 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Statistiques - Admin</title>
+  <title>Statistiques - Mon Premier Stage</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary-blue': '#1E3A8A',
+            'primary-orange': '#F97316',
+            'light-gray': '#F1F5F9',
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body class="bg-light-gray p-6">
-  <h1 class="text-2xl font-bold text-primary-blue mb-6">Statistiques</h1>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-    <!-- Inscriptions -->
-    <div class="bg-white p-6 rounded-lg shadow">
-      <h2 class="text-lg font-semibold text-primary-blue mb-4">Inscriptions</h2>
-      <canvas id="chartInscriptions"></canvas>
+<body class="bg-light-gray">
+  <!-- Header -->
+  <header class="bg-primary-blue text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+      <h1 class="font-bold text-lg sm:text-xl">📊 Statistiques</h1>
+      <a href="{% url 'admindashboard' %}" class="bg-primary-orange px-3 py-2 rounded-lg hover:bg-orange-600 text-sm sm:text-base">
+        ⬅ Retour Dashboard
+      </a>
     </div>
+  </header>
 
-    <!-- Offres -->
-    <div class="bg-white p-6 rounded-lg shadow">
-      <h2 class="text-lg font-semibold text-primary-blue mb-4">Offres publiées</h2>
-      <canvas id="chartOffres"></canvas>
+  <!-- Contenu -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="flex justify-end mb-4">
+      <form method="get" class="flex space-x-2">
+        <select name="year" class="px-3 py-2 border rounded-lg">
+          <option value="2025">2025</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+        </select>
+        <button type="submit" class="bg-primary-orange text-white px-4 py-2 rounded-lg">Filtrer</button>
+      </form>
     </div>
-  </div>
+    <h2 class="text-2xl font-bold text-primary-blue mb-6">Vue d’ensemble des données</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Graphique utilisateurs -->
+      <div class="bg-white shadow-md rounded-lg p-4">
+        <h3 class="text-lg font-semibold text-gray-700 mb-4">Évolution des utilisateurs</h3>
+        <canvas id="usersChart" class="w-full h-64"></canvas>
+      </div>
+
+      <!-- Graphique offres -->
+      <div class="bg-white shadow-md rounded-lg p-4">
+        <h3 class="text-lg font-semibold text-gray-700 mb-4">Répartition des offres par filière</h3>
+        <canvas id="offersChart" class="w-full h-64"></canvas>
+      </div>
+
+      <!-- Graphique candidatures -->
+      <div class="bg-white shadow-md rounded-lg p-4 md:col-span-2">
+        <h3 class="text-lg font-semibold text-gray-700 mb-4">Candidatures reçues par mois</h3>
+        <canvas id="candidaturesChart" class="w-full h-72"></canvas>
+      </div>
+    </div>
+  </main>
 
   <script>
-    new Chart(document.getElementById('chartInscriptions'), {
-      type: 'line',
+    // Données factices (à remplacer par les vraies données Django via context)
+    const usersChart = new Chart(document.getElementById("usersChart"), {
+      type: "line",
       data: {
-        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai'],
-        datasets: [
-          { label: 'Stagiaires', data: [10, 30, 45, 60, 80], borderColor: '#1E3A8A', fill: false },
-          { label: 'Entreprises', data: [5, 10, 20, 25, 40], borderColor: '#F97316', fill: false }
-        ]
+        labels: ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin"],
+        datasets: [{
+          label: "Utilisateurs inscrits",
+          data: [50, 120, 180, 220, 300, 420],
+          borderColor: "#1E3A8A",
+          backgroundColor: "rgba(30,58,138,0.2)",
+          tension: 0.3,
+          fill: true
+        }]
       }
     });
 
-    new Chart(document.getElementById('chartOffres'), {
-      type: 'bar',
+    const offersChart = new Chart(document.getElementById("offersChart"), {
+      type: "doughnut",
       data: {
-        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai'],
-        datasets: [
-          { label: 'Offres publiées', data: [15, 25, 35, 50, 70], backgroundColor: '#10B981' }
-        ]
+        labels: ["Informatique", "Gestion", "Bâtiment", "Électronique", "Mécanique"],
+        datasets: [{
+          data: [40, 25, 15, 10, 10],
+          backgroundColor: ["#1E3A8A", "#F97316", "#10B981", "#F59E0B", "#EF4444"]
+        }]
+      }
+    });
+
+    const candidaturesChart = new Chart(document.getElementById("candidaturesChart"), {
+      type: "bar",
+      data: {
+        labels: ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin"],
+        datasets: [{
+          label: "Candidatures",
+          data: [80, 140, 200, 260, 320, 400],
+          backgroundColor: "#F97316"
+        }]
       }
     });
   </script>

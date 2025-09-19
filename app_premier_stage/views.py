@@ -4,7 +4,8 @@ from django.contrib.auth import login,logout,authenticate
 from .models import Stagiaire,Entreprise,Candidature,OffreEmploi,User
 from django.contrib.auth.models import Group, Permission
 from django.contrib import messages
-from django.db.models import Q
+from django.db.models import Q,Count
+from django.utils import timezone
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import user_passes_test
 from django.db import transaction
@@ -68,10 +69,65 @@ def AdminDashboard(request):
     # if not is_administrateur(user=request.user):
     #     messages.error(request,"Vous n'êtes pas autoriser")
     #     return redirect("connexion")
-    return render(request,"admin\dashboard.html")
+    total_stagiaire = Stagiaire.objects.count()
+    total_entreprise = Entreprise.objects.count()
+    total_offre = OffreEmploi.objects.count()
+
+    dernier_utilisateur = (
+        list(Stagiaire.objects.order_by("-id"))[:3],
+        list(Entreprise.objects.order_by("-id"))[:3]
+    )
+
+    offre_recente = OffreEmploi.objects.order_by("-id")[:5]
+    entreprise_en_attente = Entreprise.objects.filter(is_active=False).order_by("id")[:5]
+    context = {
+        "total_stagiaire":total_stagiaire,
+        "total_entreprise":total_entreprise,
+        "total_offre":total_offre,
+        "dernier_utilisateur":dernier_utilisateur,
+        "offre_recente":offre_recente,
+        "entreprise_en_attente":entreprise_en_attente
+    }
+    return render(request,"admin\dashboard.html",context=context)
 
 def Statistiques(request):
-    return render(request,"admin/statisques.html")
+    year = request.GET.get("year", timezone.now().year)
+
+    # Statistiques des offres
+    offres_par_mois = (
+        OffreEmploi.objects.filter(created_at__year=year)
+        .extra(select={"month": "strftime('%%m', created_at)"})  # pour SQLite
+        .values("month")
+        .annotate(total=Count("id"))
+        .order_by("month")
+    )
+
+    # Statistiques des inscriptions entreprises
+    entreprises_par_mois = (
+        Entreprise.objects.filter(created_at__year=year)
+        .extra(select={"month": "strftime('%%m', created_at)"})
+        .values("month")
+        .annotate(total=Count("id"))
+        .order_by("month")
+    )
+
+    # Statistiques des candidatures
+    candidatures_par_mois = (
+        Candidature.objects.filter(created_at__year=year)
+        .extra(select={"month": "strftime('%%m', created_at)"})
+        .values("month")
+        .annotate(total=Count("id"))
+        .order_by("month")
+    )
+
+    context = {
+        "year": int(year),
+        "offres_par_mois": offres_par_mois,
+        "entreprises_par_mois": entreprises_par_mois,
+        "candidatures_par_mois": candidatures_par_mois,
+    }
+
+    return render(request,"admin/statisques.html",context=context)
 
 
 def EntrepriseDashboard(request):
@@ -131,8 +187,11 @@ def RegisterEntreprise(request):
 user_passes_test(is_administrateur,login_url="connexion")
 def ValiderEntreprise(request,user_id):
     user = get_object_or_404(User,id=user_id)
+    entreprise = Entreprise.objects.get(user=user)
     user.is_active = True
+    entreprise.validation_entreprise = True
     user.save()
+    entreprise.save()
     messages.success(request,f"Le compte de {user.username} a été validé avec succès.")
     return redirect("")
 

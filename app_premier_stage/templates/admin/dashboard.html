@@ -1,175 +1,184 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Administration - Mon Premier Stage</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Mon Premier Stage</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            "primary-blue": "#1E3A8A",
-            "primary-orange": "#F97316",
-            "light-gray": "#F1F5F9",
-            "medium-gray": "#E5E7EB",
-          },
-        },
-      },
-    };
+            'primary-blue': '#1E3A8A',
+            'primary-orange': '#F97316',
+            'light-gray': '#F1F5F9',
+            'medium-gray': '#E5E7EB'
+          }
+        }
+      }
+    }
   </script>
 </head>
-<body class="bg-light-gray flex flex-col min-h-screen">
+<body class="bg-light-gray">
   <!-- Header -->
-  <header class="bg-primary-blue text-white shadow-lg sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
-        <div class="flex items-center space-x-2">
-          <div class="w-8 h-8 bg-primary-orange rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-          </div>
-          <span class="text-xl font-bold">Mon Premier Stage - Admin</span>
-        </div>
-
-        <!-- Bouton mobile -->
-        <button id="menu-btn" class="md:hidden bg-primary-orange px-3 py-2 rounded focus:outline-none">
-          ☰
-        </button>
-
-        <div class="hidden md:flex items-center space-x-4">
-          <span class="text-sm">Administrateur</span>
-          <button class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg font-medium transition-colors">
-            Déconnexion
-          </button>
-        </div>
-      </div>
+  <header class="bg-primary-blue text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+      <h1 class="font-bold text-lg sm:text-xl">Mon Premier Stage - Admin</h1>
+      <button class="bg-red-600 hover:bg-red-700 px-3 py-2 rounded-lg text-sm sm:text-base">
+        Déconnexion
+      </button>
     </div>
   </header>
 
-  <div class="flex flex-1">
+  <div class="flex flex-col md:flex-row min-h-screen">
     <!-- Sidebar -->
-    <aside id="sidebar" class="w-64 bg-primary-blue text-white fixed md:relative inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out z-40">
-      <nav class="mt-8">
-        <div class="px-4 space-y-2">
-          <a href="#" class="flex items-center px-4 py-3 bg-primary-orange rounded-lg font-medium">📊 Tableau de bord</a>
-          <a href="#" class="flex items-center px-4 py-3 hover:bg-blue-800 rounded-lg">👤 Utilisateurs</a>
-          <a href="#" class="flex items-center px-4 py-3 hover:bg-blue-800 rounded-lg">💼 Offres</a>
-          <a href="#" class="flex items-center px-4 py-3 hover:bg-blue-800 rounded-lg">📚 Filières</a>
-          <a href="#" class="flex items-center px-4 py-3 hover:bg-blue-800 rounded-lg">📈 Statistiques</a>
-        </div>
+    <aside class="bg-primary-blue text-white w-full md:w-64 md:min-h-screen">
+      <div class="px-4 py-4 flex md:block justify-between items-center">
+        <span class="text-lg font-semibold">📋 Menu</span>
+        <!-- Burger mobile -->
+        <button id="menuToggle" class="md:hidden text-white">☰</button>
+      </div>
+      <nav id="menuItems" class="hidden md:block px-4 space-y-2">
+        <a href="#" class="block px-4 py-2 bg-primary-orange rounded-lg">Tableau de bord</a>
+        <a href="#" class="block px-4 py-2 hover:bg-blue-800 rounded-lg">Utilisateurs</a>
+        <a href="#" class="block px-4 py-2 hover:bg-blue-800 rounded-lg">Entreprises</a>
+        <a href="#" class="block px-4 py-2 hover:bg-blue-800 rounded-lg">Offres</a>
+        <a href="#" class="block px-4 py-2 hover:bg-blue-800 rounded-lg">Filières</a>
+        <a href="{% url 'statistique' %}" class="block px-4 py-2 hover:bg-blue-800 rounded-lg">Statistiques</a>
       </nav>
     </aside>
 
-    <!-- Contenu principal -->
-    <main class="flex-1 p-6 md:p-8 ml-0 md:ml-64">
+    <!-- Contenu -->
+    <main class="flex-1 p-4 sm:p-8">
       <!-- En-tête -->
-      <div class="mb-8">
-        <h1 class="text-2xl md:text-3xl font-bold text-primary-blue">Tableau de bord administrateur</h1>
-        <p class="text-gray-600 mt-2">Vue d'ensemble de la plateforme</p>
+      <div class="mb-6">
+        <h2 class="text-2xl font-bold text-primary-blue">Tableau de bord</h2>
+        <p class="text-gray-600 text-sm sm:text-base">Vue d’ensemble de la plateforme</p>
       </div>
 
       <!-- Statistiques -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        <div class="bg-white rounded-lg shadow p-6"><p class="text-sm text-gray-600">Utilisateurs diplômés</p><p class="text-2xl font-bold text-primary-blue">2,547</p></div>
-        <div class="bg-white rounded-lg shadow p-6"><p class="text-sm text-gray-600">Entreprises</p><p class="text-2xl font-bold text-primary-blue">456</p></div>
-        <div class="bg-white rounded-lg shadow p-6"><p class="text-sm text-gray-600">Offres actives</p><p class="text-2xl font-bold text-primary-blue">189</p></div>
-      </div>
-
-      <!-- Grilles -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-        <!-- Utilisateurs récents -->
-        <div class="bg-white rounded-lg shadow">
-          <div class="px-6 py-4 border-b">
-            <h2 class="text-lg font-semibold text-primary-blue">Utilisateurs récents</h2>
-          </div>
-          <div class="p-6 overflow-x-auto">
-            <table class="min-w-full text-sm">
-              <thead class="text-gray-500 uppercase"><tr><th>Nom</th><th>Rôle</th><th>Date</th></tr></thead>
-              <tbody>
-                <tr class="border-t"><td class="py-2">Jean Kouassi</td><td>Diplômé</td><td>Il y a 2h</td></tr>
-                <tr class="border-t"><td class="py-2">TechCorp CI</td><td>Entreprise</td><td>Il y a 5h</td></tr>
-              </tbody>
-            </table>
-          </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        <div class="bg-white shadow rounded-lg p-4">
+          <p class="text-gray-500 text-sm">Utilisateurs diplômés</p>
+          <p class="text-2xl font-bold text-primary-blue">2,547</p>
         </div>
-
-        <!-- Offres récentes -->
-        <div class="bg-white rounded-lg shadow">
-          <div class="px-6 py-4 border-b">
-            <h2 class="text-lg font-semibold text-primary-blue">Offres récentes</h2>
-          </div>
-          <div class="p-6 overflow-x-auto">
-            <table class="min-w-full text-sm">
-              <thead class="text-gray-500 uppercase"><tr><th>Titre</th><th>Entreprise</th><th>Statut</th></tr></thead>
-              <tbody>
-                <tr class="border-t"><td class="py-2">Développeur Web Junior</td><td>TechCorp CI</td><td><span class="text-green-600">Active</span></td></tr>
-                <tr class="border-t"><td class="py-2">Assistant Comptable</td><td>KPMG</td><td><span class="text-green-600">Active</span></td></tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="bg-white shadow rounded-lg p-4">
+          <p class="text-gray-500 text-sm">Entreprises</p>
+          <p class="text-2xl font-bold text-primary-blue">456</p>
+        </div>
+        <div class="bg-white shadow rounded-lg p-4">
+          <p class="text-gray-500 text-sm">Offres actives</p>
+          <p class="text-2xl font-bold text-primary-blue">189</p>
         </div>
       </div>
 
-      <!-- Nouvelles sections -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <!-- Candidatures récentes -->
-        <div class="bg-white rounded-lg shadow">
-          <div class="px-6 py-4 border-b">
-            <h2 class="text-lg font-semibold text-primary-blue">Candidatures récentes</h2>
-          </div>
-          <div class="p-6 overflow-x-auto">
-            <table class="min-w-full text-sm">
-              <thead class="text-gray-500 uppercase"><tr><th>Nom</th><th>Offre</th><th>Date</th></tr></thead>
-              <tbody>
-                <tr class="border-t"><td class="py-2">Marie Diabaté</td><td>Développeur Web Junior</td><td>Il y a 1j</td></tr>
-                <tr class="border-t"><td class="py-2">Koffi Assouan</td><td>Assistant Comptable</td><td>Il y a 2j</td></tr>
-              </tbody>
-            </table>
-          </div>
+      <!-- Utilisateurs récents -->
+      <div class="bg-white rounded-lg shadow-md mb-6">
+        <div class="px-4 py-3 border-b border-gray-200">
+          <h3 class="text-lg font-semibold text-primary-blue">Utilisateurs récents</h3>
         </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-2 text-left">Nom</th>
+                <th class="px-4 py-2 text-left">Rôle</th>
+                <th class="px-4 py-2 text-left">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-t">
+                <td class="px-4 py-2">Jean Kouassi</td>
+                <td class="px-4 py-2">Diplômé</td>
+                <td class="px-4 py-2">Il y a 2h</td>
+              </tr>
+              <tr class="border-t">
+                <td class="px-4 py-2">TechCorp CI</td>
+                <td class="px-4 py-2">Entreprise</td>
+                <td class="px-4 py-2">Il y a 5h</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-        <!-- Entreprises à valider -->
-        <div class="bg-white rounded-lg shadow">
-          <div class="px-6 py-4 border-b flex justify-between items-center">
-            <h2 class="text-lg font-semibold text-primary-blue">Entreprises à valider</h2>
-            <span class="text-sm text-gray-500">3 en attente</span>
-          </div>
-          <div class="p-6 space-y-4">
-            <div class="flex justify-between items-center border-b pb-3">
-              <span class="font-medium">Orange CI</span>
-              <div class="space-x-2">
-                <button class="px-3 py-1 bg-green-600 text-white rounded text-xs hover:bg-green-700">Valider</button>
-                <button class="px-3 py-1 bg-red-600 text-white rounded text-xs hover:bg-red-700">Refuser</button>
-              </div>
-            </div>
-            <div class="flex justify-between items-center border-b pb-3">
-              <span class="font-medium">MTN CI</span>
-              <div class="space-x-2">
-                <button class="px-3 py-1 bg-green-600 text-white rounded text-xs hover:bg-green-700">Valider</button>
-                <button class="px-3 py-1 bg-red-600 text-white rounded text-xs hover:bg-red-700">Refuser</button>
-              </div>
-            </div>
-            <div class="flex justify-between items-center">
-              <span class="font-medium">TechCorp CI</span>
-              <div class="space-x-2">
-                <button class="px-3 py-1 bg-green-600 text-white rounded text-xs hover:bg-green-700">Valider</button>
-                <button class="px-3 py-1 bg-red-600 text-white rounded text-xs hover:bg-red-700">Refuser</button>
-              </div>
-            </div>
-          </div>
+      <!-- Offres récentes -->
+      <div class="bg-white rounded-lg shadow-md">
+        <div class="px-4 py-3 border-b border-gray-200">
+          <h3 class="text-lg font-semibold text-primary-blue">Offres récentes</h3>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-2 text-left">Titre</th>
+                <th class="px-4 py-2 text-left">Entreprise</th>
+                <th class="px-4 py-2 text-left">Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-t">
+                <td class="px-4 py-2">Développeur Web Junior</td>
+                <td class="px-4 py-2">TechCorp CI</td>
+                <td class="px-4 py-2">Active</td>
+              </tr>
+              <tr class="border-t">
+                <td class="px-4 py-2">Assistant Comptable</td>
+                <td class="px-4 py-2">KPMG</td>
+                <td class="px-4 py-2">Active</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+       <!-- 🚨 Entreprises à valider -->
+      <div class="bg-white rounded-lg shadow-md mt-8">
+        <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+          <h2 class="text-lg font-semibold text-primary-blue">Entreprises en attente de validation</h2>
+          <a href="#" class="text-sm text-primary-orange hover:underline">Voir tout</a>
+        </div>
+        <div class="p-6">
+          <table class="min-w-full text-sm">
+            <thead>
+              <tr class="text-left text-xs font-medium text-gray-500 uppercase">
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-t">
+                <td class="py-2">Entreprise ABC</td>
+                <td>contact@abc.ci</td>
+                <td>18/09/2025</td>
+                <td>
+                  <a href="#" class="bg-green-500 text-white px-3 py-1 rounded text-xs">Valider</a>
+                  <a href="#" class="bg-primary-blue text-white px-3 py-1 rounded text-xs">Détails</a>
+                </td>
+              </tr>
+              <tr class="border-t">
+                <td class="py-2">Entreprise XYZ</td>
+                <td>info@xyz.ci</td>
+                <td>15/09/2025</td>
+                <td>
+                  <a href="#" class="bg-green-500 text-white px-3 py-1 rounded text-xs">Valider</a>
+                  <a href="#" class="bg-primary-blue text-white px-3 py-1 rounded text-xs">Détails</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </main>
   </div>
 
   <script>
-    const btn = document.getElementById("menu-btn");
-    const sidebar = document.getElementById("sidebar");
-    btn.addEventListener("click", () => {
-      sidebar.classList.toggle("-translate-x-full");
+    // Toggle menu mobile
+    document.getElementById("menuToggle").addEventListener("click", () => {
+      document.getElementById("menuItems").classList.toggle("hidden");
     });
   </script>
 </body>

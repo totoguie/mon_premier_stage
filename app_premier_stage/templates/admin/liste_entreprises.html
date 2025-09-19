@@ -1,0 +1,36 @@
+{% extends 'base_admin.html' %}
+{% block title %}Liste des entreprises{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-6">Entreprises inscrites</h1>
+<table class="w-full bg-white shadow rounded-lg overflow-hidden">
+  <thead class="bg-gray-200">
+    <tr>
+      <th class="px-4 py-2 text-left">Nom</th>
+      <th class="px-4 py-2">Email</th>
+      <th class="px-4 py-2">Statut</th>
+      <th class="px-4 py-2">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for entreprise in entreprises %}
+    <tr class="border-b">
+      <td class="px-4 py-2">{{ entreprise.nom }}</td>
+      <td class="px-4 py-2">{{ entreprise.email }}</td>
+      <td class="px-4 py-2">
+        {% if entreprise.valide %}
+          <span class="text-green-600 font-semibold">Validée</span>
+        {% else %}
+          <span class="text-red-600 font-semibold">En attente</span>
+        {% endif %}
+      </td>
+      <td class="px-4 py-2 space-x-2">
+        <a href="{% url 'detail_entreprise' entreprise.id %}" class="text-blue-600 hover:underline">Détails</a>
+        {% if not entreprise.valide %}
+        <a href="{% url 'valider_entreprise' entreprise.id %}" class="text-green-600 hover:underline">Valider</a>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base_admin.html' %}
+{% block title %}Liste des offres{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-6">Offres d'emploi</h1>
+<table class="w-full bg-white shadow rounded-lg overflow-hidden">
+  <thead class="bg-gray-200">
+    <tr>
+      <th class="px-4 py-2">Titre</th>
+      <th class="px-4 py-2">Entreprise</th>
+      <th class="px-4 py-2">Statut</th>
+      <th class="px-4 py-2">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for offre in offres %}
+    <tr class="border-b">
+      <td class="px-4 py-2">{{ offre.titre }}</td>
+      <td class="px-4 py-2">{{ offre.entreprise.nom }}</td>
+      <td class="px-4 py-2">{{ offre.status }}</td>
+      <td class="px-4 py-2">{{ offre.created_at|date:"d/m/Y" }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

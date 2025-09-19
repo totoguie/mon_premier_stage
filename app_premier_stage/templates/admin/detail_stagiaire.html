@@ -1,0 +1,17 @@
+{% extends 'base_admin.html' %}
+{% block title %}Détail stagiaire{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-6">{{ stagiaire.nom_stagiaire }} {{ stagiaire.prenom_stagiaire }}</h1>
+<div class="bg-white p-6 rounded-lg shadow">
+  <p><strong>Email :</strong> {{ stagiaire.email_stagiaire }}</p>
+  <p><strong>Téléphone :</strong> {{ stagiaire.telephone_stagiaire }}</p>
+  <p><strong>Filière :</strong> {{ stagiaire.filiere_stagiaire }}</p>
+  <p><strong>Établissement :</strong> {{ stagiaire.etablissement }}</p>
+  {% if stagiaire.cv_stagiaire %}
+    <p><strong>CV :</strong> <a href="{{ stagiaire.cv_stagiaire.url }}" target="_blank" class="text-blue-600 underline">Voir le CV</a></p>
+  {% endif %}
+  <div class="mt-4">
+    <a href="{% url 'liste_stagiaires' %}" class="px-4 py-2 bg-gray-200 rounded">Retour</a>
+  </div>
+</div>
+{% endblock %}
