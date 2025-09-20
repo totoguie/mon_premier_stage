@@ -19,7 +19,11 @@ urlpatterns = [
     path('offres/',views.Offres,name='offres'),
     path('profilCandidat/',views.profilUpdate,name='profilcandidat'),
     path('offreCree/',views.OffreCree,name='offrecree'),
-    path('listecandidature/',views.Listecandidature,name="listecandidature"),
+    path('listecandidature/',views.Listecandidature,name="liste_candidatures"),
     path('detailcandidat/',views.Detailcandidat,name="detailcandidat"),
+    path("listeentreprise/",views.ListeEntreprise,name="liste_entreprise"),
+    path("listeoffre/",views.ListeOffre,name="liste_offres"),
+    path("listestagiaire/",views.ListeStagiaire,name="liste_stagiaires"),
+
 ]
 

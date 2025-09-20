@@ -102,7 +102,7 @@ WSGI_APPLICATION = 'projet_premier_stage.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'premier_stage_db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

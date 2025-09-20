@@ -74,12 +74,12 @@ def AdminDashboard(request):
     total_offre = OffreEmploi.objects.count()
 
     dernier_utilisateur = (
-        list(Stagiaire.objects.order_by("-id"))[:3],
-        list(Entreprise.objects.order_by("-id"))[:3]
+        list(Stagiaire.objects.order_by("-id_stagiaire"))[:3],
+        list(Entreprise.objects.order_by("-id_entreprise"))[:3]
     )
 
-    offre_recente = OffreEmploi.objects.order_by("-id")[:5]
-    entreprise_en_attente = Entreprise.objects.filter(is_active=False).order_by("id")[:5]
+    offre_recente = OffreEmploi.objects.order_by("-id_offre")[:5]
+    entreprise_en_attente = Entreprise.objects.filter(validation_entreprise=False).order_by("-id_entreprise")[:5]
     context = {
         "total_stagiaire":total_stagiaire,
         "total_entreprise":total_entreprise,
@@ -306,3 +306,12 @@ def Listecandidature(request):
 
 def Detailcandidat(request):
     return render(request,"entreprise/detail_candidat.html")
+
+def ListeEntreprise(request):
+    return render(request,"admin/liste_entreprises.html")
+
+def ListeOffre(request):
+    return render(request,"admin/liste_offres.html")
+
+def ListeStagiaire(request):
+    return render(request,"admin/liste_stagiaires.html")

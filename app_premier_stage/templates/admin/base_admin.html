@@ -3,28 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Admin - Mon Premier Stage{% endblock %}</title>
+  <title>{% block title %}Dashboard{% endblock %}</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 text-gray-900">
-  <div class="min-h-screen flex">
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary-blue': '#1E3A8A',
+            'primary-orange': '#F97316',
+            'light-gray': '#F1F5F9',
+            'medium-gray': '#E5E7EB'
+          }
+        }
+      }
+    }
+  </script>
+<body class="bg-gray-100">
+  <!-- Header -->
+  <header class="bg-primary-blue text-white shadow-md">
+    <div class="flex justify-between items-center px-4 py-3 md:px-8">
+      <div class="flex items-center space-x-2">
+        <button id="menu-btn" class="md:hidden">
+          <!-- Burger icon -->
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <span class="text-lg font-bold">Mon Premier Stage - Admin</span>
+      </div>
+      <div>
+        <button class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm">Déconnexion</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex">
     <!-- Sidebar -->
-    <aside class="w-64 bg-blue-900 text-white p-4">
-      <h2 class="text-xl font-bold mb-6">Administration</h2>
-      <nav class="space-y-2">
-        <a href="{% url 'admin_dashboard' %}" class="block px-4 py-2 rounded hover:bg-blue-700">Dashboard</a>
-        <a href="{% url 'liste_entreprises' %}" class="block px-4 py-2 rounded hover:bg-blue-700">Entreprises</a>
-        <a href="{% url 'liste_offres' %}" class="block px-4 py-2 rounded hover:bg-blue-700">Offres</a>
-        <a href="{% url 'liste_stagiaires' %}" class="block px-4 py-2 rounded hover:bg-blue-700">Diplômés</a>
-        <a href="{% url 'liste_candidatures' %}" class="block px-4 py-2 rounded hover:bg-blue-700">Candidatures</a>
-        <a href="{% url 'admin_stats' %}" class="block px-4 py-2 rounded hover:bg-blue-700">Statistiques</a>
+    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 w-64 bg-primary-blue text-white 
+      transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out z-50">
+      <nav class="mt-8 px-4 space-y-2">
+        <a href="{% url 'admindashboard' %}" class="block px-4 py-2 rounded hover:bg-blue-800">Tableau de bord</a>
+        <a href="{% url 'liste_stagiaires' %}" class="block px-4 py-2 rounded hover:bg-blue-800">Utilisateurs</a>
+        <a href="{% url 'liste_entreprise' %}" class="block px-4 py-2 rounded hover:bg-blue-800">Entreprises</a>
+        <a href="{% url 'liste_offres' %}" class="block px-4 py-2 rounded hover:bg-blue-800">Offres</a>
+        <a href="{% url 'statistique' %}" class="block px-4 py-2 rounded hover:bg-blue-800">Statistiques</a>
       </nav>
     </aside>
 
-    <!-- Contenu -->
-    <main class="flex-1 p-6">
-      {% block content %}{% endblock %}
+    <!-- Main content -->
+    <main class="flex-1 p-4 md:p-8 mt-16 md:mt-0">
+      {% block content %}
+      {% endblock %}
     </main>
   </div>
+
+  <!-- JS pour toggler le menu -->
+  <script>
+    const btn = document.getElementById('menu-btn');
+    const sidebar = document.getElementById('sidebar');
+    btn.addEventListener('click', () => {
+      sidebar.classList.toggle('-translate-x-full');
+    });
+  </script>
 </body>
 </html>

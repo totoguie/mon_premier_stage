@@ -1,56 +1,8 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard - Mon Premier Stage</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'primary-blue': '#1E3A8A',
-            'primary-orange': '#F97316',
-            'light-gray': '#F1F5F9',
-            'medium-gray': '#E5E7EB'
-          }
-        }
-      }
-    }
-  </script>
-</head>
-<body class="bg-light-gray">
-  <!-- Header -->
-  <header class="bg-primary-blue text-white shadow-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
-      <h1 class="font-bold text-lg sm:text-xl">Mon Premier Stage - Admin</h1>
-      <button class="bg-red-600 hover:bg-red-700 px-3 py-2 rounded-lg text-sm sm:text-base">
-        Déconnexion
-      </button>
-    </div>
-  </header>
-
-  <div class="flex flex-col md:flex-row min-h-screen">
-    <!-- Sidebar -->
-    <aside class="bg-primary-blue text-white w-full md:w-64 md:min-h-screen">
-      <div class="px-4 py-4 flex md:block justify-between items-center">
-        <span class="text-lg font-semibold">📋 Menu</span>
-        <!-- Burger mobile -->
-        <button id="menuToggle" class="md:hidden text-white">☰</button>
-      </div>
-      <nav id="menuItems" class="hidden md:block px-4 space-y-2">
-        <a href="#" class="block px-4 py-2 bg-primary-orange rounded-lg">Tableau de bord</a>
-        <a href="#" class="block px-4 py-2 hover:bg-blue-800 rounded-lg">Utilisateurs</a>
-        <a href="#" class="block px-4 py-2 hover:bg-blue-800 rounded-lg">Entreprises</a>
-        <a href="#" class="block px-4 py-2 hover:bg-blue-800 rounded-lg">Offres</a>
-        <a href="#" class="block px-4 py-2 hover:bg-blue-800 rounded-lg">Filières</a>
-        <a href="{% url 'statistique' %}" class="block px-4 py-2 hover:bg-blue-800 rounded-lg">Statistiques</a>
-      </nav>
-    </aside>
-
+{% extends "admin/base_admin.html" %}
+{% block title %}Admin Dashboard - Mon Premier Stage{% endblock title %}
     <!-- Contenu -->
     <main class="flex-1 p-4 sm:p-8">
+      {% block content %}
       <!-- En-tête -->
       <div class="mb-6">
         <h2 class="text-2xl font-bold text-primary-blue">Tableau de bord</h2>
@@ -173,13 +125,7 @@
         </div>
       </div>
     </main>
+    {% endblock content %}
   </div>
-
-  <script>
-    // Toggle menu mobile
-    document.getElementById("menuToggle").addEventListener("click", () => {
-      document.getElementById("menuItems").classList.toggle("hidden");
-    });
-  </script>
 </body>
 </html>
