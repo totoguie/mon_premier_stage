@@ -15,12 +15,12 @@
   <tbody>
     {% for stagiaire in stagiaires %}
     <tr class="border-b">
-      <td class="px-4 py-2">{{ stagiaire.nom_stagiaire }}</td>
-      <td class="px-4 py-2">{{ stagiaire.prenom_stagiaire }}</td>
-      <td class="px-4 py-2">{{ stagiaire.email_stagiaire }}</td>
-      <td class="px-4 py-2">{{ stagiaire.filiere_stagiaire }}</td>
-      <td class="px-4 py-2">
-        <a href="{% url 'detail_stagiaire' stagiaire.id %}" class="text-blue-600 hover:underline">Détails</a>
+      <td class="text-center px-4 py-2">{{ stagiaire.nom_stagiaire }}</td>
+      <td class="text-center px-4 py-2">{{ stagiaire.prenom_stagiaire }}</td>
+      <td class="text-center px-4 py-2">{{ stagiaire.email_stagiaire }}</td>
+      <td class="text-center px-4 py-2">{{ stagiaire.filiere_stagiaire }}</td>
+      <td class="text-center px-4 py-2">
+        <a href="{% url 'detailstagiaire' stagiaire.id_stagiaire %}" class="text-blue-600 hover:underline">Détails</a>
       </td>
     </tr>
     {% endfor %}

@@ -12,16 +12,16 @@
       <!-- Statistiques -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         <div class="bg-white shadow rounded-lg p-4">
-          <p class="text-gray-500 text-sm">Utilisateurs diplômés</p>
-          <p class="text-2xl font-bold text-primary-blue">2,547</p>
+          <p class="text-gray-500 text-sm">Stagiaires</p>
+          <p class="text-2xl font-bold text-primary-blue">{{total_stagiaire}}</p>
         </div>
         <div class="bg-white shadow rounded-lg p-4">
           <p class="text-gray-500 text-sm">Entreprises</p>
-          <p class="text-2xl font-bold text-primary-blue">456</p>
+          <p class="text-2xl font-bold text-primary-blue">{{total_entreprise}}</p>
         </div>
         <div class="bg-white shadow rounded-lg p-4">
           <p class="text-gray-500 text-sm">Offres actives</p>
-          <p class="text-2xl font-bold text-primary-blue">189</p>
+          <p class="text-2xl font-bold text-primary-blue">{{total_offre}}</p>
         </div>
       </div>
 
@@ -40,16 +40,13 @@
               </tr>
             </thead>
             <tbody>
+              {% for dernier_utilisateur in dernier_utilisateur %}
               <tr class="border-t">
-                <td class="px-4 py-2">Jean Kouassi</td>
-                <td class="px-4 py-2">Diplômé</td>
+                <td class="px-4 py-2">{{dernier_utilisateur.username}}</td>
+                <td class="px-4 py-2">{{dernier_utilisateur.role}}</td>
                 <td class="px-4 py-2">Il y a 2h</td>
               </tr>
-              <tr class="border-t">
-                <td class="px-4 py-2">TechCorp CI</td>
-                <td class="px-4 py-2">Entreprise</td>
-                <td class="px-4 py-2">Il y a 5h</td>
-              </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
@@ -70,26 +67,23 @@
               </tr>
             </thead>
             <tbody>
+              {% for offre_recente in offre_recente  %}
               <tr class="border-t">
-                <td class="px-4 py-2">Développeur Web Junior</td>
-                <td class="px-4 py-2">TechCorp CI</td>
-                <td class="px-4 py-2">Active</td>
+                <td class="px-4 py-2">{{offre_recente.titre_poste}}</td>
+                <td class="px-4 py-2">{{titre_poste.entreprise.nom_entreprise}}</td>
+                <td class="px-4 py-2">{{offre_recente.statut_offre}}</td>
               </tr>
-              <tr class="border-t">
-                <td class="px-4 py-2">Assistant Comptable</td>
-                <td class="px-4 py-2">KPMG</td>
-                <td class="px-4 py-2">Active</td>
-              </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
       </div>
 
-       <!-- 🚨 Entreprises à valider -->
+       
       <div class="bg-white rounded-lg shadow-md mt-8">
         <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
           <h2 class="text-lg font-semibold text-primary-blue">Entreprises en attente de validation</h2>
-          <a href="#" class="text-sm text-primary-orange hover:underline">Voir tout</a>
+          <a href="{% url "liste_entreprise" %}" class="text-sm text-primary-orange hover:underline">Voir tout</a>
         </div>
         <div class="p-6">
           <table class="min-w-full text-sm">
@@ -102,24 +96,17 @@
               </tr>
             </thead>
             <tbody>
+              {% for entreprise_en_attente in entreprise_en_attente %}
               <tr class="border-t">
-                <td class="py-2">Entreprise ABC</td>
-                <td>contact@abc.ci</td>
-                <td>18/09/2025</td>
+                <td class="py-2">{{entreprise_en_attente.nom_entreprise}}</td>
+                <td>{{entreprise_en_attente.email_entreprise}}</td>
+                <td>{{entreprise_en_attente.created_at}}</td>
                 <td>
-                  <a href="#" class="bg-green-500 text-white px-3 py-1 rounded text-xs">Valider</a>
-                  <a href="#" class="bg-primary-blue text-white px-3 py-1 rounded text-xs">Détails</a>
+                  <a href="{% url "validerentreprise" entreprise_en_attente.id_entreprise %}" class="bg-green-500 text-white px-3 py-1 rounded text-xs">Valider</a>
+                  <a href="{% url "detailentreprise" entreprise_en_attente.id_entreprise %}" class="bg-primary-blue text-white px-3 py-1 rounded text-xs">Détails</a>
                 </td>
               </tr>
-              <tr class="border-t">
-                <td class="py-2">Entreprise XYZ</td>
-                <td>info@xyz.ci</td>
-                <td>15/09/2025</td>
-                <td>
-                  <a href="#" class="bg-green-500 text-white px-3 py-1 rounded text-xs">Valider</a>
-                  <a href="#" class="bg-primary-blue text-white px-3 py-1 rounded text-xs">Détails</a>
-                </td>
-              </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>

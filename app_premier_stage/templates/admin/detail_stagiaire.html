@@ -10,6 +10,7 @@
   {% if stagiaire.cv_stagiaire %}
     <p><strong>CV :</strong> <a href="{{ stagiaire.cv_stagiaire.url }}" target="_blank" class="text-blue-600 underline">Voir le CV</a></p>
   {% endif %}
+  <p><strong>Date d'inscription :</strong> {{ stagiaire.created_at }}</p>
   <div class="mt-4">
     <a href="{% url 'liste_stagiaires' %}" class="px-4 py-2 bg-gray-200 rounded">Retour</a>
   </div>

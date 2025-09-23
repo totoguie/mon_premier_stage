@@ -1,13 +1,18 @@
 {% extends "admin/base_admin.html" %}
 {% block title %}Détail entreprise{% endblock %}
 {% block content %}
-<h1 class="text-2xl font-bold mb-6">Entreprise : {{ entreprise.nom }}</h1>
+<h1 class="text-2xl font-bold mb-6">Entreprise : {{ entreprise.nom_entreprise }}</h1>
 
 <div class="bg-white p-6 rounded-lg shadow">
-  <p><strong>Email :</strong> {{ entreprise.email }}</p>
+  <p><strong>Email :</strong> {{ entreprise.email_entreprise }}</p>
+  <p><strong>telephone :</strong> {{ entreprise.telephone_entreprise }}</p>
+  <p><strong>localisation :</strong> {{ entreprise.localisation_entreprise }}</p>
+  <p><strong>Domaine d'expertise :</strong> {{ entreprise.domaine_expertise }}</p>
+  <p><strong>Nombre employés :</strong> {{ entreprise.nombre_employe }}</p>
+  <p><strong>Site entreprise :</strong> {{ entreprise.site_entreprise }}</p>
   <p><strong>Date inscription :</strong> {{ entreprise.created_at|date:"d/m/Y H:i" }}</p>
   <p><strong>Statut :</strong> 
-    {% if entreprise.valide %}
+    {% if entreprise.validation_entreprise %}
       <span class="text-green-600 font-semibold">Validée</span>
     {% else %}
       <span class="text-red-600 font-semibold">En attente</span>
@@ -15,9 +20,9 @@
   </p>
 
   <div class="mt-4 space-x-2">
-    <a href="{% url 'liste_entreprises' %}" class="px-4 py-2 bg-gray-200 rounded">Retour</a>
-    {% if not entreprise.valide %}
-    <a href="{% url 'valider_entreprise' entreprise.id %}" class="px-4 py-2 bg-green-600 text-white rounded">Valider</a>
+    <a href="{% url 'liste_entreprise' %}" class="px-4 py-2 bg-gray-200 rounded">Retour</a>
+    {% if not entreprise.validation_entreprise %}
+    <a href="{% url 'validerentreprise' entreprise.id_entreprise %}" class="px-4 py-2 bg-green-600 text-white rounded">Valider</a>
     {% endif %}
   </div>
 </div>

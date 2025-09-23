@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Dashboard{% endblock %}</title>
+  <title>{% block title %}Administration - Mon Premier Stage{% endblock %}</title>
   <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<script>
+  <script>
     tailwind.config = {
       theme: {
         extend: {
@@ -20,53 +19,70 @@
       }
     }
   </script>
-<body class="bg-gray-100">
+</head>
+<body class="bg-light-gray flex flex-col min-h-screen">
+
   <!-- Header -->
-  <header class="bg-primary-blue text-white shadow-md">
-    <div class="flex justify-between items-center px-4 py-3 md:px-8">
+  <header class="bg-primary-blue text-white shadow-lg">
+    <div class="flex justify-between items-center h-16 px-4">
       <div class="flex items-center space-x-2">
-        <button id="menu-btn" class="md:hidden">
-          <!-- Burger icon -->
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Burger menu (mobile) -->
+        <button id="menu-toggle" class="md:hidden focus:outline-none">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"/>
+                  d="M4 6h16M4 12h16M4 18h16"/>
           </svg>
         </button>
-        <span class="text-lg font-bold">Mon Premier Stage - Admin</span>
+        <span class="text-xl font-bold">Mon Premier Stage - Administration</span>
       </div>
-      <div>
-        <button class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm">Déconnexion</button>
+
+      <div class="flex items-center space-x-4">
+        <span class="text-sm">Administrateur</span>
+        <a href="{% url "deconnexion" %}" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg font-medium transition-colors">
+          Déconnexion
+        </a>
+        
       </div>
     </div>
   </header>
 
-  <div class="flex">
+  <!-- Overlay -->
+  <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"></div>
+
+  <div class="flex flex-1">
     <!-- Sidebar -->
-    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 w-64 bg-primary-blue text-white 
-      transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out z-50">
-      <nav class="mt-8 px-4 space-y-2">
-        <a href="{% url 'admindashboard' %}" class="block px-4 py-2 rounded hover:bg-blue-800">Tableau de bord</a>
-        <a href="{% url 'liste_stagiaires' %}" class="block px-4 py-2 rounded hover:bg-blue-800">Utilisateurs</a>
-        <a href="{% url 'liste_entreprise' %}" class="block px-4 py-2 rounded hover:bg-blue-800">Entreprises</a>
-        <a href="{% url 'liste_offres' %}" class="block px-4 py-2 rounded hover:bg-blue-800">Offres</a>
-        <a href="{% url 'statistique' %}" class="block px-4 py-2 rounded hover:bg-blue-800">Statistiques</a>
+    <aside id="sidebar"
+           class="fixed inset-y-0 left-0 w-64 bg-primary-blue text-white transform -translate-x-full transition-transform duration-300 z-50 md:relative md:translate-x-0">
+      <nav class="mt-8 space-y-2">
+        <a href="{% url 'admindashboard' %}" class="block px-4 py-2 hover:bg-blue-800">Dashboard</a>
+        <a href="{% url 'liste_entreprise' %}" class="block px-4 py-2 hover:bg-blue-800">Entreprises</a>
+        <a href="{% url 'liste_stagiaires' %}" class="block px-4 py-2 hover:bg-blue-800">Diplômés</a>
+        <a href="{% url 'liste_offres' %}" class="block px-4 py-2 hover:bg-blue-800">Offres</a>
+        <a href="{% url 'admin_candidatures' %}" class="block px-4 py-2 hover:bg-blue-800">Candidatures</a>
+        {% comment %} <a href="{% url 'admin_filieres' %}" class="block px-4 py-2 hover:bg-blue-800">Filières</a> {% endcomment %}
+        <a href="{% url 'statistique' %}" class="block px-4 py-2 hover:bg-blue-800">Statistiques</a>
       </nav>
     </aside>
 
-    <!-- Main content -->
-    <main class="flex-1 p-4 md:p-8 mt-16 md:mt-0">
+    <!-- Contenu principal -->
+    <main class="flex-1 p-6">
       {% block content %}
       {% endblock %}
     </main>
   </div>
 
-  <!-- JS pour toggler le menu -->
   <script>
-    const btn = document.getElementById('menu-btn');
-    const sidebar = document.getElementById('sidebar');
-    btn.addEventListener('click', () => {
-      sidebar.classList.toggle('-translate-x-full');
-    });
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+    const menuToggle = document.getElementById("menu-toggle");
+
+    function toggleMenu() {
+      sidebar.classList.toggle("-translate-x-full");
+      overlay.classList.toggle("hidden");
+    }
+
+    menuToggle.addEventListener("click", toggleMenu);
+    overlay.addEventListener("click", toggleMenu);
   </script>
 </body>
 </html>

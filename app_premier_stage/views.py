@@ -73,10 +73,7 @@ def AdminDashboard(request):
     total_entreprise = Entreprise.objects.count()
     total_offre = OffreEmploi.objects.count()
 
-    dernier_utilisateur = (
-        list(Stagiaire.objects.order_by("-id_stagiaire"))[:3],
-        list(Entreprise.objects.order_by("-id_entreprise"))[:3]
-    )
+    dernier_utilisateur = User.objects.order_by("-id")[:3]
 
     offre_recente = OffreEmploi.objects.order_by("-id_offre")[:5]
     entreprise_en_attente = Entreprise.objects.filter(validation_entreprise=False).order_by("-id_entreprise")[:5]
@@ -88,7 +85,8 @@ def AdminDashboard(request):
         "offre_recente":offre_recente,
         "entreprise_en_attente":entreprise_en_attente
     }
-    return render(request,"admin\dashboard.html",context=context)
+    
+    return render(request,"admin/dashboard.html",context=context)
 
 def Statistiques(request):
     year = request.GET.get("year", timezone.now().year)
@@ -98,7 +96,15 @@ def Statistiques(request):
         OffreEmploi.objects.filter(created_at__year=year)
         .extra(select={"month": "strftime('%%m', created_at)"})  # pour SQLite
         .values("month")
-        .annotate(total=Count("id"))
+        .annotate(total=Count("id_offre"))
+        .order_by("month")
+    )
+
+    stagiaires_par_mois = (
+        Stagiaire.objects.filter(created_at__year=year)
+        .extra(select={"month": "strftime('%%m', created_at)"})  # pour SQLite
+        .values("month")
+        .annotate(total=Count("id_stagiaire"))
         .order_by("month")
     )
 
@@ -107,7 +113,7 @@ def Statistiques(request):
         Entreprise.objects.filter(created_at__year=year)
         .extra(select={"month": "strftime('%%m', created_at)"})
         .values("month")
-        .annotate(total=Count("id"))
+        .annotate(total=Count("id_entreprise"))
         .order_by("month")
     )
 
@@ -116,7 +122,7 @@ def Statistiques(request):
         Candidature.objects.filter(created_at__year=year)
         .extra(select={"month": "strftime('%%m', created_at)"})
         .values("month")
-        .annotate(total=Count("id"))
+        .annotate(total=Count("id_candidature"))
         .order_by("month")
     )
 
@@ -134,14 +140,14 @@ def EntrepriseDashboard(request):
     # if not is_entreprise(user=request.user):
     #     messages.error(request,"Vous n'êtes pas autoriser")
     #     return redirect("connexion")
-    return render(request,"entreprise\dashboard.html")
+    return render(request,"entreprise/dashboard.html")
 
 @login_required(login_url="connexion")
 def DiplomeDashboard(request):
     if not is_stagiaire(user=request.user):
         messages.error(request,"Vous n'êtes pas autoriser")
         return redirect("connexion")
-    return render(request,"diplome\dashboard.html")
+    return render(request,"diplome/dashboard.html")
 
 def Preinscription(request):
     return render(request,"preinscription.html")
@@ -184,16 +190,16 @@ def RegisterEntreprise(request):
     return render(request,"entreprise/registerEntreprise.html")
 
 
-user_passes_test(is_administrateur,login_url="connexion")
-def ValiderEntreprise(request,user_id):
-    user = get_object_or_404(User,id=user_id)
-    entreprise = Entreprise.objects.get(user=user)
-    user.is_active = True
+#user_passes_test(is_administrateur,login_url="connexion")
+def ValiderEntreprise(request,pk):
+    entreprise = get_object_or_404(Entreprise,id_entreprise=pk)
+    user = entreprise.user
     entreprise.validation_entreprise = True
+    user.is_active = True
     user.save()
     entreprise.save()
-    messages.success(request,f"Le compte de {user.username} a été validé avec succès.")
-    return redirect("")
+    messages.success(request,f"Le compte a été validé avec succès.")
+    return redirect("admindashboard")
 
 def RegisterDiplome(request):
     return render(request,"diplome/register_diplome.html")
@@ -222,7 +228,7 @@ def CompleteProfil(request):
         cv_stagiaire=request.FILES.get("cv"),
         photo=request.FILES.get("photo"),
     )
-        messages.success("BIENVENUE SUR VOTRE PROFIL MON PREMIER STAGE")
+        messages.success(request,"BIENVENUE SUR VOTRE PROFIL MON PREMIER STAGE")
         return redirect("diplome")
     return render(request,"diplome/completeprofil.html")
 
@@ -296,10 +302,10 @@ def DetailCandidature(request,pk):
     context = {
         "candidature":candidature
     }
-    return render(request,"diplome\candidature_detail.html",context=context)
+    return render(request,"diplome/candidature_detail.html",context=context)
 
 def OffreCree(request):
-    return render(request,"entreprise\offre_create.html")
+    return render(request,"entreprise/offre_create.html")
 
 def Listecandidature(request):
     return render(request,"entreprise/candidature_offres.html")
@@ -308,10 +314,50 @@ def Detailcandidat(request):
     return render(request,"entreprise/detail_candidat.html")
 
 def ListeEntreprise(request):
-    return render(request,"admin/liste_entreprises.html")
+    entreprise = Entreprise.objects.all()
+    context = {
+        "entreprise":entreprise
+    }
+    return render(request,"admin/liste_entreprises.html",context=context)
 
 def ListeOffre(request):
-    return render(request,"admin/liste_offres.html")
+    offres = OffreEmploi.objects.all()
+    context = {
+        "offres":offres
+    }
+    return render(request,"admin/liste_offres.html",context)
 
 def ListeStagiaire(request):
-    return render(request,"admin/liste_stagiaires.html")
+    stagiaires = Stagiaire.objects.all()
+    context = {
+        "stagiaires":stagiaires
+    }
+    return render(request,"admin/liste_stagiaires.html",context=context)
+
+def AdminCandidature(request):
+    candidatures = Candidature.objects.all()
+    context = {
+        "candidatures":candidatures
+    }
+    return render(request,"admin/liste_candidatures.html",context)
+
+def AdminDetailCandidature(request,pk):
+    candidature = get_object_or_404(Candidature,candidature_id=pk)
+    context = {
+        "candidature":candidature
+    }
+    return render(request,"admin/detail_candidature.html",context)
+
+def AdminDetailStagiaire(request,pk):
+    stagiaire = get_object_or_404(Stagiaire,id_stagiaire=pk)
+    context = {
+        "stagiaire":stagiaire
+    }
+    return render(request,"admin/detail_stagiaire.html",context)
+
+def AdminDetailEntreprise(request,pk):
+    entreprise = get_object_or_404(Entreprise,id_entreprise=pk)
+    context = {
+        "entreprise":entreprise
+    }
+    return render(request,"admin/detail_entreprise.html",context=context)

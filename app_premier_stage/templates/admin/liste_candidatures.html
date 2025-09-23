@@ -14,11 +14,11 @@
   <tbody>
     {% for candidature in candidatures %}
     <tr class="border-b">
-      <td class="px-4 py-2">{{ candidature.offre.titre }}</td>
-      <td class="px-4 py-2">{{ candidature.stagiaire.nom_stagiaire }}</td>
-      <td class="px-4 py-2">{{ candidature.created_at|date:"d/m/Y" }}</td>
-      <td class="px-4 py-2">
-        <a href="{% url 'detail_candidature' candidature.id %}" class="text-blue-600 hover:underline">Détails</a>
+      <td class="text-center px-4 py-2">{{ candidature.offre.titre_poste }}</td>
+      <td class="text-center px-4 py-2">{{ candidature.stagiaire.nom_stagiaire }}</td>
+      <td class="text-center px-4 py-2">{{ candidature.created_at|date:"d/m/Y" }}</td>
+      <td class="text-center px-4 py-2">
+        <a href="{% url 'detailcandidature' candidature.id_candidature %}" class="text-blue-600 hover:underline">Détails</a>
       </td>
     </tr>
     {% endfor %}

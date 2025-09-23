@@ -12,21 +12,21 @@
     </tr>
   </thead>
   <tbody>
-    {% for entreprise in entreprises %}
+    {% for entreprise in entreprise %}
     <tr class="border-b">
-      <td class="px-4 py-2">{{ entreprise.nom }}</td>
-      <td class="px-4 py-2">{{ entreprise.email }}</td>
-      <td class="px-4 py-2">
-        {% if entreprise.valide %}
+      <td class="px-4 py-2">{{ entreprise.nom_entreprise }}</td>
+      <td class="text-center px-4 py-2">{{ entreprise.email_entreprise }}</td>
+      <td class="text-center px-4 py-2">
+        {% if entreprise.validation_entreprise %}
           <span class="text-green-600 font-semibold">Validée</span>
         {% else %}
           <span class="text-red-600 font-semibold">En attente</span>
         {% endif %}
       </td>
-      <td class="px-4 py-2 space-x-2">
-        <a href="{% url 'detail_entreprise' entreprise.id %}" class="text-blue-600 hover:underline">Détails</a>
+      <td class="text-center px-4 py-2 space-x-2">
+        <a href="{% url 'detailentreprise' entreprise.id_entreprise %}" class="text-blue-600 hover:underline">Détails</a>
         {% if not entreprise.valide %}
-        <a href="{% url 'valider_entreprise' entreprise.id %}" class="text-green-600 hover:underline">Valider</a>
+        <a href="{% url 'validerentreprise' entreprise.id_entreprise %}" class="text-green-600 hover:underline">Valider</a>
         {% endif %}
       </td>
     </tr>
