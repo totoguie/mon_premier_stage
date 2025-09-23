@@ -38,7 +38,7 @@
 
         <!-- Formulaire de connexion -->
         <div class="bg-white rounded-lg shadow-lg p-8">
-            <form method="post" action="{% url 'account_login' %}" class="space-y-6">
+            <form method="post"  class="space-y-6">
                 {% csrf_token %}
                 <!-- Email -->
                 <div>
@@ -114,11 +114,11 @@
                     <img src="https://www.svgrepo.com/show/355037/google.svg" class="w-5 h-5 mr-2" alt="Google">
                     <span class="text-sm font-medium text-gray-700">Google</span>
                 </a>
-                <a href="#" 
+                {% comment %} <a href="#" 
                    class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
                     <img src="https://www.svgrepo.com/show/448234/linkedin.svg" class="w-5 h-5 mr-2" alt="LinkedIn">
                     <span class="text-sm font-medium text-gray-700">LinkedIn</span>
-                </a>
+                </a> {% endcomment %}
             </div>
         </div>
 

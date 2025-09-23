@@ -66,44 +66,33 @@
     </div>
   </main>
 
-  <script>
-    const usersChart = new Chart(document.getElementById("usersChart"), {
-      type: "line",
-      data: {
-        labels: ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin"],
-        datasets: [{
-          label: "Utilisateurs inscrits",
-          data: [50, 120, 180, 220, 300, 420],
-          borderColor: "#1E3A8A",
-          backgroundColor: "rgba(30,58,138,0.2)",
-          tension: 0.3,
-          fill: true
-        }]
-      }
-    });
+ <script>
+  const stagiairesData = {{ stagiaires_par_mois|safe }};
+  const entreprisesData = {{ entreprises_par_mois|safe }};
+  const offresData = {{ offres_par_mois|safe }};
+  const candidaturesData = {{ candidatures_par_mois|safe }};
 
-    const offersChart = new Chart(document.getElementById("offersChart"), {
-      type: "doughnut",
+  function renderChart(ctxId, label, data, color) {
+    new Chart(document.getElementById(ctxId), {
+      type: 'line',
       data: {
-        labels: ["Informatique", "Gestion", "Bâtiment", "Électronique", "Mécanique"],
+        labels: data.map(x => "Mois " + x.month),
         datasets: [{
-          data: [40, 25, 15, 10, 10],
-          backgroundColor: ["#1E3A8A", "#F97316", "#10B981", "#F59E0B", "#EF4444"]
+          label: label,
+          data: data.map(x => x.total),
+          borderColor: color,
+          backgroundColor: color,
+          fill: false
         }]
       }
     });
+  }
 
-    const candidaturesChart = new Chart(document.getElementById("candidaturesChart"), {
-      type: "bar",
-      data: {
-        labels: ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin"],
-        datasets: [{
-          label: "Candidatures",
-          data: [80, 140, 200, 260, 320, 400],
-          backgroundColor: "#F97316"
-        }]
-      }
-    });
-  </script>
+  renderChart("chartStagiaires", "Stagiaires", stagiairesData, "#1E3A8A");
+  renderChart("chartEntreprises", "Entreprises", entreprisesData, "#F97316");
+  renderChart("chartOffres", "Offres", offresData, "#10B981");
+  renderChart("chartCandidatures", "Candidatures", candidaturesData, "#DC2626");
+</script>
+
 </body>
 </html>

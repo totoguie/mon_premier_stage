@@ -131,6 +131,5 @@ def add_user_to_stagiaire_group(sender, instance, created, **kwargs):
 def add_user_entreprise_to_entreprise_group(sender, instance, created, *args, **kwargs):
     if created:
         entreprise_groupe, _= Group.objects.get_or_create(name="entreprise")
-
         instance.user.role = "entreprise"
         instance.user.save()

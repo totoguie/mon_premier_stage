@@ -31,22 +31,48 @@
                     
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Type d'offre</label>
-                        <input name="type_offre" type="text" 
-                            placeholder="Ex: Stage académique" 
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                        <select
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                         name="type_offre" >
+                            <option disabled selected >Choisissez le type d'offre</option>
+                            <option value="Stage académique">Stage académique (pour étudiants en cours de formation)</option>
+                            <option value="Stage de perfectionnement">Stage de perfectionnement (pour jeunes diplômés)</option>
+                            <option value="Premier emploi">Premier emploi</option>
+                            <option value="CDD">CDD</option>
+                            <option value="CDI">CDI</option>
+                            <option value="Consultant / Freelance">Consultant / Freelance</option>
+                            <option value="Alternance / apprentissage">Alternance / apprentissage</option>
+                        </select>
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Type de contrat</label>
-                        <input name="type_contrat" type="text" 
-                            placeholder="Ex: Stage, CDD..." 
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                        <select
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" >
+                            <option disabled selected>Choisissez le type de contrat</option>
+                            <option value="CDI">CDI (Contrat à Durée Indéterminée)</option>
+                            <option value="CDD">CDD (Contrat à Durée Déterminée)</option>
+                            <option value="Stage">Stage (avec ou sans convention)</option>
+                            <option value="Contrat d’apprentissage">Contrat d’apprentissage</option>
+                            <option value="Contrat de professionnalisation">Contrat de professionnalisation</option>
+                            <option value="Freelance / Prestation de service">Freelance / Prestation de service</option>
+                        </select>
+                        
                     </div>
                     
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Durée du contrat</label>
-                        <input name="duree_contrat" type="date" 
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                        <select
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                         name="duree_contrat" id="">
+                            <option selected disabled>Quel est la durée du contrat</option>
+                            <option value="3 mois">3 mois</option>
+                            <option value="6 mois">6 mois</option>
+                            <option value="1 an">1 an</option>
+                            <option value="2 ans">2 ans</option>
+                            <option value="Indéterminée">Indéterminée</option>
+                        </select>
+                        
                     </div>
 
                     <div>
