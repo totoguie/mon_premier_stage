@@ -3,105 +3,108 @@
 {% block content %}
 {% include "entreprise/header.html" %}
 
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8">
+
   <!-- SECTION : Statistiques -->
-  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10">
     <!-- Stat 1 -->
-    <div class="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 hover:shadow-lg transition">
-      <div class="w-12 h-12 bg-primary-blue text-white rounded-full flex items-center justify-center">
-        <i class="fas fa-briefcase"></i>
+    <div class="bg-white rounded-lg shadow-md p-4 md:p-6 flex items-center space-x-4 hover:shadow-lg transition">
+      <div class="w-10 h-10 md:w-12 md:h-12 bg-primary-blue text-white rounded-full flex items-center justify-center">
+        <i class="fas fa-briefcase text-sm md:text-base"></i>
       </div>
       <div>
-        <p class="text-sm text-gray-500">Offres Actives</p>
-        <p class="text-xl font-bold text-gray-900">{{ offres_actives }}</p>
+        <p class="text-xs md:text-sm text-gray-500">Offres Actives</p>
+        <p class="text-lg md:text-xl font-bold text-gray-900">{{ offres_actives }}</p>
       </div>
     </div>
 
     <!-- Stat 2 -->
-    <div class="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 hover:shadow-lg transition">
-      <div class="w-12 h-12 bg-primary-orange text-white rounded-full flex items-center justify-center">
-        <i class="fas fa-users"></i>
+    <div class="bg-white rounded-lg shadow-md p-4 md:p-6 flex items-center space-x-4 hover:shadow-lg transition">
+      <div class="w-10 h-10 md:w-12 md:h-12 bg-primary-orange text-white rounded-full flex items-center justify-center">
+        <i class="fas fa-users text-sm md:text-base"></i>
       </div>
       <div>
-        <p class="text-sm text-gray-500">Candidatures reçues</p>
-        <p class="text-xl font-bold text-gray-900">{{ candidatures_total }}</p>
+        <p class="text-xs md:text-sm text-gray-500">Candidatures reçues</p>
+        <p class="text-lg md:text-xl font-bold text-gray-900">{{ candidatures_total }}</p>
       </div>
     </div>
 
     <!-- Stat 3 -->
-    <div class="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 hover:shadow-lg transition">
-      <div class="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center">
-        <i class="fas fa-user-check"></i>
+    <div class="bg-white rounded-lg shadow-md p-4 md:p-6 flex items-center space-x-4 hover:shadow-lg transition">
+      <div class="w-10 h-10 md:w-12 md:h-12 bg-green-500 text-white rounded-full flex items-center justify-center">
+        <i class="fas fa-user-check text-sm md:text-base"></i>
       </div>
       <div>
-        <p class="text-sm text-gray-500">Candidats présélectionnés</p>
-        <p class="text-xl font-bold text-gray-900">{{ candidats_preselectionnes }}</p>
+        <p class="text-xs md:text-sm text-gray-500">Candidats présélectionnés</p>
+        <p class="text-lg md:text-xl font-bold text-gray-900">{{ candidats_preselectionnes }}</p>
       </div>
     </div>
 
     <!-- Stat 4 -->
-    <div class="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 hover:shadow-lg transition">
-      <div class="w-12 h-12 bg-yellow-500 text-white rounded-full flex items-center justify-center">
-        <i class="fas fa-calendar-alt"></i>
+    <div class="bg-white rounded-lg shadow-md p-4 md:p-6 flex items-center space-x-4 hover:shadow-lg transition">
+      <div class="w-10 h-10 md:w-12 md:h-12 bg-yellow-500 text-white rounded-full flex items-center justify-center">
+        <i class="fas fa-calendar-alt text-sm md:text-base"></i>
       </div>
       <div>
-        <p class="text-sm text-gray-500">Entretiens planifiés</p>
-        <p class="text-xl font-bold text-gray-900">{{ entretiens_planifies }}</p>
+        <p class="text-xs md:text-sm text-gray-500">Entretiens planifiés</p>
+        <p class="text-lg md:text-xl font-bold text-gray-900">{{ entretiens_planifies }}</p>
       </div>
     </div>
   </section>
 
   <!-- SECTION Mes Offres -->
   <section class="mb-12">
-    <div class="flex justify-between items-center mb-6">
-      <h2 class="text-2xl font-bold text-primary-blue">Mes Offres</h2>
-      <a href="{% url 'offrecree' %}" class="bg-primary-orange hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+    <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-4 gap-3">
+      <h2 class="text-xl sm:text-2xl font-bold text-primary-blue">Mes Offres</h2>
+      <a href="{% url 'offrecree' %}" class="bg-primary-orange hover:bg-orange-600 text-white px-4 sm:px-6 py-2 rounded-lg font-medium text-sm sm:text-base transition-colors">
         + Créer une nouvelle offre
       </a>
     </div>
     
     <div class="bg-white rounded-lg shadow-md overflow-hidden">
       <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
+        <table class="min-w-full text-sm">
           <thead class="bg-gray-50">
             <tr>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Titre</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Filière</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Localisation</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Candidatures</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              <th class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Titre</th>
+              <th class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Filière</th>
+              <th class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Localisation</th>
+              <th class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Statut</th>
+              <th class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Candidatures</th>
+              <th class="px-4 sm:px-6 py-3">Actions</th>
             </tr>
           </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
+          <tbody class="divide-y divide-gray-200">
             {% for offre in offres %}
             <tr class="hover:bg-gray-50">
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm font-medium text-gray-900">{{ offre.titre_offre }}</div>
-                <div class="text-sm text-gray-500">Publié le {{ offre.created_at|date:"d/m/Y" }}</div>
+              <td class="px-4 sm:px-6 py-4">
+                <div class="text-sm font-medium text-gray-900">{{ offre.titre_poste }}</div>
+                <div class="text-xs text-gray-500">Publié le {{ offre.created_at|date:"d/m/Y" }}</div>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="bg-blue-100 text-primary-blue px-2 py-1 rounded-full text-xs font-medium">{{ offre.filiere }}</span>
+              <td class="px-4 sm:px-6 py-4">
+                <span class="bg-blue-100 text-primary-blue px-2 py-1 rounded-full text-xs">{{ offre.domaine_poste }}</span>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ offre.localisation }}</td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                {% if offre.active %}
-                  <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">Active</span>
+              <td class="px-4 sm:px-6 py-4 text-sm text-gray-900">{{ offre.localisation_offre }}</td>
+              <td class="px-4  sm:px-6 py-4">
+                {% if offre.statut_offre %}
+                  <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs">Active</span>
                 {% else %}
-                  <span class="bg-red-100 text-red-700 px-2 py-1 rounded-full text-xs font-medium">Inactive</span>
+                  <span class="bg-red-100 text-red-700 px-2 py-1 rounded-full text-xs">Inactive</span>
                 {% endif %}
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                <span class="font-medium">{{ offre.candidatures.count }}</span> candidatures
+              <td class="px-4 sm:px-6 py-4 text-sm text-gray-900">
+                <span class="font-medium">{{ offre.offre_postule.candidatures.count }}</span> candidatures
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                <a href="{% url 'modifier_offre' offre.id_offre %}" class="text-primary-blue hover:text-blue-800">Modifier</a>
-                <a href="{% url 'supprimer_offre' offre.id_offre %}" class="text-red-600 hover:text-red-800">Supprimer</a>
+              <td class="px-4 text-center sm:px-6 py-4 text-sm space-x-2">
+                <a href="#" class="text-primary-blue hover:underline">Modifier</a>
+                <a href="#" class="text-red-600 hover:underline">Supprimer</a>
+                <a href="{% url "liste_candidatures" offre.id_offre %}" class="text-primary-blue hover:underline">Candidatures</a>
+                
               </td>
             </tr>
             {% empty %}
             <tr>
-              <td colspan="6" class="px-6 py-4 text-center text-gray-500">Aucune offre publiée.</td>
+              <td colspan="6" class="px-4 sm:px-6 py-4 text-center text-gray-500">Aucune offre publiée.</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -112,13 +115,13 @@
 
   <!-- SECTION Profils diplômés -->
   <section>
-    <h2 class="text-2xl font-bold text-primary-blue mb-6">Profils de diplômés</h2>
+    <h2 class="text-xl sm:text-2xl font-bold text-primary-blue mb-6">Profils de diplômés</h2>
 
     <!-- Barre recherche -->
-    <form method="get" class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <form method="get" class="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-6">
       <div class="flex flex-col md:flex-row gap-4">
         <div class="flex-1">
-          <select name="filiere" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange">
+          <select name="filiere" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange">
             <option value="">Toutes les filières</option>
             {% for filiere in filieres %}
               <option value="{{ filiere }}">{{ filiere }}</option>
@@ -127,9 +130,9 @@
         </div>
         <div class="flex-1">
           <input type="text" name="q" placeholder="Rechercher par nom ou établissement..." 
-                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange">
+                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange">
         </div>
-        <button type="submit" class="bg-primary-orange hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+        <button type="submit" class="bg-primary-orange hover:bg-orange-600 text-white px-4 sm:px-6 py-2 rounded-lg font-medium text-sm sm:text-base transition-colors">
           Rechercher
         </button>
       </div>
@@ -138,7 +141,7 @@
     <!-- Liste CVs -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {% for stagiaire in stagiaires %}
-      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+      <div class="bg-white rounded-lg shadow-md p-4 sm:p-6 hover:shadow-lg transition-shadow">
         <div class="flex items-center mb-4">
           <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center mr-4">
             <span class="text-gray-600 font-medium">{{ stagiaire.nom_stagiaire|slice:":1" }}{{ stagiaire.prenom_stagiaire|slice:":1" }}</span>
@@ -151,17 +154,17 @@
         <p class="text-sm text-gray-600 mb-2">{{ stagiaire.etablissement }}</p>
         <p class="text-sm text-gray-600 mb-4">Téléphone : {{ stagiaire.telephone_stagiaire }}</p>
         <div class="flex items-center justify-between">
-          <span class="bg-blue-100 text-primary-blue px-2 py-1 rounded-full text-xs font-medium">Disponible</span>
+          <span class="bg-blue-100 text-primary-blue px-2 py-1 rounded-full text-xs">Disponible</span>
           {% if stagiaire.cv_stagiaire %}
             <a href="{{ stagiaire.cv_stagiaire.url }}" target="_blank"
-               class="bg-primary-orange hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+               class="bg-primary-orange hover:bg-orange-600 text-white px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors">
               Voir CV
             </a>
           {% endif %}
         </div>
       </div>
       {% empty %}
-      <p class="text-gray-500">Aucun profil trouvé.</p>
+      <p class="text-gray-500 col-span-full text-center">Aucun profil trouvé.</p>
       {% endfor %}
     </div>
   </section>

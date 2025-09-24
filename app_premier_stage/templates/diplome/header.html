@@ -15,8 +15,8 @@
                 <!-- Menu desktop -->
                 <nav class="hidden md:flex space-x-8">
                     <a href="{% url 'diplome' %}" class="text-primary-orange font-medium border-b-2 border-primary-orange pb-1">Tableau de bord</a>
-                    <a href="{% url 'candidature' %}" class="hover:text-primary-orange transition-colors">Mes candidatures</a>
-                    {% comment %} <a href="#" class="hover:text-primary-orange transition-colors">Alertes</a> {% endcomment %}
+                    <a href="{% url "offres" %}" class="hover:text-primary-orange transition-colors">Offres</a>
+                    <a href="{% url 'candidature' %}" class="hover:text-primary-orange transition-colors">Mes candidatures</a> 
                     <a href="{% url "deconnexion" %}" class="hover:text-red-400 transition-colors">Déconnexion</a>
                 </nav>
 

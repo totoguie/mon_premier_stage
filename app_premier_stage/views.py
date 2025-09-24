@@ -13,7 +13,11 @@ import json
 
 
 def Index(request):
-    return render(request,"home.html")
+    offres_recentes = OffreEmploi.objects.order_by("-created_at")[:3]
+    context={
+        "offres_recentes":offres_recentes, 
+    }
+    return render(request,"home.html",context=context)
 
 def is_entreprise(user):
     return user.groups.filter(name="entreprise").exists()
@@ -150,7 +154,7 @@ def EntrepriseDashboard(request):
     entretiens_planifies = Candidature.objects.filter(offre__entreprise=entreprise, statut_candidature="entretien").count()
 
     # --- Offres de l’entreprise
-    offres = OffreEmploi.objects.filter(entreprise=entreprise).order_by("-created_at")
+    offres = OffreEmploi.objects.filter(entreprise=entreprise).order_by("-created_at")[:3]
 
     # --- Recherche de stagiaires
     filiere_filter = request.GET.get("filiere", "")
@@ -177,15 +181,18 @@ def EntrepriseDashboard(request):
         "offres": offres,
         "stagiaires": stagiaires[:12],  # on limite pour ne pas surcharger la page
         "filieres": filieres,
+        "entreprise":entreprise,
     }
     return render(request, "entreprise/dashboard.html", context)
 
-@login_required(login_url="connexion")
+user_passes_test(is_stagiaire,login_url="connexion")
 def DiplomeDashboard(request):
-    if not is_stagiaire(user=request.user):
-        messages.error(request,"Vous n'êtes pas autoriser")
-        return redirect("connexion")
-    return render(request,"diplome/dashboard.html")
+    stagiaire = get_object_or_404(Stagiaire,user=request.user)
+    offres_recommandees = OffreEmploi.objects.filter(domaine_poste__icontains=stagiaire.filiere_stagiaire)
+    context={
+        "offres_recommandees":offres_recommandees
+    }
+    return render(request,"diplome/dashboard.html",context=context)
 
 def Preinscription(request):
     return render(request,"preinscription.html")
@@ -324,7 +331,7 @@ def DetailOffre(request,pk):
     context = {
         "offre":offre
     }
-    return render(request,"diplome/offre_detail.html",context)
+    return render(request,"diplome/offre_detail.html",context=context)
 
 
 def Mescandidatures(request):
@@ -369,19 +376,25 @@ def OffreCree(request):
                 mission_offre=request.POST.get("mission_offre")
             )
 
-            messages.success(request, "✅ Offre ajoutée avec succès")
+            messages.success(request, "Offre ajoutée avec succès")
             return redirect("entreprise")
 
         except Exception as e:
-            messages.error(request, f"❌ Erreur : {e}")
+            messages.error(request, f"Une erreur s'est produite.")
             return redirect("offrecree")
 
     return render(request, "entreprise/offre_create.html")
 
-def Listecandidature(request):
-    return render(request,"entreprise/candidature_offres.html")
+def Listecandidature(request,pk):
+    offre = get_object_or_404(OffreEmploi,id_offre=pk)
+    candidatures = Candidature.objects.filter(offre=offre)
+    context={
+        "candidatures":candidatures,
+        "offre":offre,
+    }
+    return render(request,"entreprise/candidature_offres.html",context=context)
 
-def Detailcandidat(request,pk):
+def Detailcandidat(request):
     return render(request,"entreprise/detail_candidat.html")
 
 def ListeEntreprise(request):

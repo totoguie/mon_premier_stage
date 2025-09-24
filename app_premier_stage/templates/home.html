@@ -141,62 +141,25 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-3xl font-bold text-primary-blue text-center mb-12">Offres Récentes</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Offre 1 -->
+                    {% for offre in offres_recentes  %}
                     <div class="bg-white border border-medium-gray rounded-lg p-6 hover:shadow-lg transition-shadow">
                         <div class="mb-4">
-                            <span class="bg-blue-100 text-primary-blue px-3 py-1 rounded-full text-sm font-medium">Informatique</span>
+                            <span class="bg-blue-100 text-primary-blue px-3 py-1 rounded-full text-sm font-medium">{{offre.domaine_poste}}</span>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Développeur Web Junior</h3>
-                        <p class="text-gray-600 mb-2 font-medium">TechCorp Côte d'Ivoire</p>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">{{offre.titre_poste}}</h3>
+                        <p class="text-gray-600 mb-2 font-medium">{{offre.offres.nom_entreprise}}</p>
                         <div class="flex items-center text-gray-500 mb-4">
                             <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-sm">Abidjan, Plateau</span>
+                            <span class="text-sm">{{offre.localisation_offre}}</span>
                         </div>
-                        <p class="text-gray-600 text-sm mb-4">Stage de 6 mois en développement d'applications web modernes avec React et Django...</p>
-                        <a href="{% url "detail" %}"><button class="w-full bg-primary-orange hover:bg-orange-600 text-white py-2 px-4 rounded-lg font-medium transition-colors">
+                        <p class="text-gray-600 text-sm mb-4">{{offre.description_offre}}</p>
+                        <a href="{% url "detail" offre.id_offre %}"><button class="w-full bg-primary-orange hover:bg-orange-600 text-white py-2 px-4 rounded-lg font-medium transition-colors">
                             Voir l'offre
                         </button></a>
                     </div>
-
-                    <!-- Offre 2 -->
-                    <div class="bg-white border border-medium-gray rounded-lg p-6 hover:shadow-lg transition-shadow">
-                        <div class="mb-4">
-                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">Gestion</span>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Assistant Comptable</h3>
-                        <p class="text-gray-600 mb-2 font-medium">Cabinet KPMG Abidjan</p>
-                        <div class="flex items-center text-gray-500 mb-4">
-                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
-                            </svg>
-                            <span class="text-sm">Abidjan, Cocody</span>
-                        </div>
-                        <p class="text-gray-600 text-sm mb-4">Accompagnement dans la tenue des livres comptables et préparation des déclarations fiscales...</p>
-                        <a href="{% url "detail" %}"><button class="w-full bg-primary-orange hover:bg-orange-600 text-white py-2 px-4 rounded-lg font-medium transition-colors">
-                            Voir l'offre
-                        </button></a>
-                    </div>
-
-                    <!-- Offre 3 -->
-                    <div class="bg-white border border-medium-gray rounded-lg p-6 hover:shadow-lg transition-shadow">
-                        <div class="mb-4">
-                            <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">Électronique</span>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Technicien Maintenance</h3>
-                        <p class="text-gray-600 mb-2 font-medium">Orange Côte d'Ivoire</p>
-                        <div class="flex items-center text-gray-500 mb-4">
-                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
-                            </svg>
-                            <span class="text-sm">Yamoussoukro</span>
-                        </div>
-                        <p class="text-gray-600 text-sm mb-4">Maintenance préventive et corrective des équipements de télécommunication...</p>
-                        <a href="{% url "detail" %}"><button class="w-full bg-primary-orange hover:bg-orange-600 text-white py-2 px-4 rounded-lg font-medium transition-colors">
-                            Voir l'offre
-                        </button></a>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>
