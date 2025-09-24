@@ -7,6 +7,7 @@ urlpatterns = [
     path('Deconnexion',views.Deconnexion,name="deconnexion"),
     path('diplome/detailoffre/<uuid:pk>/',views.DetailOffre,name='detail'),
     path('offres/',views.Offres,name='offres'),
+    path('postuler/<uuid:pk>/',views.Postuler,name='postuler'),
     path('entreprise/',views.EntrepriseDashboard,name='entreprise'),
     path('diplome/',views.DiplomeDashboard,name='diplome'),
     path('admindashboard/',views.AdminDashboard,name='admindashboard'),

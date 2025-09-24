@@ -189,8 +189,12 @@ user_passes_test(is_stagiaire,login_url="connexion")
 def DiplomeDashboard(request):
     stagiaire = get_object_or_404(Stagiaire,user=request.user)
     offres_recommandees = OffreEmploi.objects.filter(domaine_poste__icontains=stagiaire.filiere_stagiaire)
+    candidatures = Candidature.objects.filter(stagiaire=stagiaire)
+
     context={
-        "offres_recommandees":offres_recommandees
+        "offres_recommandees":offres_recommandees,
+        "stagiaire":stagiaire,
+        "candidatures":candidatures,
     }
     return render(request,"diplome/dashboard.html",context=context)
 
@@ -328,21 +332,55 @@ def Offres(request):
 
 def DetailOffre(request,pk):
     offre = get_object_or_404(OffreEmploi,id_offre=pk)
+    stagiaire = request.user
+    a_postuler = Candidature.objects.filter(stagiaire=stagiaire,offre=offre).exists()
+    mission = []
+    competences = []
+    if offre.mission_offre:
+        missions = [m.strip() for m in offre.mission_offre.split(",") if m.strip()]
+
+    if offre.competence_requis:
+        competences = [m.strip() for m in offre.competence_requis.split(",") if m.strip()]
+
     context = {
-        "offre":offre
+        "offre":offre,
+        "missions":missions,
+        "competences":competences,
+        "a_postuler":a_postuler
     }
     return render(request,"diplome/offre_detail.html",context=context)
 
+user_passes_test(is_stagiaire,login_url="connexion")
+@transaction.atomic
+def Postuler(request,pk):
+    offre = get_object_or_404(OffreEmploi,id_offre=pk)
+    stagiaire = get_object_or_404(Stagiaire,user=request.user)
+    a_postuler = Candidature.objects.filter(stagiaire=stagiaire,offre=offre).exists()
 
+    if a_postuler:
+        messages.info(request,"Vous avez déjà postulé à cette offre.")
+        return redirect("offres")
+    else:
+        candidature = Candidature.objects.create(
+            stagiaire = stagiaire,
+            offre = offre,
+        )
+        messages.success(request,"Votre offre a bien été envoyée au recruteur")
+        return redirect("offres")
+    return
+    
+
+user_passes_test(is_stagiaire,login_url="connexion")
 def Mescandidatures(request):
     candidatures = (
         Candidature.objects
         .filter(stagiaire__user=request.user)
         .select_related("offre", "stagiaire", "offre__entreprise")
-        .order_by("-date_postulation")  # pour voir la plus récente en premier
+        .order_by("-date_postulation") 
     )
     return render(request, "diplome/candidatures.html", {"candidatures": candidatures})
 
+user_passes_test(is_stagiaire,login_url="connexion")
 def DetailCandidature(request,pk):
     candidature = Candidature.objects.get(id_candidature=pk)
     context = {
@@ -385,6 +423,7 @@ def OffreCree(request):
 
     return render(request, "entreprise/offre_create.html")
 
+@user_passes_test(is_entreprise, login_url="connexion")
 def Listecandidature(request,pk):
     offre = get_object_or_404(OffreEmploi,id_offre=pk)
     candidatures = Candidature.objects.filter(offre=offre)
@@ -394,6 +433,7 @@ def Listecandidature(request,pk):
     }
     return render(request,"entreprise/candidature_offres.html",context=context)
 
+@user_passes_test(is_entreprise, login_url="connexion")
 def Detailcandidat(request):
     return render(request,"entreprise/detail_candidat.html")
 

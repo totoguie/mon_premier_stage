@@ -86,7 +86,7 @@ class Candidature(models.Model):
     id_candidature = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     stagiaire = models.ForeignKey(Stagiaire, on_delete=models.CASCADE, related_name="candidat")
     offre = models.ForeignKey(OffreEmploi, on_delete=models.CASCADE, related_name="offre_postule")
-    statut_candidature = models.CharField(max_length=15, default="envoyée")
+    statut_candidature = models.CharField(max_length=15, default="candidature envoyée")
     date_postulation = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

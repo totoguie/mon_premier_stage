@@ -54,6 +54,30 @@
         </div>
     </header>
 
+    {% if messages %}
+    <div id="popup-container" class="fixed top-5 right-5 space-y-2 z-50">
+    {% for message in messages %}
+    <div class="popup px-4 py-3 rounded-lg shadow-lg {{ message.tags }} transition transform scale-95 opacity-0">
+        <p class="font-medium">{{ message }}</p>
+    </div>
+    {% endfor %}
+    </div>
+    <script>
+    document.querySelectorAll('.popup').forEach((popup, i) => {
+        setTimeout(() => {
+        popup.classList.remove('opacity-0', 'scale-95');
+        popup.classList.add('opacity-100', 'scale-100');
+        }, 100 * i);
+
+        // auto-disparition après 4s
+        setTimeout(() => {
+        popup.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => popup.remove(), 500);
+        }, 4000 + i * 500);
+    });
+    </script>
+    {% endif %}
+
     <script>
         // Gestion du menu mobile
         const burger = document.getElementById('burger');

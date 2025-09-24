@@ -23,9 +23,9 @@
                             <span>🗓️ {{offre.created_at}}</span>
                         </div>
                     </div>
-                    <button class="w-full md:w-auto bg-primary-orange hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors text-center">
+                    <a href={% url "postuler" offre.id_offre %}> <button class="w-full md:w-auto bg-primary-orange hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors text-center">
                         Postuler à ce stage
-                    </button>
+                    </button></a>
                 </div>
             </div>
 
@@ -37,12 +37,9 @@
                     {% comment %} <p>Ce stage vous permettra d’acquérir une expérience pratique ...</p> {% endcomment %}
                     <h4 class="text-base md:text-lg font-semibold text-gray-900 mt-6">Missions principales :</h4>
                     <ul class="list-disc list-inside space-y-1">
-                        <li>Développement d’interfaces avec React.js</li>
-                        <li>Création d’APIs REST avec Django</li>
-                        <li>Intégration PostgreSQL</li>
-                        <li>Tests unitaires et d’intégration</li>
-                        <li>Participation aux revues de code</li>
-                        <li>Documentation technique</li>
+                        {% for mission in missions %}
+                        <li>{{mission}}</li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
@@ -54,10 +51,11 @@
                     <div>
                         <h4 class="font-semibold text-gray-900 mb-2">Compétences techniques :</h4>
                         <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs md:text-sm">HTML/CSS</span>
-                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs md:text-sm">React.js</span>
-                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs md:text-sm">Python</span>
-                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs md:text-sm">Django</span>
+                            {% for competence in competences %}
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs md:text-sm">
+                                {{competence}}
+                            </span>
+                            {% endfor %}
                         </div>
                     </div>
                     <div>
@@ -79,43 +77,43 @@
                 <h3 class="text-base md:text-lg font-bold text-primary-blue mb-4">À propos de l'entreprise</h3>
                 <div class="flex items-center mb-4">
                     <div class="w-12 h-12 md:w-16 md:h-16 bg-gray-200 rounded-lg flex items-center justify-center mr-4">
-                        <span class="text-gray-600 font-bold">TC</span>
+                        <span class="text-gray-600 font-bold">{{offre.entreprise.nom_entreprise|slice:2|upper}}</span>
                     </div>
                     <div>
-                        <h4 class="font-semibold text-gray-900">TechCorp CI</h4>
-                        <p class="text-xs md:text-sm text-gray-600">Technologie & Innovation</p>
+                        <h4 class="font-semibold text-gray-900">{{offre.entreprise.nom_entreprise}}</h4>
+                        <p class="text-xs md:text-sm text-gray-600">{{offre.entreprise.domaine_expertise}}</p>
                     </div>
                 </div>
                 <p class="text-sm text-gray-700 mb-4">
-                    TechCorp CI est une entreprise leader dans le développement de solutions innovantes...
+                    {{offre.entreprise.nom_entreprise}} est une entreprise dans le développement de solutions innovantes...
                 </p>
                 <ul class="space-y-2 text-sm text-gray-600">
-                    <li>📍 Abidjan, Plateau</li>
-                    <li>📞 +225 XX XX XX XX</li>
-                    <li>✉ contact@techcorp.ci</li>
-                    <li>👥 50-100 employés</li>
+                    <li>📍 {{offre.entreprise.localisation_entreprise}}</li>
+                    <li>📞 +225 {{offre.entreprise.telephone_entreprise}}</li>
+                    <li>✉ {{offre.entreprise.email_entreprise}}</li>
+                    <li>👥 {{offre.entreprise.nombre_employe}} employés</li>
                 </ul>
-                <button class="mt-4 w-full bg-primary-blue hover:bg-blue-800 text-white py-2 px-4 rounded-lg text-sm md:text-base">
+                <a href="{% url "offres" %}"> <button class="mt-4 w-full bg-primary-blue hover:bg-blue-800 text-white py-2 px-4 rounded-lg text-sm md:text-base">
                     Voir toutes les offres
-                </button>
+                </button></a>
             </div>
 
             <!-- Détails stage -->
             <div class="bg-white rounded-lg shadow-md p-6">
-                <h3 class="text-base md:text-lg font-bold text-primary-blue mb-4">Détails du stage</h3>
+                <h3 class="text-base md:text-lg font-bold text-primary-blue mb-4">Détails du poste</h3>
                 <div class="space-y-2 text-sm md:text-base">
-                    <div class="flex justify-between"><span>Type :</span><span class="font-medium">Stage</span></div>
-                    <div class="flex justify-between"><span>Durée :</span><span class="font-medium">6 mois</span></div>
-                    <div class="flex justify-between"><span>Début :</span><span class="font-medium">Janvier 2025</span></div>
-                    <div class="flex justify-between"><span>Rémunération :</span><span class="font-medium">100,000 FCFA</span></div>
+                    <div class="flex justify-between"><span>Type :</span><span class="font-medium">{{offre.type_offre}}</span></div>
+                    <div class="flex justify-between"><span>Durée :</span><span class="font-medium">{{offre.duree_contrat}}</span></div>
+                    <div class="flex justify-between"><span>Début :</span><span class="font-medium">{{offre.date_debut_offre}}</span></div>
+                    <div class="flex justify-between"><span>Rémunération :</span><span class="font-medium">{{offre.remuneration_offre}} FCFA</span></div>
                 </div>
             </div>
 
             <!-- Bouton fixe mobile -->
             <div class="lg:hidden fixed bottom-0 left-0 right-0 p-4 bg-white border-t shadow-lg">
-                <button class="w-full bg-primary-orange hover:bg-orange-600 text-white py-3 rounded-lg font-semibold text-base">
+                <a href="{% url "postuler" offre.id_offre %}"> <button class="w-full bg-primary-orange hover:bg-orange-600 text-white py-3 rounded-lg font-semibold text-base">
                     Postuler à ce stage
-                </button>
+                </button></a>
             </div>
         </div>
     </div>
