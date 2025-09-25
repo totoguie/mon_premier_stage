@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}Mes Offres{% endblock %}
+{% block content %}
+{% include "entreprise/header.html" %}
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  
+  <!-- HEADER + ACTIONS -->
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
+    <h2 class="text-2xl font-bold text-primary-blue">Mes Offres</h2>
+    <a href="{% url 'offrecree' %}" 
+       class="inline-block bg-primary-orange text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors">
+       + Nouvelle offre
+    </a>
+  </div>
+
+  <!-- BARRE DE RECHERCHE -->
+  <form method="get" class="mb-6">
+    <div class="flex flex-col sm:flex-row gap-3">
+      <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Rechercher une offre (titre ou domaine)..."
+             class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange">
+      <button type="submit" 
+              class="bg-primary-blue hover:bg-blue-800 text-white px-6 py-2 rounded-lg transition-colors">
+        Rechercher
+      </button>
+    </div>
+  </form>
+
+  <!-- TABLEAU OFFRES -->
+  <div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200 text-sm">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left font-medium text-gray-500">Titre</th>
+            <th class="px-6 py-3 text-center font-medium text-gray-500">Type</th>
+            <th class="px-6 py-3 text-center font-medium text-gray-500">Contrat</th>
+            <th class="px-6 py-3 text-center font-medium text-gray-500">Statut</th>
+            <th class="px-6 py-3 text-center font-medium text-gray-500">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          {% for offre in offres %}
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-4">
+              <div class="font-semibold text-gray-900">{{ offre.titre_poste }}</div>
+              <div class="text-xs text-gray-500">Publié le {{ offre.created_at|date:"d/m/Y" }}</div>
+            </td>
+            <td class="text-center px-6 py-4">{{ offre.type_offre }}</td>
+            <td class="text-center px-6 py-4">{{ offre.type_contrat }}</td>
+            <td class="text-center px-6 py-4">
+              {% if offre.statut_offre %}
+                <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs">Active</span>
+              {% else %}
+                <span class="bg-red-100 text-red-700 px-2 py-1 rounded-full text-xs">Inactive</span>
+              {% endif %}
+            </td>
+            <td class="text-center px-6 py-4 space-x-3">
+              {% comment %} <a href="{% url 'modifier_offre' offre.id_offre %}" class="text-primary-blue hover:underline">Modifier</a>
+              <a href="{% url 'supprimer_offre' offre.id_offre %}" class="text-red-600 hover:underline">Supprimer</a> {% endcomment %}
+              <a href="{% url 'liste_candidatures' offre.id_offre %}" class="text-primary-blue hover:underline">Candidatures</a> 
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="5" class="px-6 py-4 text-center text-gray-500">Aucune offre trouvée.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PAGINATION -->
+  {% if offres.has_other_pages %}
+  <div class="mt-6 flex justify-center space-x-2">
+    {% if offres.has_previous %}
+      <a href="?page={{ offres.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" 
+         class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">&laquo;</a>
+    {% endif %}
+
+    {% for num in offres.paginator.page_range %}
+      {% if offres.number == num %}
+        <span class="px-3 py-1 bg-primary-blue text-white rounded">{{ num }}</span>
+      {% else %}
+        <a href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" 
+           class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if offres.has_next %}
+      <a href="?page={{ offres.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" 
+         class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">&raquo;</a>
+    {% endif %}
+  </div>
+  {% endif %}
+</main>
+{% endblock %}

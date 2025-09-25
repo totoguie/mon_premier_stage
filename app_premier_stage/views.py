@@ -330,25 +330,35 @@ def Offres(request):
     }
     return render(request,"diplome/offres.html",context=context)
 
-def DetailOffre(request,pk):
-    offre = get_object_or_404(OffreEmploi,id_offre=pk)
-    stagiaire = request.user
-    a_postuler = Candidature.objects.filter(stagiaire=stagiaire,offre=offre).exists()
-    mission = []
+@login_required(login_url="connexion")
+def DetailOffre(request, pk):
+    offre = get_object_or_404(OffreEmploi, id_offre=pk)
+
+    a_postule = False
+    missions = []
     competences = []
+
+    if hasattr(request.user, "profil_stagiaire"):
+        stagiaire = request.user.profil_stagiaire  
+
+        if Candidature.objects.filter(stagiaire=stagiaire, offre=offre).exists():
+            a_postule = True
+
+    # Missions principales
     if offre.mission_offre:
         missions = [m.strip() for m in offre.mission_offre.split(",") if m.strip()]
 
+    # Compétences techniques
     if offre.competence_requis:
-        competences = [m.strip() for m in offre.competence_requis.split(",") if m.strip()]
+        competences = [c.strip() for c in offre.competence_requis.split(",") if c.strip()]
 
     context = {
-        "offre":offre,
-        "missions":missions,
-        "competences":competences,
-        "a_postuler":a_postuler
+        "offre": offre,
+        "missions": missions,
+        "competences": competences,
+        "a_postule": a_postule,
     }
-    return render(request,"diplome/offre_detail.html",context=context)
+    return render(request, "diplome/offre_detail.html", context)
 
 user_passes_test(is_stagiaire,login_url="connexion")
 @transaction.atomic
@@ -434,8 +444,30 @@ def Listecandidature(request,pk):
     return render(request,"entreprise/candidature_offres.html",context=context)
 
 @user_passes_test(is_entreprise, login_url="connexion")
-def Detailcandidat(request):
-    return render(request,"entreprise/detail_candidat.html")
+def Detailcandidat(request,pk):
+    candidature = get_object_or_404(Candidature,id_candidature=pk)
+    
+    context = {
+        "candidature":candidature
+    }
+    return render(request,"entreprise/detail_candidat.html",context=context)
+
+@login_required(login_url="connexion")
+def MesOffres(request):
+    user = request.user
+    query = request.GET.get("q", "")
+    offre_list = OffreEmploi.objects.filter(user=user)
+    if query:
+        offre_list = offre_list.filter(
+            Q(titre_poste__icontains=query) | Q(domaine_poste__icontains=query)
+        )
+    paginator = Paginator(offre_list,5)
+    pages = request.GET.get("page")
+    offres = paginator.get_page(pages)
+    context ={
+        "offres":offres,
+    }
+    return render(request,"entreprise/mes_offre.html",context=context)
 
 def ListeEntreprise(request):
     entreprise = Entreprise.objects.all()

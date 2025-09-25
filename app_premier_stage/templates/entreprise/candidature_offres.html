@@ -32,16 +32,16 @@
                                 <div class="flex items-center">
                                     <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mr-3">
                                         <span class="text-gray-600 font-medium">
-                                            {{ cand.candidat.nom_stagiaire|first|upper }}{{ cand.candidat.prenom_stagiaire|first|upper }}
+                                            {{ cand.stagiaire.nom_stagiaire|first|upper }}{{ cand.stagiaire.prenom_stagiaire|first|upper }}
                                         </span>
                                     </div>
                                     <div>
-                                        <p class="font-semibold text-gray-900">{{ cand.candidat.nom_stagiaire }} {{ cand.candidat.prenom_stagiaire }}</p>
-                                        <p class="text-sm text-gray-500">{{ cand.candidat.email_stagiaire }}</p>
+                                        <p class="font-semibold text-gray-900">{{ cand.stagiaire.nom_stagiaire }} {{ cand.stagiaire.prenom_stagiaire }}</p>
+                                        <p class="text-sm text-gray-500">{{ cand.stagiaire.email_stagiaire }}</p>
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 text-sm text-gray-600">{{ cand.candidat.etablissement }}</td>
+                            <td class="px-6 py-4 text-sm text-gray-600">{{ cand.stagiaire.etablissement }}</td>
                             <td class="px-6 py-4 text-sm text-gray-600">{{ cand.date_postulation|date:"d/m/Y" }}</td>
                             <td class="px-6 py-4">
                                 <span class="px-3 py-1 rounded-full text-xs font-medium
@@ -53,7 +53,7 @@
                                 </span>
                             </td>
                             <td class="px-6 py-4 space-x-2">
-                                <a href="{% url 'detailcandidat' cand.candidat.id_candidature %}" 
+                                <a href="{% url "detailcandidat" cand.id_candidature %}" 
                                    class="text-primary-blue hover:text-blue-800 font-medium">Voir détail</a>
                             </td>
                         </tr>
