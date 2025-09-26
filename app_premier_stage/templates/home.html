@@ -34,8 +34,9 @@
                     <span class="text-xl font-bold">Mon Premier Stage</span>
                 </div>
                 <nav class="hidden md:flex space-x-8">
-                    <a href="{% url "diplome" %}" class="hover:text-primary-orange transition-colors">Espace Diplômé</a>
-                    <a href="{% url "entreprise" %}" class="hover:text-primary-orange transition-colors">Espace Entreprise</a>
+                    {% comment %} <a href="{% url "diplome" %}" class="hover:text-primary-orange transition-colors">Espace Diplômé</a>
+                    <a href="{% url "entreprise" %}" class="hover:text-primary-orange transition-colors">Espace Entreprise</a> {% endcomment %}
+                    <a href="{% url "preinscription" %}" class="hover:text-primary-orange transition-colors">Inscription</a>
                     <a href="{% url "connexion" %}" class="bg-primary-orange px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors">Connexion</a>
                 </nav>
                 <!-- Menu mobile -->
