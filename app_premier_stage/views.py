@@ -10,6 +10,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import user_passes_test
 from django.db import transaction
 import json
+from django.db.models.functions import ExtractMonth
 
 
 def Index(request):
@@ -35,8 +36,6 @@ def Connexion(request):
         password = request.POST.get("password")
 
         user= User.objects.get(username=username)
-        print(user.username)
-        print(user.password)
 
         if username and password:
             user = authenticate(request, username=username, password=password)
@@ -65,7 +64,7 @@ def Connexion(request):
 
     return render(request, "login.html")
 
-
+@login_required(login_url="connexion")
 def Deconnexion(request):
     logout(request)
     messages.success(request,"Déconnexion réussie")
@@ -96,48 +95,38 @@ def AdminDashboard(request):
     return render(request,"admin/dashboard.html",context=context)
 
 def Statistiques(request):
-    year = request.GET.get("year", timezone.now().year)
+    # Récupération de l'année depuis les paramètres GET ou année en cours
+    year = int(request.GET.get("year", timezone.now().year))
 
-    offres_par_mois = (
-        OffreEmploi.objects.filter(created_at__year=year)
-        .extra(select={"month": "strftime('%%m', created_at)"})
-        .values("month")
-        .annotate(total=Count("id_offre"))
-        .order_by("month")
-    )
+    # Fonction pour récupérer les stats par mois pour un modèle donné
+    def stats_par_mois(queryset, id_field):
+        # Annoter le mois et compter les occurrences
+        stats = (
+            queryset.filter(created_at__year=year)
+            .annotate(month=ExtractMonth("created_at"))
+            .values("month")
+            .annotate(total=Count(id_field))
+            .order_by("month")
+        )
+        return list(stats)
 
-    entreprises_par_mois = (
-        Entreprise.objects.filter(created_at__year=year)
-        .extra(select={"month": "strftime('%%m', created_at)"})
-        .values("month")
-        .annotate(total=Count("id_entreprise"))
-        .order_by("month")
-    )
+    # Récupération des données pour chaque modèle
+    stagiaires_par_mois = stats_par_mois(Stagiaire.objects.all(), "id_stagiaire")
+    entreprises_par_mois = stats_par_mois(Entreprise.objects.all(), "id_entreprise")
+    offres_par_mois = stats_par_mois(OffreEmploi.objects.all(), "id_offre")
+    candidatures_par_mois = stats_par_mois(Candidature.objects.all(), "id_candidature")
 
-    candidatures_par_mois = (
-        Candidature.objects.filter(created_at__year=year)
-        .extra(select={"month": "strftime('%%m', created_at)"})
-        .values("month")
-        .annotate(total=Count("id_candidature"))
-        .order_by("month")
-    )
-
-    stagiaires_par_mois = (
-        Stagiaire.objects.filter(created_at__year=year)
-        .extra(select={"month": "strftime('%%m', created_at)"})
-        .values("month")
-        .annotate(total=Count("id_stagiaire"))
-        .order_by("month")
-    )
-
+    # Passage des données au template
     context = {
-        "year": int(year),
-        "offres_par_mois": json.dumps(list(offres_par_mois)),
-        "entreprises_par_mois": json.dumps(list(entreprises_par_mois)),
-        "candidatures_par_mois": json.dumps(list(candidatures_par_mois)),
-        "stagiaires_par_mois": json.dumps(list(stagiaires_par_mois)),
+        "year": year,
+        "stagiaires_par_mois": json.dumps(stagiaires_par_mois),
+        "entreprises_par_mois": json.dumps(entreprises_par_mois),
+        "offres_par_mois": json.dumps(offres_par_mois),
+        "candidatures_par_mois": json.dumps(candidatures_par_mois),
     }
+
     return render(request, "admin/statistiques.html", context)
+
 
 
 def EntrepriseDashboard(request):
@@ -150,7 +139,8 @@ def EntrepriseDashboard(request):
     # --- Statistiques
     offres_actives = OffreEmploi.objects.filter(entreprise=entreprise,statut_offre="disponible").count()
     candidatures_total = Candidature.objects.filter(offre__entreprise=entreprise).count()
-    candidats_preselectionnes = Candidature.objects.filter(offre__entreprise=entreprise, statut_candidature="preselectionne").count()
+    candidats_accepte = Candidature.objects.filter(offre__entreprise=entreprise, statut_candidature="acceptée").count()
+    candidats_refuse = Candidature.objects.filter(offre__entreprise=entreprise, statut_candidature="refusée").count()
     entretiens_planifies = Candidature.objects.filter(offre__entreprise=entreprise, statut_candidature="entretien").count()
 
     # --- Offres de l’entreprise
@@ -176,7 +166,8 @@ def EntrepriseDashboard(request):
     context = {
         "offres_actives": offres_actives,
         "candidatures_total": candidatures_total,
-        "candidats_preselectionnes": candidats_preselectionnes,
+        "candidats_accepte": candidats_accepte,
+        "candidats_refuse":candidats_refuse,
         "entretiens_planifies": entretiens_planifies,
         "offres": offres,
         "stagiaires": stagiaires[:12],  # on limite pour ne pas surcharger la page
@@ -185,8 +176,10 @@ def EntrepriseDashboard(request):
     }
     return render(request, "entreprise/dashboard.html", context)
 
-user_passes_test(is_stagiaire,login_url="connexion")
 def DiplomeDashboard(request):
+    if not is_stagiaire(user=request.user):
+        messages.error(request,"Vous n'êtes pas autoriser")
+        return redirect("connexion")
     stagiaire = get_object_or_404(Stagiaire,user=request.user)
     offres_recommandees = OffreEmploi.objects.filter(domaine_poste__icontains=stagiaire.filiere_stagiaire)
     candidatures = Candidature.objects.filter(stagiaire=stagiaire)
@@ -241,6 +234,9 @@ def RegisterEntreprise(request):
 
 #user_passes_test(is_administrateur,login_url="connexion")
 def ValiderEntreprise(request,pk):
+    if not is_administrateur(user=request.user):
+         messages.error(request,"Vous n'êtes pas autoriser")
+         return redirect("connexion")
     entreprise = get_object_or_404(Entreprise,id_entreprise=pk)
     user = entreprise.user
     entreprise.validation_entreprise = True
@@ -254,12 +250,10 @@ def ValiderEntreprise(request,pk):
 def RegisterDiplome(request):
     return render(request,"diplome/register_diplome.html")
 
+
 user_passes_test(is_stagiaire,login_url="connexion")
 @transaction.atomic
 def CompleteProfil(request):
-    messages.info(request,
-                  "Veuillez remplir ce formulaire pour compléter vos information et activer votre compte"
-                  )
     user = request.user
 
     if hasattr(user, "profil_stagiaire"):
@@ -444,15 +438,71 @@ def Listecandidature(request,pk):
     return render(request,"entreprise/candidature_offres.html",context=context)
 
 @user_passes_test(is_entreprise, login_url="connexion")
-def Detailcandidat(request,pk):
-    candidature = get_object_or_404(Candidature,id_candidature=pk)
-    
-    context = {
-        "candidature":candidature
-    }
-    return render(request,"entreprise/detail_candidat.html",context=context)
+@transaction.atomic
+def Detailcandidat(request, pk):
+    candidature = get_object_or_404(Candidature, id_candidature=pk)
 
-@login_required(login_url="connexion")
+    if request.method == "POST":
+        statut = request.POST.get("statut")
+
+        if statut in ["acceptée", "refusée", "en attente", "entretien"]:
+            candidature.statut_candidature = statut
+
+            if statut == "entretien":
+                date_entretien = request.POST.get("date_entretien")
+                heure_entretien = request.POST.get("heure_entretien")
+                if date_entretien and heure_entretien:
+                    candidature.date_entretien = date_entretien
+                    candidature.heure_entretien = heure_entretien
+                else:
+                    messages.error(request, "Veuillez renseigner la date et l'heure de l'entretien.")
+                    return redirect("detailcandidat", pk=pk)
+
+            candidature.save()
+            messages.success(request, f"Le statut du candidat a été mis à jour : {statut}.")
+            return redirect("detailcandidat", pk=pk)
+
+        else:
+            messages.error(request, "Action non valide.")
+            return redirect("detailcandidat", pk=pk)
+
+    context = {
+        "candidature": candidature,
+    }
+    return render(request, "entreprise/detail_candidat.html", context)
+
+@user_passes_test(is_entreprise, login_url="connexion")
+def EntrepriseListeStagiaire(request):
+    stagiaires = Stagiaire.objects.all()
+    filieres = Stagiaire.objects.values_list("filiere_stagiaire", flat=True).distinct()
+
+    filiere_filter = request.GET.get("filiere", "")
+    query = request.GET.get("q", "")
+
+    if filiere_filter:
+        stagiaires = stagiaires.filter(filiere_stagiaire=filiere_filter)
+    if query:
+        stagiaires = stagiaires.filter(
+            Q(nom_stagiaire__icontains=query) |
+            Q(prenom_stagiaire__icontains=query) |
+            Q(etablissement__icontains=query)
+        )
+
+    # Pagination (10 stagiaires par page)
+    paginator = Paginator(stagiaires, 10)
+    page_number = request.GET.get("page")
+    stagiaires_page = paginator.get_page(page_number)
+
+    context = {
+        "stagiaires": stagiaires_page,
+        "filieres": filieres,
+        "filiere_filter": filiere_filter,
+        "query": query,
+    }
+    return render(request, "entreprise/liste_stagiaire.html", context)
+
+
+user_passes_test(is_entreprise,login_url="connexion")
 def MesOffres(request):
     user = request.user
     query = request.GET.get("q", "")
@@ -469,6 +519,90 @@ def MesOffres(request):
     }
     return render(request,"entreprise/mes_offre.html",context=context)
 
+user_passes_test(is_entreprise,login_url="connexion")
+def SupprimerOffre(request,pk):
+    user = request.user
+    offre = get_object_or_404(OffreEmploi,user=user,id_offre=pk)
+    offre.delete()
+    messages.success(request,"L'offre a été supprimé avec success")
+    return redirect("mesoffres")
+
+user_passes_test(is_entreprise,login_url="connexion")
+@transaction.atomic
+def ModifierOffre(request,pk):
+    offre = get_object_or_404(OffreEmploi,user=request.user,id_offre=pk)
+
+    if request.method == "POST":
+        offre.titre_poste = request.POST.get("titre_poste")
+        offre.domaine_poste = request.POST.get("domaine_poste")
+        offre.description_offre = request.POST.get("description_offre")
+        offre.type_offre = request.POST.get("type_offre")
+        offre.type_contrat = request.POST.get("type_contrat")
+        offre.competence_requis = request.POST.get("competence_requis")
+        offre.duree_contrat = request.POST.get("duree_contrat")
+        offre.date_debut_offre = request.POST.get("date_debut_offre")
+        offre.remuneration_offre = request.POST.get("remuneration_offre")
+        offre.mission_offre = request.POST.get("mission_offre")
+        offre.localisation_offre = request.POST.get("localisation_offre")
+        offre.statut_offre = request.POST.get("statut_offre")
+
+        if request.POST.get("date_fin_candidature"):
+            offre.date_fin_candidature = request.POST.get("date_fin_candidature")
+
+        if request.POST.get("date_debut_offre"):
+            offre.date_debut_offre = request.POST.get("date_debut_offre")
+
+        offre.save()
+        messages.success(request,"Offre modifié avec succes")
+        return redirect("mesoffres")
+    
+    context={
+        "offre":offre
+    }
+    return render(request,"entreprise/modifier_offre.html",context=context)
+
+user_passes_test(is_entreprise,login_url="connexion")
+def ProfilEntreprise(request):
+    user = request.user
+    entreprise = get_object_or_404(Entreprise, user=user)
+
+    if request.method == "POST":
+        # Mise à jour du profil entreprise
+        entreprise.nom_entreprise = request.POST.get("nom_entreprise")
+        entreprise.domaine_expertise = request.POST.get("domaine_expertise")
+        entreprise.telephone_entreprise = request.POST.get("telephone_entreprise")
+        entreprise.email_entreprise = request.POST.get("email_entreprise")
+        entreprise.nombre_employe = request.POST.get("nombre_employe")
+        entreprise.site_entreprise = request.POST.get("site_entreprise")
+        entreprise.localisation_entreprise = request.POST.get("localisation_entreprise")
+        entreprise.description_entreprise = request.POST.get("description_entreprise")
+
+        # Mise à jour du compte utilisateur lié
+        if request.POST.get("user_username"):
+            user.username = request.POST.get("user_username")
+
+        if request.POST.get("user_password"):
+            # Utilisation de set_password pour encoder le mot de passe
+            user.set_password(request.POST.get("user_password"))
+
+        entreprise.user=user
+        entreprise.save()
+        user.save()
+
+        # 🔑 Si le mot de passe est changé, reloguer l'utilisateur
+        if request.POST.get("user_password"):
+            from django.contrib.auth import update_session_auth_hash
+            update_session_auth_hash(request, user)
+
+        messages.success(request, "Votre profil a été mis à jour")
+        return redirect("entreprise")
+
+    context = {
+        "entreprise": entreprise
+    }
+    return render(request, "entreprise/profil.html", context)
+
+user_passes_test(is_administrateur,login_url="connexion")
 def ListeEntreprise(request):
     entreprise = Entreprise.objects.all()
     context = {
@@ -476,6 +610,7 @@ def ListeEntreprise(request):
     }
     return render(request,"admin/liste_entreprises.html",context=context)
 
+user_passes_test(is_administrateur,login_url="connexion")
 def ListeOffre(request):
     offres = OffreEmploi.objects.all()
     context = {
@@ -483,6 +618,7 @@ def ListeOffre(request):
     }
     return render(request,"admin/liste_offres.html",context)
 
+user_passes_test(is_administrateur,login_url="connexion")
 def ListeStagiaire(request):
     stagiaires = Stagiaire.objects.all()
     context = {
@@ -490,6 +626,7 @@ def ListeStagiaire(request):
     }
     return render(request,"admin/liste_stagiaires.html",context=context)
 
+user_passes_test(is_administrateur,login_url="connexion")
 def AdminCandidature(request):
     candidatures = Candidature.objects.all()
     context = {
@@ -497,6 +634,7 @@ def AdminCandidature(request):
     }
     return render(request,"admin/liste_candidatures.html",context)
 
+user_passes_test(is_administrateur,login_url="connexion")
 def AdminDetailCandidature(request,pk):
     candidature = get_object_or_404(Candidature,candidature_id=pk)
     context = {
@@ -504,6 +642,7 @@ def AdminDetailCandidature(request,pk):
     }
     return render(request,"admin/detail_candidature.html",context)
 
+user_passes_test(is_administrateur,login_url="connexion")
 def AdminDetailStagiaire(request,pk):
     stagiaire = get_object_or_404(Stagiaire,id_stagiaire=pk)
     context = {
@@ -511,6 +650,7 @@ def AdminDetailStagiaire(request,pk):
     }
     return render(request,"admin/detail_stagiaire.html",context)
 
+user_passes_test(is_administrateur,login_url="connexion")
 def AdminDetailEntreprise(request,pk):
     entreprise = get_object_or_404(Entreprise,id_entreprise=pk)
     context = {

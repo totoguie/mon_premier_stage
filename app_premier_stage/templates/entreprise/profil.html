@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}Modifier mon profil entreprise{% endblock %}
+{% block content %}
+{% include "entreprise/header.html" %}
+
+<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <h2 class="text-2xl font-bold text-primary-blue mb-6">Modifier mon profil</h2>
+
+  <form method="post" class="bg-white rounded-lg shadow-md p-6 space-y-6">
+    {% csrf_token %}
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Nom de l'entreprise</label>
+      <input type="text" name="nom_entreprise" value="{{ entreprise.nom_entreprise }}"
+             class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2">
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Domaine d'expertise</label>
+        <select
+        class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2"
+        name="domaine_expertise"
+        >
+        <option value="{{ entreprise.domaine_expertise }}">{{entreprise.domaine_expertise}}</option>
+        <option value="Informatique">Informatique</option>
+        <option value="Batiment">Batiment</option>
+        <option value="Transport">Transport</option>
+        <option value="Finance">Finance</option>
+        <option value="ONG">ONG</option>
+        <option value="Sante">Sante</option>
+        <option value="Juridique">Juridique</option>
+        <option value="Agronomie">Agronomie</option>
+        <option value="Autres">Autres</option>
+      </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Nombre d'employés</label>
+        <select name="nombre_employe"
+        class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2"
+        >
+        <option value="{{ entreprise.nombre_employe }}">{{ entreprise.nombre_employe }}</option>
+        <option value="0-10">0-10</option>
+        <option value="10-50">10-50</option>
+        <option value="50-100">50-100</option>
+        <option value="100-200">100-200</option>
+        <option value="200-500">200-500</option>
+        <option value="500-1000">500-1000</option>
+        <option value="+1000">+1000</option>
+      </select>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Nom d'utilisateur</label>
+        <input type="text" name="user_username" value="{{ entreprise.user.username }}"
+               class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Mot de passe</label>
+        <input type="text" name="user_password" value=""
+               class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2">
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Téléphone</label>
+        <input type="text" name="telephone_entreprise" value="{{ entreprise.telephone_entreprise }}"
+               class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Email</label>
+        <input type="email" name="email_entreprise" value="{{ entreprise.email_entreprise }}"
+               class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2">
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Site web</label>
+      <input type="url" name="site_entreprise" value="{{ entreprise.site_entreprise }}"
+             class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2">
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Localisation</label>
+      <input type="text" name="localisation_entreprise" value="{{ entreprise.localisation_entreprise }}"
+             class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2">
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Description entreprise</label>
+      <textarea name="description_entreprise" rows="4"
+        class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2">
+        {{ entreprise.description_entreprise }}
+      </textarea>
+    </div>
+
+    <div class="flex justify-end space-x-4">
+      <a href="{% url 'entreprise' %}" class="px-6 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">Annuler</a>
+      <button type="submit" class="px-6 py-2 bg-primary-orange text-white rounded-lg hover:bg-orange-600">Enregistrer</button>
+    </div>
+  </form>
+</main>
+{% endblock %}

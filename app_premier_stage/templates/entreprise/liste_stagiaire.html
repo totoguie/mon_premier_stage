@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Liste des stagiaires{% endblock %}
+
+{% block content %}
+{% include "entreprise/header.html" %}
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h2 class="text-2xl font-bold text-primary-blue mb-6">Liste des stagiaires</h2>
+
+    <!-- Barre de recherche & filtres -->
+    <form method="get" class="bg-white rounded-lg shadow-md p-6 mb-6 flex flex-col md:flex-row gap-4">
+        <div class="flex-1">
+            <select name="filiere" class="w-full px-4 py-2 border rounded-lg">
+                <option value="">Toutes les filières</option>
+                {% for filiere in filieres %}
+                    <option value="{{ filiere }}" {% if filiere_filter == filiere %}selected{% endif %}>
+                        {{ filiere }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="flex-1">
+            <input type="text" name="q" placeholder="Rechercher par nom ou établissement..."
+                   value="{{ query }}"
+                   class="w-full px-4 py-2 border rounded-lg">
+        </div>
+        <div>
+            <button type="submit" class="bg-primary-orange hover:bg-orange-600 text-white px-6 py-2 rounded-lg">
+                🔍 Rechercher
+            </button>
+        </div>
+    </form>
+
+    <!-- Liste des stagiaires -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for stagiaire in stagiaires %}
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center mr-4">
+                    <span class="text-gray-600 font-medium">
+                        {{ stagiaire.nom_stagiaire|slice:":1" }}{{ stagiaire.prenom_stagiaire|slice:":1" }}
+                    </span>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900">
+                        {{ stagiaire.nom_stagiaire }} {{ stagiaire.prenom_stagiaire }}
+                    </h3>
+                    <p class="text-sm text-gray-600">{{ stagiaire.filiere_stagiaire }}</p>
+                </div>
+            </div>
+            <p class="text-sm text-gray-600 mb-2">{{ stagiaire.etablissement }}</p>
+            <p class="text-sm text-gray-600 mb-4">📞 {{ stagiaire.telephone_stagiaire }}</p>
+            <div class="flex items-center justify-between">
+                <span class="bg-blue-100 text-primary-blue px-2 py-1 rounded-full text-xs font-medium">Disponible</span>
+                {% if stagiaire.cv_stagiaire %}
+                    <a href="{{ stagiaire.cv_stagiaire.url }}" target="_blank"
+                       class="bg-primary-orange hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium">
+                        Voir CV
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-gray-500 col-span-3 text-center">Aucun stagiaire trouvé.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex justify-center mt-6">
+        <nav class="flex items-center space-x-2">
+            {% if stagiaires.has_previous %}
+                <a href="?page={{ stagiaires.previous_page_number }}&filiere={{ filiere_filter }}&q={{ query }}" 
+                   class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">Précédent</a>
+            {% endif %}
+
+            <span class="px-3 py-1 bg-primary-blue text-white rounded">
+                Page {{ stagiaires.number }} sur {{ stagiaires.paginator.num_pages }}
+            </span>
+
+            {% if stagiaires.has_next %}
+                <a href="?page={{ stagiaires.next_page_number }}&filiere={{ filiere_filter }}&q={{ query }}" 
+                   class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">Suivant</a>
+            {% endif %}
+        </nav>
+    </div>
+</main>
+{% endblock %}

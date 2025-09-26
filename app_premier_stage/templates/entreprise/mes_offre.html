@@ -56,8 +56,8 @@
               {% endif %}
             </td>
             <td class="text-center px-6 py-4 space-x-3">
-              {% comment %} <a href="{% url 'modifier_offre' offre.id_offre %}" class="text-primary-blue hover:underline">Modifier</a>
-              <a href="{% url 'supprimer_offre' offre.id_offre %}" class="text-red-600 hover:underline">Supprimer</a> {% endcomment %}
+              <a href="{% url 'modifier_offre' offre.id_offre %}" class="text-primary-blue hover:underline">Modifier</a>
+              <a href="{% url "supprimer_offre" offre.id_offre %}" class="text-red-600 hover:underline">Supprimer</a> 
               <a href="{% url 'liste_candidatures' offre.id_offre %}" class="text-primary-blue hover:underline">Candidatures</a> 
             </td>
           </tr>

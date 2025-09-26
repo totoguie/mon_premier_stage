@@ -35,8 +35,8 @@
         <i class="fas fa-user-check text-sm md:text-base"></i>
       </div>
       <div>
-        <p class="text-xs md:text-sm text-gray-500">Candidats présélectionnés</p>
-        <p class="text-lg md:text-xl font-bold text-gray-900">{{ candidats_preselectionnes }}</p>
+        <p class="text-xs md:text-sm text-gray-500">Candidats acceptés</p>
+        <p class="text-lg md:text-xl font-bold text-gray-900">{{ candidats_accepte }}</p>
       </div>
     </div>
 
@@ -48,6 +48,17 @@
       <div>
         <p class="text-xs md:text-sm text-gray-500">Entretiens planifiés</p>
         <p class="text-lg md:text-xl font-bold text-gray-900">{{ entretiens_planifies }}</p>
+      </div>
+    </div>
+
+    <!--Stat 5-->
+    <div class="bg-white rounded-lg shadow-md p-4 md:p-6 flex items-center space-x-4 hover:shadow-lg transition">
+      <div class="w-10 h-10 md:w-12 md:h-12 bg-red-500 text-white rounded-full flex items-center justify-center">
+        <i class="fas fa-calendar-alt text-sm md:text-base"></i>
+      </div>
+      <div>
+        <p class="text-xs md:text-sm text-gray-500">Candidats refusés</p>
+        <p class="text-lg md:text-xl font-bold text-gray-900">{{ candidats_refuse }}</p>
       </div>
     </div>
   </section>
@@ -96,10 +107,9 @@
                 <span class="font-medium">{{ offres.offre_postule.candidatures.count }}</span> candidatures
               </td>
               <td class="px-4 text-center sm:px-6 py-4 text-sm space-x-2">
-                <a href="#" class="text-primary-blue hover:underline">Modifier</a>
-                <a href="#" class="text-red-600 hover:underline">Supprimer</a>
+                <a href="{% url 'modifier_offre' offre.id_offre %}" class="text-primary-blue hover:underline">Modifier</a>
+                <a href="{% url "supprimer_offre" offre.id_offre %}" class="text-red-600 hover:underline">Supprimer</a>
                 <a href="{% url "liste_candidatures" offre.id_offre %}" class="text-primary-blue hover:underline">Candidatures</a>
-                
               </td>
             </tr>
             {% empty %}

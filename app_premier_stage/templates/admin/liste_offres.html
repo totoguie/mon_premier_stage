@@ -14,10 +14,10 @@
   <tbody>
     {% for offre in offres %}
     <tr class="border-b">
-      <td class="px-4 py-2">{{ offre.titre }}</td>
-      <td class="px-4 py-2">{{ offre.entreprise.nom }}</td>
-      <td class="px-4 py-2">{{ offre.status }}</td>
-      <td class="px-4 py-2">{{ offre.created_at|date:"d/m/Y" }}</td>
+      <td class="text-center px-4 py-2">{{ offre.titre_poste }}</td>
+      <td class="text-center px-4 py-2">{{ offre.entreprise.nom_entreprise }}</td>
+      <td class="text-center px-4 py-2">{{ offre.statut_offre }}</td>
+      <td class="text-center px-4 py-2">{{ offre.created_at|date:"d/m/Y" }}</td>
     </tr>
     {% endfor %}
   </tbody>

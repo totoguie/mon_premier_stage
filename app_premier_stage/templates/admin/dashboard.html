@@ -70,7 +70,7 @@
               {% for offre_recente in offre_recente  %}
               <tr class="border-t">
                 <td class="px-4 py-2">{{offre_recente.titre_poste}}</td>
-                <td class="px-4 py-2">{{titre_poste.entreprise.nom_entreprise}}</td>
+                <td class="px-4 py-2">{{offre_recente.entreprise.nom_entreprise}}</td>
                 <td class="px-4 py-2">{{offre_recente.statut_offre}}</td>
               </tr>
               {% endfor %}
