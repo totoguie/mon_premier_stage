@@ -1,89 +1,96 @@
 <!-- Header -->
-    <header class="bg-primary-blue text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex items-center space-x-2">
-                    <div class="w-8 h-8 bg-primary-orange rounded-lg flex items-center justify-center">
-                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <span class="text-xl font-bold">Mon Premier Stage</span>
-                </div>
-
-                <!-- Menu desktop -->
-                <nav class="hidden md:flex space-x-8">
-                    <a href="{% url 'diplome' %}" class="text-primary-orange font-medium border-b-2 border-primary-orange pb-1">Tableau de bord</a>
-                    <a href="{% url "offres" %}" class="hover:text-primary-orange transition-colors">Offres</a>
-                    <a href="{% url 'candidature' %}" class="hover:text-primary-orange transition-colors">Mes candidatures</a> 
-                    <a href="{% url "deconnexion" %}" class="hover:text-red-400 transition-colors">Déconnexion</a>
-                </nav>
-
-                <!-- Boutons profil (desktop) -->
-                <div class="hidden md:flex items-center space-x-4">
-                    <a href="{% url 'profilcandidat' %}">
-                        <button class="bg-primary-orange hover:bg-orange-600 px-4 py-2 rounded-lg font-medium transition-colors">
-                            Mettre à jour mon profil
-                        </button>
-                    </a>
-                    <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                        <span class="text-gray-600 font-medium text-sm">
-                            {{ user.first_name|default:user.username|slice:":2"|upper }}
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Bouton burger (mobile) -->
-                <button id="burger" class="md:hidden focus:outline-none">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                            d="M4 6h16M4 12h16M4 18h16" />
+<header class="bg-primary-blue text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <!-- Logo -->
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-primary-orange rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
-                </button>
+                </div>
+                <span class="text-xl font-bold">Mon Premier Stage</span>
             </div>
-        </div>
 
-        <!-- Menu mobile -->
-        <div id="mobileMenu" class="hidden md:hidden bg-primary-blue text-white px-4 py-4 space-y-4">
-            <a href="{% url 'diplome' %}" class="block hover:text-primary-orange">Tableau de bord</a>
-            <a href="{% url 'candidature' %}" class="block hover:text-primary-orange">Mes candidatures</a>
-            <a href="#" class="block hover:text-primary-orange">Alertes</a>
-            <a href="{% url 'profilcandidat' %}" class="block hover:text-primary-orange">Mon profil</a>
-            <a href="#" class="block hover:text-red-400">Déconnexion</a>
-        </div>
-    </header>
+            <!-- Menu desktop -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="{% url 'diplome' %}" class="transition-colors {% if request.resolver_match.url_name == 'diplome' %}text-primary-orange font-medium border-b-2 border-primary-orange pb-1{% else %}hover:text-primary-orange{% endif %}">
+                    Tableau de bord
+                </a>
+                <a href="{% url 'offres' %}" class="transition-colors {% if request.resolver_match.url_name == 'offres' %}text-primary-orange font-medium{% else %}hover:text-primary-orange{% endif %}">
+                    Offres
+                </a>
+                <a href="{% url 'candidature' %}" class="transition-colors {% if request.resolver_match.url_name == 'candidature' %}text-primary-orange font-medium{% else %}hover:text-primary-orange{% endif %}">
+                    Mes candidatures
+                </a>
+                <a href="{% url 'deconnexion' %}" class="hover:text-red-400 transition-colors">Déconnexion</a>
+            </nav>
 
-    {% if messages %}
-    <div id="popup-container" class="fixed top-5 right-5 space-y-2 z-50">
+            <!-- Boutons profil (desktop) -->
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="{% url 'profilcandidat' %}">
+                    <button class="bg-primary-orange hover:bg-orange-600 px-4 py-2 rounded-lg font-medium transition-colors">
+                        Mettre à jour mon profil
+                    </button>
+                </a>
+                <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                    <span class="text-gray-600 font-medium text-sm">
+                        {{ user.first_name|default:user.username|slice:":2"|upper }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Bouton burger (mobile) -->
+            <button id="burger" class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Menu mobile -->
+    <div id="mobileMenu" class="hidden md:hidden bg-primary-blue text-white px-4 py-4 space-y-4">
+        <a href="{% url 'diplome' %}" class="block transition-colors {% if request.resolver_match.url_name == 'diplome' %}text-primary-orange font-medium{% else %}hover:text-primary-orange{% endif %}">Tableau de bord</a>
+        <a href="{% url 'offres' %}" class="block transition-colors {% if request.resolver_match.url_name == 'offres' %}text-primary-orange font-medium{% else %}hover:text-primary-orange{% endif %}">Offres</a>
+        <a href="{% url 'candidature' %}" class="block transition-colors {% if request.resolver_match.url_name == 'candidature' %}text-primary-orange font-medium{% else %}hover:text-primary-orange{% endif %}">Mes candidatures</a>
+        <a href="{% url 'profilcandidat' %}" class="block transition-colors hover:text-primary-orange">Mon profil</a>
+        <a href="{% url 'deconnexion' %}" class="block text-red-400">Déconnexion</a>
+    </div>
+</header>
+
+{% if messages %}
+<div id="popup-container" class="fixed top-5 right-5 space-y-2 z-50">
     {% for message in messages %}
     <div class="popup px-4 py-3 rounded-lg shadow-lg {{ message.tags }} transition transform scale-95 opacity-0">
         <p class="font-medium">{{ message }}</p>
     </div>
     {% endfor %}
-    </div>
-    <script>
-    document.querySelectorAll('.popup').forEach((popup, i) => {
-        setTimeout(() => {
+</div>
+
+<script>
+document.querySelectorAll('.popup').forEach((popup, i) => {
+    setTimeout(() => {
         popup.classList.remove('opacity-0', 'scale-95');
         popup.classList.add('opacity-100', 'scale-100');
-        }, 100 * i);
+    }, 100 * i);
 
-        // auto-disparition après 4s
-        setTimeout(() => {
+    // auto-disparition après 4s
+    setTimeout(() => {
         popup.classList.add('opacity-0', 'scale-95');
         setTimeout(() => popup.remove(), 500);
-        }, 4000 + i * 500);
+    }, 4000 + i * 500);
+});
+</script>
+{% endif %}
+
+<script>
+    // Gestion du menu mobile
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    burger.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
     });
-    </script>
-    {% endif %}
-
-    <script>
-        // Gestion du menu mobile
-        const burger = document.getElementById('burger');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        burger.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    </script>
+</script>

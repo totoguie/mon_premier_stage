@@ -21,11 +21,11 @@
            class="hover:text-primary-orange transition-colors {% if request.resolver_match.url_name == 'entreprise_liste_stagiaire' %}text-primary-orange font-semibold{% endif %}">
           Stagiaires
         </a>
-        <a href="{% url "mesoffres" %}" 
-           class="hover:text-primary-orange transition-colors {% if request.resolver_match.url_name == 'entreprise_candidats' %}text-primary-orange font-semibold{% endif %}">
+        <a href="{% url 'mesoffres' %}" 
+           class="hover:text-primary-orange transition-colors {% if request.resolver_match.url_name == 'mesoffres' %}text-primary-orange font-semibold{% endif %}">
           Mes offres
         </a>
-        <a href="{% url "profil_entreprise" %}" 
+        <a href="{% url 'profil_entreprise' %}" 
            class="hover:text-primary-orange transition-colors {% if request.resolver_match.url_name == 'profil_entreprise' %}text-primary-orange font-semibold{% endif %}">
           Mon Profil
         </a>
@@ -59,15 +59,15 @@
   <div id="mobileMenu" class="hidden bg-primary-blue md:hidden">
     <nav class="flex flex-col space-y-2 px-4 py-4">
       <a href="{% url 'entreprise' %}" class="hover:text-primary-orange">Dashboard</a>
-      <a href="{% url 'entreprise_liste_stagiaire' %}" class="hover:text-primary-orange">Créer une offre</a>
-      <a href="#" class="hover:text-primary-orange">Candidats</a>
-      <a href="#" class="hover:text-primary-orange">Mon Profil</a>
+      <a href="{% url 'mesoffres' %}" class="hover:text-primary-orange">Mes offres</a>
+      <a href="{% url 'entreprise_liste_stagiaire' %}" class="hover:text-primary-orange">Stagiaires</a>
+      <a href="{% url 'profil_entreprise' %}" class="hover:text-primary-orange">Mon Profil</a>
       <a href="{% url 'deconnexion' %}" class="hover:text-red-400">Déconnexion</a>
     </nav>
     <div class="border-t border-blue-700 mt-2 pt-4 px-4 flex items-center space-x-3">
       <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
         <span class="text-gray-600 font-medium">
-          {{ request.user.entreprise.nom_entreprise|slice:":2"|upper }}
+          {{ request.user.profil_entreprise.nom_entreprise|slice:":2"|upper }}
         </span>
       </div>
       <div>

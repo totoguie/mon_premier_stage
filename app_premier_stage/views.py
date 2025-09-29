@@ -15,7 +15,7 @@ from django.db.models.functions import ExtractMonth
 
 def Index(request):
     offres_recentes = OffreEmploi.objects.order_by("-created_at")[:6]
-    
+
     context={
         "offres_recentes":offres_recentes, 
     }
@@ -325,7 +325,6 @@ def Offres(request):
     }
     return render(request,"diplome/offres.html",context=context)
 
-@login_required(login_url="connexion")
 def DetailOffre(request, pk):
     offre = get_object_or_404(OffreEmploi, id_offre=pk)
 
