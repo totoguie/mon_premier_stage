@@ -152,6 +152,8 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 
 AUTH_USER_MODEL = "app_premier_stage.User"
 
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+
 
 
 # Static files (CSS, JavaScript, Images)
@@ -166,7 +168,12 @@ STATIC_ROOT = os.path.join(BASE_DIR,'static')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 SITE_ID=2
+
+if DEBUG == True:
+    SITE_ID=3
+
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
