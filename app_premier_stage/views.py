@@ -14,7 +14,8 @@ from django.db.models.functions import ExtractMonth
 
 
 def Index(request):
-    offres_recentes = OffreEmploi.objects.order_by("-created_at")[:3]
+    offres_recentes = OffreEmploi.objects.order_by("-created_at")[:6]
+    
     context={
         "offres_recentes":offres_recentes, 
     }
@@ -636,7 +637,7 @@ def AdminCandidature(request):
 
 user_passes_test(is_administrateur,login_url="connexion")
 def AdminDetailCandidature(request,pk):
-    candidature = get_object_or_404(Candidature,candidature_id=pk)
+    candidature = get_object_or_404(Candidature,id_candidature=pk)
     context = {
         "candidature":candidature
     }

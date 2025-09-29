@@ -1,209 +1,213 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Premier Stage - Accueil</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-blue': '#1E3A8A',
-                        'primary-orange': '#F97316',
-                        'light-gray': '#F1F5F9',
-                        'medium-gray': '#E5E7EB'
-                    }
-                }
-            }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Premier Stage - Trouvez votre opportunité</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary-blue': '#1E3A8A',
+            'primary-orange': '#F97316',
+            'light-gray': '#F1F5F9'
+          }
         }
-    </script>
+      }
+    }
+  </script>
 </head>
 <body class="bg-white">
-    <!-- Header fixe -->
-    <header class="bg-primary-blue text-white fixed w-full top-0 z-50 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center space-x-2">
-                    <div class="w-8 h-8 bg-primary-orange rounded-lg flex items-center justify-center">
-                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <span class="text-xl font-bold">Mon Premier Stage</span>
-                </div>
-                <nav class="hidden md:flex space-x-8">
-                    {% comment %} <a href="{% url "diplome" %}" class="hover:text-primary-orange transition-colors">Espace Diplômé</a>
-                    <a href="{% url "entreprise" %}" class="hover:text-primary-orange transition-colors">Espace Entreprise</a> {% endcomment %}
-                    <a href="{% url "preinscription" %}" class="hover:text-primary-orange transition-colors">Inscription</a>
-                    <a href="{% url "connexion" %}" class="bg-primary-orange px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors">Connexion</a>
-                </nav>
-                <!-- Menu mobile -->
-                <div class="md:hidden">
-                    <button class="text-white">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
+
+  <!-- Hero -->
+
+<section class="relative h-[90vh] flex items-center justify-center overflow-hidden">
+  <!-- Image de fond -->
+  <img src="{% static 'img/premier_stage.jpg' %}" 
+       alt="Étudiants en stage et opportunités professionnelles"
+       class="absolute inset-0 w-full h-full object-cover">
+
+  <!-- Overlay sombre pour le contraste -->
+  <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+  <!-- Contenu -->
+  <div class="relative z-10 text-center text-white px-4 max-w-3xl">
+    <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight drop-shadow-lg">
+      🚀 Trouvez votre <span class="text-primary-orange">Premier Stage</span><br>
+      et lancez votre carrière
+    </h1>
+    <p class="text-lg md:text-2xl mb-8 opacity-90 drop-shadow-md">
+      La plateforme qui connecte les diplômés ivoiriens aux meilleures entreprises.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="{% url 'diplome' %}" 
+         class="bg-primary-orange hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold shadow-lg">
+        🎓 Je suis étudiant
+      </a>
+      <a href="{% url 'entreprise' %}" 
+         class="bg-white text-primary-blue hover:bg-gray-200 px-8 py-4 rounded-lg font-semibold shadow-lg">
+        🏢 Je suis une entreprise
+      </a>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Avantages -->
+  <section class="py-16 bg-light-gray">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-primary-blue mb-12">Pourquoi choisir Mon Premier Stage ?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition">
+          <div class="text-primary-orange text-5xl mb-4">🎯</div>
+          <h3 class="font-bold text-lg mb-2">Des offres ciblées</h3>
+          <p class="text-gray-600">Accédez à des stages adaptés à votre domaine d’étude et vos compétences.</p>
         </div>
-    </header>
+        <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition">
+          <div class="text-primary-orange text-5xl mb-4">🤝</div>
+          <h3 class="font-bold text-lg mb-2">Un réseau solide</h3>
+          <p class="text-gray-600">Connectez-vous avec des entreprises partenaires partout en Côte d’Ivoire.</p>
+        </div>
+        <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition">
+          <div class="text-primary-orange text-5xl mb-4">🚀</div>
+          <h3 class="font-bold text-lg mb-2">Un tremplin</h3>
+          <p class="text-gray-600">Transformez votre premier stage en une carrière réussie.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Contenu principal -->
-    <main class="pt-16">
-        <!-- Section Hero avec recherche -->
-        <section class="bg-gradient-to-br from-primary-blue to-blue-800 text-white py-20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6">
-                    Trouvez votre <span class="text-primary-orange">Premier Stage</span>
-                </h1>
-                <p class="text-xl mb-8 max-w-3xl mx-auto opacity-90">
-                    La plateforme qui connecte les diplômés des établissements techniques de Côte d'Ivoire avec les meilleures opportunités de stage.
-                </p>
-                
-                <!-- Barre de recherche -->
-                {% comment %} <div class="max-w-2xl mx-auto">
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <input 
-                            type="text" 
-                            placeholder="Rechercher une offre par mot-clé (ex: développement, comptabilité...)"
-                            class="flex-1 px-6 py-4 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-orange"
-                        >
-                        <button class="bg-primary-orange hover:bg-orange-600 px-8 py-4 rounded-lg font-semibold transition-colors">
-                            Rechercher
-                        </button>
-                    </div>
-                </div> {% endcomment %}
-            </div>
-        </section>
+  <!-- Offres récentes -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-primary-blue text-center mb-12">📢 Offres récentes</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for offre in offres_recentes %}
+          <div class="bg-white border rounded-lg p-6 hover:shadow-xl transition duration-300">
+            <span class="bg-blue-100 text-primary-blue px-3 py-1 rounded-full text-xs font-medium">{{ offre.domaine_poste }}</span>
+            <h3 class="text-xl font-semibold mt-3">{{ offre.titre_poste }}</h3>
+            <p class="text-gray-600 text-sm">{{ offre.entreprise.nom_entreprise }} - 📍 {{ offre.localisation_offre }}</p>
+            <p class="text-gray-500 text-sm mt-2 line-clamp-3">{{ offre.description_offre }}</p>
+            <a href="{% url 'detail' offre.id_offre %}" 
+               class="block mt-4 bg-primary-orange hover:bg-orange-600 text-white text-center py-2 rounded-lg font-medium">
+              Postuler maintenant
+            </a>
+          </div>
+        {% empty %}
+          <p class="text-center text-gray-500 col-span-3">Aucune offre disponible actuellement.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
 
-        <!-- Filières Populaires -->
-        <section class="py-16 bg-light-gray">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl font-bold text-primary-blue text-center mb-12">Filières Populaires</h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                    <button class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center group">
-                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-primary-orange group-hover:text-white transition-colors">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-                            </svg>
-                        </div>
-                        <span class="font-medium text-gray-800">Informatique</span>
-                    </button>
-                    <button class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center group">
-                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-primary-orange group-hover:text-white transition-colors">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
-                            </svg>
-                        </div>
-                        <span class="font-medium text-gray-800">Bâtiment</span>
-                    </button>
-                    <button class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center group">
-                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-primary-orange group-hover:text-white transition-colors">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
-                            </svg>
-                        </div>
-                        <span class="font-medium text-gray-800">Mécanique</span>
-                    </button>
-                    <button class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center group">
-                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-primary-orange group-hover:text-white transition-colors">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4zM18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"/>
-                            </svg>
-                        </div>
-                        <span class="font-medium text-gray-800">Gestion</span>
-                    </button>
-                    <button class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center group">
-                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-primary-orange group-hover:text-white transition-colors">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
-                                <path fill-rule="evenodd" d="M4 5a2 2 0 012-2v1a2 2 0 002 2h8a2 2 0 002-2V3a2 2 0 012 2v6h-3a2 2 0 100 4h3v2a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm8 5a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
-                            </svg>
-                        </div>
-                        <span class="font-medium text-gray-800">Électronique</span>
-                    </button>
-                    <button class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center group">
-                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-primary-orange group-hover:text-white transition-colors">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clip-rule="evenodd"/>
-                            </svg>
-                        </div>
-                        <span class="font-medium text-gray-800">Santé</span>
-                    </button>
-                </div>
-            </div>
-        </section>
+  <!-- Statistiques -->
+  <section class="py-16 bg-gradient-to-r from-primary-blue to-blue-800 text-white text-center">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div>
+        <p class="text-4xl font-bold">+500</p>
+        <p class="opacity-80">Étudiants placés</p>
+      </div>
+      <div>
+        <p class="text-4xl font-bold">+120</p>
+        <p class="opacity-80">Entreprises partenaires</p>
+      </div>
+      <div>
+        <p class="text-4xl font-bold">+200</p>
+        <p class="opacity-80">Offres publiées</p>
+      </div>
+      <div>
+        <p class="text-4xl font-bold">95%</p>
+        <p class="opacity-80">Satisfaction</p>
+      </div>
+    </div>
+  </section>
 
-        <!-- Offres récentes -->
-        <section class="py-16 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl font-bold text-primary-blue text-center mb-12">Offres Récentes</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {% for offre in offres_recentes  %}
-                    <div class="bg-white border border-medium-gray rounded-lg p-6 hover:shadow-lg transition-shadow">
-                        <div class="mb-4">
-                            <span class="bg-blue-100 text-primary-blue px-3 py-1 rounded-full text-sm font-medium">{{offre.domaine_poste}}</span>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">{{offre.titre_poste}}</h3>
-                        <p class="text-gray-600 mb-2 font-medium">{{offre.offres.nom_entreprise}}</p>
-                        <div class="flex items-center text-gray-500 mb-4">
-                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
-                            </svg>
-                            <span class="text-sm">{{offre.localisation_offre}}</span>
-                        </div>
-                        <p class="text-gray-600 text-sm mb-4">{{offre.description_offre}}</p>
-                        <a href="{% url "detail" offre.id_offre %}"><button class="w-full bg-primary-orange hover:bg-orange-600 text-white py-2 px-4 rounded-lg font-medium transition-colors">
-                            Voir l'offre
-                        </button></a>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
-    </main>
+  <!-- CTA Final -->
+  <section class="py-16 bg-primary-white text-white text-center">
+    <h2 class="text-3xl text-primary-blue font-bold mb-6">Prêt à commencer votre aventure ?</h2>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="{% url 'preinscription' %}" class="bg-white text-primary-orange px-8 py-4 rounded-lg font-semibold hover:bg-blue-900">
+        👨‍🎓 Créer un compte étudiant
+      </a>
+      <a href="{% url 'entreprise' %}" class="bg-primary-blue px-8 py-4 rounded-lg font-semibold hover:bg-blue-900">
+        🏢 Publier une offre
+      </a>
+    </div>
+  </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <div class="w-8 h-8 bg-primary-orange rounded-lg flex items-center justify-center">
-                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                        </div>
-                        <span class="text-xl font-bold">Mon Premier Stage</span>
-                    </div>
-                    <p class="text-gray-400">
-                        Connecter les diplômés ivoiriens avec les meilleures opportunités de stage.
-                    </p>
-                </div>
-                <div>
-                    <h3 class="font-semibold mb-4">Liens utiles</h3>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">À propos</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Mentions légales</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-semibold mb-4">Contact</h3>
-                    <div class="text-gray-400 space-y-2">
-                        <p>Email: contact@monpremierstage.ci</p>
-                        <p>Tél: +225 XX XX XX XX XX</p>
-                        <p>Abidjan, Côte d'Ivoire</p>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2024 Mon Premier Stage. Tous droits réservés.</p>
-            </div>
+  <footer class="bg-gray-900 text-gray-300 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+
+      <!-- Logo + Description -->
+      <div>
+        <div class="flex items-center space-x-2 mb-4">
+          <div class="w-10 h-10 bg-primary-orange rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <span class="text-xl font-bold text-white">Mon Premier Stage</span>
         </div>
-    </footer>
+        <p class="text-gray-400 text-sm">
+          Connecter les diplômés ivoiriens aux meilleures entreprises pour lancer leur carrière.
+        </p>
+      </div>
+
+      <!-- Liens rapides -->
+      <div>
+        <h3 class="text-white font-semibold mb-4">Liens rapides</h3>
+        <ul class="space-y-2">
+          <li><a href="/" class="hover:text-primary-orange transition-colors">Accueil</a></li>
+          <li><a href="{% url 'preinscription' %}" class="hover:text-primary-orange transition-colors">Inscription</a></li>
+          <li><a href="{% url 'connexion' %}" class="hover:text-primary-orange transition-colors">Connexion</a></li>
+          <li><a href="#" class="hover:text-primary-orange transition-colors">À propos</a></li>
+        </ul>
+      </div>
+
+      <!-- Ressources -->
+      <div>
+        <h3 class="text-white font-semibold mb-4">Ressources</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-primary-orange transition-colors">Mentions légales</a></li>
+          <li><a href="#" class="hover:text-primary-orange transition-colors">Politique de confidentialité</a></li>
+          <li><a href="#" class="hover:text-primary-orange transition-colors">Support</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 class="text-white font-semibold mb-4">Contact</h3>
+        <ul class="space-y-2 text-sm">
+          <li>📍 Abidjan, Côte d'Ivoire</li>
+          <li>📞 +225 XX XX XX XX</li>
+          <li>✉ contact@monpremierstage.ci</li>
+        </ul>
+        <!-- Réseaux sociaux -->
+        <div class="flex space-x-4 mt-4">
+          <a href="#" class="hover:text-primary-orange transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M24 4.56v14.91c0 .79-.64 1.43-1.43 1.43H1.43C.64 20.9 0 20.26 0 19.47V4.56C0 3.77.64 3.13 1.43 3.13h21.14c.79 0 1.43.64 1.43 1.43zM8.09 18.07h3.02V9.56H8.09v8.51zM9.6 8.35c.97 0 1.57-.65 1.57-1.46-.01-.83-.61-1.46-1.56-1.46-.95 0-1.57.63-1.57 1.46 0 .81.6 1.46 1.54 1.46h.02zM16.92 18.07h2.9v-4.52c0-2.37-1.27-3.48-2.96-3.48-1.37 0-1.99.75-2.34 1.28v-1.1h-2.9c.04.73 0 8.51 0 8.51h2.9v-4.76c0-.25.02-.51.09-.69.21-.51.68-1.05 1.47-1.05 1.04 0 1.46.79 1.46 1.94v4.56z"/>
+            </svg>
+          </a>
+          <a href="#" class="hover:text-primary-orange transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M23.95 4.57a10 10 0 01-2.83.78 4.93 4.93 0 002.17-2.72c-.95.56-2 .97-3.13 1.18a4.92 4.92 0 00-8.5 4.48c-4.1-.2-7.73-2.17-10.16-5.16a4.82 4.82 0 001.52 6.57c-.8-.03-1.56-.25-2.23-.61v.06c0 2.27 1.61 4.17 3.75 4.6-.39.1-.8.16-1.23.16-.3 0-.6-.03-.89-.08a4.93 4.93 0 004.6 3.42 9.9 9.9 0 01-6.12 2.1c-.4 0-.79-.02-1.17-.07A13.94 13.94 0 008.29 21c9.05 0 14-7.5 14-14 0-.21 0-.42-.01-.63A9.93 9.93 0 0024 4.59z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bas du footer -->
+    <div class="border-t border-gray-700 mt-12 pt-6 text-center text-gray-500 text-sm">
+      <p>&copy; 2024 Mon Premier Stage. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+
 </body>
 </html>
